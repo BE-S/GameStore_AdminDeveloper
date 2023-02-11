@@ -1,0 +1,14 @@
+[33mcommit 2f327f0e3ebe749b8320f44b4b79ae296d8c0681[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Danil <danil.dogi000.dogi000@gmail.com>
+Date:   Sat Feb 11 00:25:23 2023 +0700
+
+    Created the following functions:
+    1) Registration account
+    2) Verification account
+    3) Logout account
+    4) Authentication account
+    5) Change password for account
+    6) Send email
+    7) Authentication employee
+    8) Add new product
+    9) View product

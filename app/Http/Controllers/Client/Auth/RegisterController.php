@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Controllers\Client\Auth;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Client\Auth\SigUpRequest;
+use App\Http\Service\AuthService;
+use App\Jobs\Auth\RegisterJob;
+use App\Jobs\Email\sendVarificationJob;
+use App\Models\Client\User;
+
+class RegisterController extends Controller
+{
+    public function index()
+    {
+        return view('Client.Auth.sig-up');
+    }
+
+    public function register(SigUpRequest $request, AuthService $service)
+    {
+        $credentials = $request->validated();
+
+        $registerUser = new RegisterJob(new User(), $credentials, $service->generateHashPass($credentials['password']));
+
+        if ($registerUser->checkUser()) {
+            return response()->json(['result' => false]);
+        }
+
+        $user = $registerUser->createUser();
+        //$registerUser->createEmployee($user);
+
+        $this->dispatch(new sendVarificationJob($user['email'], $user['job_hash'], 'post.verification'));
+
+        return response()->json(['result' => true]);
+    }
+}

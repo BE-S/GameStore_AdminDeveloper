@@ -1,0 +1,210 @@
+body {
+    background-image: url("http://localhost:8080/image/background/background_default.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1vw;
+}
+
+header #search-field,
+header #navigation {
+    width: 24vw;
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 1vw;
+    margin-top: 0.4vw;
+}
+
+nav #left {
+    text-align: start;
+}
+
+nav #right {
+    text-align: end;
+}
+
+nav #right span {
+    margin-left: 1vw;
+}
+
+nav #left span {
+    margin-right: 1vw;
+}
+
+header search-field {
+    text-align: center;
+}
+
+div input {
+    width: 100%;
+    background: none;
+    border: 1px solid white;
+    color: white;
+    text-align: center;
+}
+
+.icon {
+    width: 19px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3vw;
+}
+
+#carouselExampleIndicators {
+    display: flex;
+    width: 60%;
+    flex-direction: row-reverse;
+}
+
+#buttons {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 0.8vw;
+    margin-right: 0;
+    margin-bottom: 0;
+    height: 29vw;
+}
+
+#buttons .button {
+    border-top: 0;
+    height: auto;
+    width: 7vw;
+    text-indent: unset;
+    position: relative;
+    float: left;
+    margin-right: -100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transition: transform .6s ease-in-out;
+}
+
+#buttons .button img {
+    width: calc(100% + 4px);
+}
+
+.carousel-item {
+    display: block;
+    transform: translateX(100%);
+}
+
+.carousel-item.start {
+    display: block;
+    transform: translateX(100%);
+}
+
+.carousel-item.active {
+    transform: translateX(0);
+}
+
+#back, #next {
+    width: 10%;
+}
+
+.block-text {
+    display: flex;
+    width: 60%;
+    margin-top: 3vw;
+    justify-content: center;
+}
+
+.block-text div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1vw;
+    font-weight: 100;
+    letter-spacing: 0.1vw;
+    line-height: 2vw;
+    width: 100%;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+}
+
+.background-color {
+    background-color: rgb(0,0,0,0.4);
+}
+
+.padding-block {
+    padding: 1vw 2vw;
+}
+
+#add-cart div {
+    display: flex;
+}
+
+#add-cart .text-left {
+    align-items: baseline;
+    padding-left: 3vw;
+    padding-top: 1.4vw;
+    padding-bottom: 1.4vw;
+}
+
+#add-cart .text-right {
+    align-items: end;
+    padding-right: 3vw;
+    padding-top: 1.4vw;
+    padding-bottom: 1.4vw;
+}
+
+#add-cart div {
+}
+
+#add-cart button {
+    background-color:  rgb(255 255 255 / 5%);
+    border: 0;
+    color: white;
+    width: 8vw;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 100;
+}
+
+#system-requirements {
+    flex-direction: column;
+}
+
+#system-requirements .system {
+    flex-direction: row;
+}
+
+#system-requirements table td {
+    width: 10vw;
+    font-size: 0.9vw;
+}
+
+#system-requirements .text-left {
+    border-right: 1px solid #ffffff45;
+}
+
+#system-requirements .main-inscription {
+    padding-top: 2vw;
+    padding-bottom: 0vw;
+    font-size: 1.4vw;
+}
+
+#system-requirements .child-inscription {
+    align-items: baseline;
+    margin-left: 3vw;
+}
+
+#system-requirements .text-left,
+#system-requirements .text-right {
+    padding-top: 0vw;
+}
