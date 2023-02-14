@@ -10,18 +10,11 @@ use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
-    public function index($id)
+    public function showPage($id)
     {
         $game = Game::find($id);
 
         return view('Client.Market.game', compact('game'));
-    }
-
-    public function test(Request $request)
-    {
-        $path = $request->file('main')->store('assets/game', 'public');
-
-        return view('Client.Market.game', compact('path'));
     }
 }
 

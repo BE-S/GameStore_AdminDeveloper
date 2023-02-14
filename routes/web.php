@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Employee\Product\List\ListFinishedProductController;
+use App\Http\Controllers\Client\Market\GameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,7 @@ use App\Http\Controllers\Employee\Product\List\ListFinishedProductController;
 |
 */
 
-route::get('/game/{id}', '\App\Http\Controllers\Client\Market\GameController@index')->name('get.game');
-route::post('/game/upload', '\App\Http\Controllers\Client\Market\GameController@test')->name('post.game');
+route::get('/game/{id}', [GameController::class, 'showPage'])->name('get.game');
 route::get('/cart', '\App\Http\Controllers\Client\Market\CartController@index')->name('get.cart');
 
 //Auth
