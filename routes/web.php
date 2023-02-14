@@ -64,3 +64,10 @@ Route::group(['prefix' => 'admin'], function () {
         route::post('/upload/covers/game', '\App\Http\Controllers\Employee\Product\Create\UploadCoverController@uploadCovers')->name('post.upload.covers.data');
     });
 });
+
+// Payment Freekassa
+Route::group(['prefix' => 'freekassa'], function () {
+    route::get('/result')->name('get.freekassa.result');
+    route::get('/success')->name('get.freekassa.success');
+    route::get('/fail')->name('get.freekassa.fail');
+});
