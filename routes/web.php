@@ -1,9 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Employee\Product\List\ListFinishedProductController;
 use App\Http\Controllers\Client\Market\GameController;
+use App\Http\Controllers\Client\Payment\ResultController;
+use App\Http\Controllers\Client\Payment\SuccessController;
+use App\Http\Controllers\Client\Payment\FailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,7 +69,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 // Payment Freekassa
 Route::group(['prefix' => 'freekassa'], function () {
-    route::get('/result')->name('get.freekassa.result');
-    route::get('/success')->name('get.freekassa.success');
-    route::get('/fail')->name('get.freekassa.fail');
+    route::get('/result', [ResultController::class, 'index'])->name('get.freekassa.result');
+    route::get('/success', [SuccessController::class, 'index'])->name('get.freekassa.success');
+    route::get('/fail', [FailController::class, 'index'])->name('get.freekassa.fail');
 });
