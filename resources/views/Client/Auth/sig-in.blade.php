@@ -34,7 +34,9 @@
                         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function (result) {
-                        console.log("Success: ", result)
+                        if (result['success']) {
+                            location = result['success']
+                        }
                     },
                     statusCode:{
                         401:function(err) {

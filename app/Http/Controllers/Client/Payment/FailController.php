@@ -9,6 +9,6 @@ class FailController extends Controller
 {
     public function index()
     {
-        dd('net');
+        echo 'NO';
     }
 }

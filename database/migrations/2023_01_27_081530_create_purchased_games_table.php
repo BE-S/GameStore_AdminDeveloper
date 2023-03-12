@@ -17,8 +17,16 @@ return new class extends Migration
             $table->id();
             $table->integer("user_id");
             $table->integer("game_id");
-            $table->float('discount')->nullable();
-            $table->string('game_key');
+            $table->float("amount_payment");
+            $table->integer('discount')->nullable();
+            $table->integer('key_id');
+            $table->integer('merchant_order_id');
+            $table->integer('int_id');
+            $table->string('p_email');
+            $table->string('p_phone')->nullable();
+            $table->integer('cur_id');
+            $table->string('sign');
+            $table->string('payer_account');
             $table->timestamps();
         });
     }

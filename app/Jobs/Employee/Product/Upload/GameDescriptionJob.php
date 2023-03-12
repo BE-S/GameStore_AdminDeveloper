@@ -2,14 +2,9 @@
 
 namespace App\Jobs\Employee\Product\Upload;
 
-use App\Models\Client\Market\Game;
-use App\Models\Client\Market\GameCover;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
+use App\Models\Employee\Market\Game;
+use App\Models\Employee\Market\GameCover;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 
 class GameDescriptionJob implements ShouldQueue
 {

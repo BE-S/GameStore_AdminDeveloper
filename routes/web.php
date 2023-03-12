@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Employee\Product\List\ListFinishedProductController;
 use App\Http\Controllers\Client\Market\GameController;
+use App\Http\Controllers\Client\Market\CatalogController;
 use App\Http\Controllers\Client\Payment\ResultController;
 use App\Http\Controllers\Client\Payment\SuccessController;
 use App\Http\Controllers\Client\Payment\FailController;
+use App\Http\Controllers\Client\Market\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,16 +19,18 @@ use App\Http\Controllers\Client\Payment\FailController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-route::get('/game/{id}', [GameController::class, 'showPage'])->name('get.game');
-route::get('/cart', '\App\Http\Controllers\Client\Market\CartController@index')->name('get.cart');
+Route::group(['middleware' => 'record_url'], function() {
+    route::get('/', [CatalogController::class, 'showPage'])->name("get.index");
+    route::get('/game/{id}', [GameController::class, 'showPage'])->name('get.game.verified');
+    route::get('/cart', '\App\Http\Controllers\Client\Market\CartController@index')->name('get.cart');
+});
 
 //Auth
 Route::group(['middleware' => 'auth'],  function() {
     route::get('/logout', '\App\Http\Controllers\Client\Auth\LogoutController@index')->name('get.logout');
 
     Route::group(['middleware' => 'verified'], function() {
-        route::get('/account/{id}', '\App\Http\Controllers\Client\Login\AccountController@index')->name('get.account');
+        route::get('/account/*', '\App\Http\Controllers\Client\Login\AccountController@index')->name('get.account');
     });
 });
 
@@ -39,7 +43,7 @@ Route::group(['middleware' => 'guest'], function () {
     route::get('/sig-in', '\App\Http\Controllers\Client\Auth\LoginController@index')->name('get.sig-in');
     route::post('/sig-in/check', '\App\Http\Controllers\Client\Auth\LoginController@login')->name('post.sig-in.check');
 
-    route::get('/verification/code/{token}', '\App\Http\Controllers\Client\Auth\VerificationController@sendVerification')->name('post.verification');
+    route::get('/verification/code/{token}', '\App\Http\Controllers\Client\Auth\VerificationController@sendVerification')->name('get.verification');
 
     route::get('/recovery-login', '\App\Http\Controllers\Client\Auth\RecoveryController@index')->name('get.recovery-login');
     route::post('/recovery-login/check', '\App\Http\Controllers\Client\Auth\RecoveryController@recoveryLogin')->name('post.recovery-login');
@@ -51,8 +55,8 @@ Route::group(['middleware' => 'guest'], function () {
 //section for admin
 Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => 'guest'], function () {
-        route::get('/login', '\App\Http\Controllers\Admin\Auth\LoginController@showView')->name('get.admin.login');
-        route::post('/login/check', '\App\Http\Controllers\Admin\Auth\LoginController@login')->name('post.admin.login.check');
+        route::get('/login', '\App\Http\Controllers\Employee\Auth\LoginController@showView')->name('get.admin.login');
+        route::post('/login/check', '\App\Http\Controllers\Employee\Auth\LoginController@login')->name('post.admin.login.check');
     });
 
     Route::group(['middleware' => 'admin'], function () {
@@ -72,4 +76,8 @@ Route::group(['prefix' => 'freekassa'], function () {
     route::get('/result', [ResultController::class, 'index'])->name('get.freekassa.result');
     route::get('/success', [SuccessController::class, 'index'])->name('get.freekassa.success');
     route::get('/fail', [FailController::class, 'index'])->name('get.freekassa.fail');
+});
+
+Route::group(['prefix' => 'buy'], function () {
+    route::get('/game/{id}', [ReservationController::class, 'reservationProduct'])->name('get.buy.game');
 });

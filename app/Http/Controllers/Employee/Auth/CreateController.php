@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\Auth\SigUpRequest;
 use App\Jobs\Auth\RegisterJob;
 use App\Jobs\Email\sendVarificationJob;
-use App\Models\Admin\Client;
+use App\Models\Employee\Client;
 use App\Models\Publisher\Publisher;
 use Illuminate\Database\Eloquent\Model;
 

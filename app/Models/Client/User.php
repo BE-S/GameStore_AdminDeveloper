@@ -2,7 +2,7 @@
 
 namespace App\Models\Client;
 
-use App\Models\Admin\Employee;
+use App\Models\Employee\Employee;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;

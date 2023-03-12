@@ -3,14 +3,7 @@
 namespace App\Http\Controllers\Employee\Product\Create;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Product\CreateProduct\UploadCoverDataRequest;
-use App\Http\Requests\Admin\Product\CreateProduct\UploadDescriptionDataRequest;
-use App\Http\Service\Admin\Product\CreateGameService;
-use App\Jobs\Employee\Upload\Image\ScreenGameJob;
-use App\Models\Client\Market\Game;
-use App\Models\Client\Market\GameCover;
-
-use Illuminate\Support\Arr;
+use App\Models\Employee\Market\GameCover;
 
 class CreateGameController extends Controller
 {

@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Employee\Product\Create;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\CreateProduct\UploadDescriptionDataRequest;
-use App\Http\Service\Admin\Product\CreateGameService;
 use App\Jobs\Employee\Product\Upload\GameDescriptionJob;
-use App\Models\Client\Market\Game;
+use App\Models\Employee\Market\Game;
 use Illuminate\Http\Request;
 
 class UploadDescriptionController extends Controller

@@ -3,8 +3,8 @@
 namespace App\Jobs\Auth;
 
 use App\Mail\Verification;
-use App\Models\Admin\Employee;
-use App\Models\Admin\Role;
+use App\Models\Employee\Employee;
+use App\Models\Employee\Role;
 use App\Models\Client\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;

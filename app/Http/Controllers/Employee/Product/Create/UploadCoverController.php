@@ -5,28 +5,32 @@ namespace App\Http\Controllers\Employee\Product\Create;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\CreateProduct\UploadCoverDataRequest;
 use App\Jobs\Employee\Product\Upload\GameCoverJob;
-use App\Models\Client\Market\Game;
-use App\Models\Client\Market\GameCover;
-use Illuminate\Http\Request;
+use App\Models\Employee\Market\Game;
+use App\Models\Employee\Market\GameCover;
 use Illuminate\Support\Arr;
+use mysql_xdevapi\Exception;
 
 class UploadCoverController extends Controller
 {
     public function uploadCovers(UploadCoverDataRequest $request)
     {
-        $credentials = $request->validated();
+        try {
+            $credentials = $request->validated();
 
-        $game = Game::checkExistenceGame(session('game_id'));
-        $gameCover = GameCover::where('game_id', session('game_id'))->first();
+            $game = Game::findOrFail(session('game_id'));
+            $gameCover = GameCover::where('game_id', session('game_id'))->first();
 
-        $uploadScreen = new GameCoverJob($game->name);
-        $uploadScreen->uploadCovers(
-            Arr::only($credentials, ['main', 'small', 'header'])
-        );
-        $uploadScreen->uploadScreen($credentials['screen']);
+            $uploadScreen = new GameCoverJob($game->name);
+            $uploadScreen->uploadCovers(
+                Arr::only($credentials, ['main', 'small', 'header'])
+            );
+            $uploadScreen->uploadScreen($credentials['screen']);
 
-        GameCover::createCoverGame($gameCover, $uploadScreen->url);
+            GameCover::createCoverGame($gameCover, $uploadScreen->url);
 
-        return response()->json(['yes']);
+            return response()->json(['yes']);
+        } catch (\Exception $e) {
+            dd($e);
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Auth;
 
-use App\Models\Admin\Employee;
+use App\Models\Employee\Employee;
 use App\Models\Client\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;

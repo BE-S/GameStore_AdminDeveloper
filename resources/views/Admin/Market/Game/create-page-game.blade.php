@@ -14,7 +14,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>Желаемая цена игры</label>
+                    <label>Цена игры</label>
                     <input type="text" name="price">
                     @error('price')
                     {{ $message }}
@@ -30,9 +30,9 @@
                 <div class="form-group">
                     <div>
                         <label>минималки</label>
-                        <input type="text" name="min_settings[]" placeholder="ОС">
-                        <input type="text" name="min_settings[]" placeholder="Процессор">
-                        <input type="text" name="min_settings[]" placeholder="Видеокарта">
+                        <input type="text" name="min_settings[ОС]" placeholder="ОС">
+                        <input type="text" name="min_settings[Процессор]" placeholder="Процессор">
+                        <input type="text" name="min_settings[Видеокарта]" placeholder="Видеокарта">
                     </div>
                     <div>
                         @error('min_settings')
@@ -43,9 +43,9 @@
                 <div class="form-group">
                     <div>
                         <label>максималки</label>
-                        <input type="text" name="max_settings[]" placeholder="ОС">
-                        <input type="text" name="max_settings[]" placeholder="Процессор">
-                        <input type="text" name="max_settings[]" placeholder="Видеокарта">
+                        <input type="text" name="max_settings[ОС]" placeholder="ОС">
+                        <input type="text" name="max_settings[Процессор]" placeholder="Процессор">
+                        <input type="text" name="max_settings[Видеокарта]" placeholder="Видеокарта">
                     </div>
                     <div>
                         @if (session('error'))

@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
-    public function index($id)
+    public function index()
     {
-        $user = User::findUserId($id);
-        echo ($user->name);
-dd();
-        return view('Client.Login.account', compact($user));
+        $user = Auth::user();
+
+        if (User::findUserId($user->id))
+            return view('Client.Login.account', compact("user"));
     }
 }
