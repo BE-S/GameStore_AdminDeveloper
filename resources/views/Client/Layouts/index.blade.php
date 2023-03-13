@@ -19,7 +19,7 @@
     <body>
         <header>
             <div id="search-field">
-                <input type="text" placeholder="Поиск">
+                <input id="insertedSpace" type="text" placeholder="Поиск">
             </div>
             <nav id="navigation">
                 <div id="left">
@@ -42,4 +42,63 @@
             @yield('content')
         </main>
     </body>
+    <script>
+        $(function ()
+        {
+            $('input').keydown(function(e) {
+                if(e.keyCode === 13) {
+                    let name = $('#insertedSpace').val()
+                    location = 'http://localhost:8080/search/' + name
+                }
+            });
+
+            $("#insertedSpace").keyup(function (e) {
+                let name = $('#insertedSpace').val()
+
+                if (name.length > 0) {
+                    let last = name.length - 1
+
+                    if (name[last].charCodeAt(0) < 49 && name[last].charCodeAt(0) > 57) {
+                        return;
+                    }
+
+                    if (name[last].charCodeAt(0) < 97 && name[last].charCodeAt(0) > 122
+                        || name[last].charCodeAt(0) < 1072 && name[last].charCodeAt(0) > 1103) {
+                        return;
+                    }
+
+                    console.log(name[last].charCodeAt(0))
+
+                    e.preventDefault();
+
+                    $.ajax({
+                        url: '{{ route('post.search') }}',
+                        type: "POST",
+                        data: {
+                            query: $('#insertedSpace').val(),
+                        },
+                        dataType: 'json',
+                        headers: {
+                            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function (result) {
+                            $.each(result, function (index, value) {
+                                $.each(value, function (index, element) {
+                                    console.log(element['name'])
+                                })
+                            })
+                        },
+                        statusCode: {
+                            401: function (err) {
+                                console.log(err);
+                            },
+                            500: function (err) {
+                                console.log(err);
+                            }
+                        }
+                    })
+                }
+            })
+        })
+    </script>
 </html>

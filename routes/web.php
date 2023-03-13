@@ -8,6 +8,7 @@ use App\Http\Controllers\Client\Payment\ResultController;
 use App\Http\Controllers\Client\Payment\SuccessController;
 use App\Http\Controllers\Client\Payment\FailController;
 use App\Http\Controllers\Client\Market\ReservationController;
+use App\Http\Controllers\Client\Market\SearchProductControoler;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,9 @@ use App\Http\Controllers\Client\Market\ReservationController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+route::post('/search', [SearchProductControoler::class, "searchPost"])->name("post.search");
+route::get('/search/{query}', [SearchProductControoler::class, "searchGet"])->name("get.search");
+
 Route::group(['middleware' => 'record_url'], function() {
     route::get('/', [CatalogController::class, 'showPage'])->name("get.index");
     route::get('/game/{id}', [GameController::class, 'showPage'])->name('get.game.verified');
