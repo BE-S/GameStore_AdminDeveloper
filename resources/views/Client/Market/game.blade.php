@@ -10,12 +10,12 @@
         </div>
         <div class="text-right background-color padding-block">
             @guest()
-                <a class="button" id="sig-in" href="{{ route("get.sig-in") }}">Купить</a>
+                <a id="sig-in" href="{{ route("get.sig-in") }}">Купить</a>
             @endguest
 
             @auth()
                 @if (empty($hasProductUser))
-                    <a class="button" id="buy" href="{{ route("get.buy.game", $game->id) }}">Купить</a>
+                    <a id="buy" href="{{ route("get.buy.game", $game->id) }}">Купить</a>
                 @else
                     В библиотеке
                 @endif
