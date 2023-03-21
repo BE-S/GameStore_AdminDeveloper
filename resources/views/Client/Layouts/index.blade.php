@@ -25,8 +25,8 @@
                     </div>
                         <div id="links">
                             <div class="left">
-                                <span>Каталог</span>
-                                <span>Категории</span>
+                                <a href="{{ route("get.index") }}">Каталог</a>
+                                <a>Категории</a>
                             </div>
                             <div class="right">
                                 <span>

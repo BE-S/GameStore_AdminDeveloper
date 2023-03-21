@@ -14,6 +14,11 @@ header {
     margin-top: 1vw;
 }
 
+header a {
+    text-decoration: none;
+    color: white;
+}
+
 header #navigation {
     width: 100%;
     font-size: 0.8vw;
@@ -51,11 +56,11 @@ header #navigation {
     margin: 0 0.5vw
 }
 
-.left span {
+.left a {
     margin-right: 1vw;
 }
 
-.right span {
+.right a {
     margin-left: 0.5vw;
 }
 
