@@ -9,6 +9,7 @@ use App\Http\Controllers\Client\Payment\SuccessController;
 use App\Http\Controllers\Client\Payment\FailController;
 use App\Http\Controllers\Client\Market\ReservationController;
 use App\Http\Controllers\Client\Market\SearchProductControoler;
+use App\Http\Controllers\Client\Login\Card\AddCardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::group(['middleware' => 'auth'],  function() {
 
     Route::group(['middleware' => 'verified'], function() {
         route::get('/account/*', '\App\Http\Controllers\Client\Login\AccountController@index')->name('get.account');
+        route::post('add-card', [AddCardController::class, '__invoke'])->name('post.add-card');
     });
 });
 

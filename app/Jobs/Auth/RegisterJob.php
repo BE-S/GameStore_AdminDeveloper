@@ -3,6 +3,7 @@
 namespace App\Jobs\Auth;
 
 use App\Mail\Verification;
+use App\Models\Client\Login\Avatar;
 use App\Models\Employee\Employee;
 use App\Models\Employee\Role;
 use App\Models\Client\User;
@@ -26,7 +27,6 @@ class RegisterJob implements ShouldQueue
     {
         $this->model = $model;
         $this->name = $user['name'];
-        $this->lastName = $user['last_name'];
         $this->email = $user['email'];
         $this->password = $password;
     }
@@ -45,7 +45,6 @@ class RegisterJob implements ShouldQueue
     {
         return $this->model->create([
             'name' => $this->name,
-            'last_name' => $this->lastName,
             'email' => $this->email,
             'job_hash' => md5(mt_rand(32, 60)),
             'password' => $this->password,
@@ -62,6 +61,12 @@ class RegisterJob implements ShouldQueue
         $user->update([
             'employee_id' => $employee->id,
         ]);
+    }
 
+    public function createDefaultAvatar($user_id)
+    {
+        Avatar::create([
+            "user_id" => $user_id,
+        ]);
     }
 }

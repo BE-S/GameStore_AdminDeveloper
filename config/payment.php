@@ -7,5 +7,11 @@ return [
         'currency' => 'RUB',
         'lang' => 'ru',
         'i' => '1',
-    ]
+    ],
+
+    "system" => [
+        '2' => 'Мир',
+        '4' => 'Visa',
+        '5' => 'Mastercard'
+    ],
 ];

@@ -9,11 +9,6 @@
     </div>
     <div class="row mb-3">
         <div class="col-sm-10 w-100">
-            <input type="name" class="form-control form-control-sm" id="InputLastName" placeholder="Фамилия">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col-sm-10 w-100">
             <input type="email" class="form-control form-control-sm" id="InputEmail" placeholder="Почта">
         </div>
     </div>
@@ -41,7 +36,6 @@
                         type: "POST",
                         data: {
                             name: $('#InputName').val(),
-                            last_name: $('#InputLastName').val(),
                             email: $('#InputEmail').val(),
                             password: $('#InputPass').val(),
                         },

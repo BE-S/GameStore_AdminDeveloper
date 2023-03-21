@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\Client\Login;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client\Login\Library;
 use App\Models\Client\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        $user = User::findUserId(Auth::user()->id);
+        $library = Library::where("user_id", $user->id)->get();
+        $bankCard = $user->bankCard;
 
-        if (User::findUserId($user->id))
-            return view('Client.Login.account', compact("user"));
+        return view('Client.Login.account', compact("user", "library", "bankCard"));
     }
 }

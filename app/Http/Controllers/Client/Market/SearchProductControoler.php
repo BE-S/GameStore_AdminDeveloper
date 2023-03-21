@@ -22,7 +22,7 @@ class SearchProductControoler extends Controller
         $credentials = $request->only('query');
         $query = $credentials['query'];
 
-        $games = Game::where("name", "like" , "%$query%")->take(5)->get();
+        $games = Game::where("name", "ilike" , "%$query%")->take(5)->get();
 
         return response()->json([$games]);
     }

@@ -4,6 +4,7 @@ body {
     background-size: cover;
     color: white;
     font-family: 'Ubuntu', sans-serif;
+    letter-spacing: 0.05vw;
 }
 
 header {
@@ -13,37 +14,76 @@ header {
     margin-top: 1vw;
 }
 
-header #search-field,
 header #navigation {
-    width: 24vw;
+    width: 100%;
+    font-size: 0.8vw;
+}
+
+#navigation .index {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#navigation .bottom {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+#search-field,
+#links {
+    display: flex;
+    width: 25vw;
+    height: 1.5vw;
+    justify-content: space-between;
+}
+
+#links {
+    margin-top: 0.4vw;
+}
+
+#navigation .left,
+#navigation .right {
+    margin: 0 0.5vw
+}
+
+.left span {
+    margin-right: 1vw;
+}
+
+.right span {
+    margin-left: 0.5vw;
+}
+
+#account {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 6vw;
+    position: absolute;
+    right: 1.5vw;
+    color: white;
+    text-decoration: none;
+}
+
+#account div {
+    text-align: center;
+}
+
+#account .image {
+    width: 45px;
+    border-radius: 50%;
 }
 
 header nav {
     display: flex;
     justify-content: space-between;
-    padding: 0px 1vw;
-    margin-top: 0.4vw;
 }
 
-nav #left {
-    text-align: start;
-}
-
-nav #right {
-    text-align: end;
-}
-
-nav #right span {
-    margin-left: 1vw;
-}
-
-nav #left span {
-    margin-right: 1vw;
-}
-
-header search-field {
-    text-align: center;
-}
 
 div input {
     width: 100%;
@@ -207,4 +247,239 @@ main {
 #system-requirements .text-left,
 #system-requirements .text-right {
     padding-top: 0vw;
+}
+
+.background.block {
+    display: flex;
+    width: 70vw;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+#account-block {
+    display: flex;
+    width: 70vw;
+    flex-direction: row;
+    margin-top: 2vw;
+}
+
+#user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+}
+
+.name {
+    margin-top: 1vw;
+    font-size: 1.5vw;
+    letter-spacing: 0.2vw;
+}
+
+#cards {
+    padding-right: 2vw;
+    width: 42.5vw;
+}
+
+#cards .title {
+    margin-left: 2vw;
+    font-size: 1.3vw;
+}
+
+#cards div {letter-spacing: 0.2vw;}
+
+#history-purchase {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6vw;
+    margin-bottom: 2vw;
+}
+
+.game {
+    display: flex;
+    margin: 0 2vw;
+    margin-bottom: 3vw;
+    /* background: rgb(255 255 255 / 10%); */
+}
+
+.cover img {
+    width: 100%;
+}
+
+#cards .buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 2vw;
+}
+
+#history-purchase .title {
+    margin-bottom: 2vw;
+    font-size: 1.3vw;
+}
+
+#description {
+    display: flex;
+    margin-left: 2vw;
+    align-items: center;
+    background: rgb(255 255 255 / 10%);
+}
+
+#description .left,
+#description .right {
+    margin: 0px 3vw;
+    font-size: 1vw;
+}
+
+#description .right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#description .left div,
+#description .right div {
+    display: flex;
+    height: 3vw;
+    align-items: center;
+}
+
+#description .right div {
+    text-align: right;
+}
+
+.bank-card {
+    display: flex;
+    margin-top: 2vw;
+}
+
+.bank-card div {
+    background: rgb(255 255 255 / 10%);
+}
+
+.bank-card .number {
+    width: 100%;
+    padding-right: 22%;
+    padding-left: 1vw;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    font-size: 1.5vw;
+    font-weight: 100;
+}
+
+.bank-card .image-payment {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.bank-card img {
+    margin-right: 1vw;
+}
+
+.all, .add {
+    width: 100%;
+    height: 3vw;
+    background: rgb(255 255 255 / 10%);
+    border: none;
+    color: white;
+    font-size: 1.3vw;
+    font-weight: 100;
+    letter-spacing: 0.1vw;
+}
+
+.all {
+    margin-right: 1vw;
+}
+
+.add {
+    margin-left: 1vw;
+}
+
+.card-form.active {
+    display: flex;
+}
+
+.card-form {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.8);
+    transition: all .3s;
+    color: black;
+    flex-direction: column;
+}
+
+#add-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 3%;
+    height: 348px;
+    width: 609px;
+}
+
+.close {
+    display: flex;
+    width: 609px;
+    color: white;
+    justify-content: flex-end;
+    font-size: 3vw;
+}
+
+#add-card .block-number {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3vw;
+    flex-direction: column;
+}
+
+.secret-date {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 2vw;
+}
+
+#add-card input {
+    border: 1px solid black;
+    color: black;
+}
+
+.block-cvc {
+    margin-right: 1vw;
+}
+
+.block-cvc {
+    margin-left: 1vw;
+}
+
+.number input {
+    border: 1px solid black;
+}
+
+#add-card .block-number,
+#add-card .secret-date,
+#add-card .button {
+    padding: 0 4vw;
+    width: 100%;
+}
+
+#add-card #accept {
+    border: 1px solid black;
+    width: 100%;
+    text-align: center;
 }

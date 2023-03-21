@@ -18,24 +18,42 @@
 </head>
     <body>
         <header>
-            <div id="search-field">
-                <input id="insertedSpace" type="text" placeholder="Поиск">
-            </div>
             <nav id="navigation">
-                <div id="left">
-                    <span>Каталог</span>
-                    <span>Категории</span>
+                <div class="index">
+                    <div id="search-field">
+                        <input id="insertedSpace" type="text" placeholder="Поиск">
+                    </div>
+                        <div id="links">
+                            <div class="left">
+                                <span>Каталог</span>
+                                <span>Категории</span>
+                            </div>
+                            <div class="right">
+                                <span>
+                                    <img src="http://localhost:8080/image/icon/rus.png" class="icon">
+                                    Rub
+                                </span>
+                                <span>
+                                    <img src="http://localhost:8080/image/icon/cart.png" class="icon">
+                                    0
+                                </span>
+                            </div>
+                        </div>
+
                 </div>
-                <div id="right">
-                    <span>
-                        <img src="http://localhost:8080/image/icon/rus.png" class="icon">
-                        Rub
-                    </span>
-                    <span>
-                        <img src="http://localhost:8080/image/icon/cart.png" class="icon">
-                        0
-                    </span>
-                </div>
+                @auth()
+                    @if (url()->current() != route('get.account'))
+                        <a id="account" href="{{ route("get.account") }}">
+                            <img class="image" src="{{ asset('/storage/' . $account->avatar->path_small) }}">
+                            <div>{{ $account->name }}</div>
+                        </a>
+                    @endif
+                @endauth
+                @guest()
+                    @if (url()->current() != route('get.sig-up') && url()->current() != route('get.sig-in'))
+                        <a href="{{ route("get.sig-in") }}">Авторизация</a>
+                    @endif
+                @endguest
             </nav>
         </header>
         <main>
@@ -66,8 +84,6 @@
                         || name[last].charCodeAt(0) < 1072 && name[last].charCodeAt(0) > 1103) {
                         return;
                     }
-
-                    console.log(name[last].charCodeAt(0))
 
                     e.preventDefault();
 

@@ -7,8 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class PurchasedGame extends Model
 {
+    protected $guarded = [
+        'id'
+    ];
+
     protected $fillable = [
         "user_id", "game_id", "discount", "key_id", "merchant_order_id", "int_id", "amount_payment", "p_email", "p_phone", "cur_id", "sign"
+    ];
+
+    protected $hidden = [
+        "merchant_order_id", "int_id", "cur_id", "sign"
     ];
 
     public function createPurchesedGame($data, $key, $sign) {

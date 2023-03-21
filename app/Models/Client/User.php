@@ -2,6 +2,9 @@
 
 namespace App\Models\Client;
 
+use App\Models\Client\Login\Avatar;
+use App\Models\Client\Payment\BankCards;
+use App\Models\Client\Payment\SystemPayment;
 use App\Models\Employee\Employee;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +18,17 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function employee()
     {
-        return $this->hasOne(Employee::class, 'user_id');
+        return $this->hasOne(Employee::class);
+    }
+
+    public function bankCard()
+    {
+        return $this->hasMany(BankCards::class);
+    }
+
+    public function avatar()
+    {
+        return $this->hasOne(Avatar::class, 'user_id');
     }
 
     public static function findUserId($id)

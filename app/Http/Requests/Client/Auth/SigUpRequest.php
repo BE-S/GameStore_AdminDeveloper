@@ -25,7 +25,6 @@ class SigUpRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'last_name' => ['required'],
             'email' => ['required'],
             'password' => ['required'],
         ];

@@ -24,8 +24,8 @@ class SuccessController extends Controller
         $data = [
             "merchant_id" => '29390',
             "merchant_secret" => 'K2X!x[e?/7z[J01',
-            "user_id" => 5,
-            "game_id" => 3,
+            "user_id" => auth()->user()->id,
+            "game_id" => 1,
             "discount" => 0,
             "int_id" => 1,
             "amount" => 999.99,
