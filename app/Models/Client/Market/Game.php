@@ -12,6 +12,11 @@ class Game extends Model
         return $this->hasOne(GameCover::class, 'game_id');
     }
 
+    public function discount()
+    {
+        return $this->hasOne(Discount::class)->where("deleted_at", null);
+    }
+
     /**
      * Get the min settings for pc
      *

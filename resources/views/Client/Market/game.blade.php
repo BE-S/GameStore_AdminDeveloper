@@ -15,6 +15,11 @@
 
             @auth()
                 @if (empty($hasProductUser))
+                    @if ($priceDiscount)
+                        {{ bcdiv($priceDiscount, 1, 2) . " руб."}}
+                    @else
+                        {{ $game->price . " руб."}}
+                    @endif
                     <a id="buy" href="{{ route("get.buy.game", $game->id) }}">Купить</a>
                 @else
                     В библиотеке
