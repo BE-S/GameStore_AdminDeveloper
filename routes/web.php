@@ -26,7 +26,7 @@ route::get('/search/{query}', [SearchProductControoler::class, "searchGet"])->na
 
 Route::group(['middleware' => 'record_url'], function() {
     route::get('/', [CatalogController::class, 'showPage'])->name("get.index");
-    route::get('/game/{id}', [GameController::class, 'showPage'])->name('get.game.verified');
+    route::get('/game/{id}', [GameController::class, 'showPage'])->name('get.game');
     route::get('/cart', '\App\Http\Controllers\Client\Market\CartController@index')->name('get.cart');
 });
 

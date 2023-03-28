@@ -1,8 +1,9 @@
 @extends('Client.Layouts.index')
 
 @section('content')
+    <link rel="stylesheet" href="/css/client/game-slider.css">
 
-    @include('Client.Layouts.Slider.slider-game', $game)
+    @include('Client.Layouts.Game.slider-game', $game)
 
     <div class="block-text" id="add-cart">
         <div class="text-left background-color padding-block">
@@ -15,11 +16,7 @@
 
             @auth()
                 @if (empty($hasProductUser))
-                    @if ($priceDiscount)
-                        {{ bcdiv($priceDiscount, 1, 2) . " руб."}}
-                    @else
-                        {{ $game->price . " руб."}}
-                    @endif
+                    {{ $price . " руб." }}
                     <a id="buy" href="{{ route("get.buy.game", $game->id) }}">Купить</a>
                 @else
                     В библиотеке

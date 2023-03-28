@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Client\Market;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\RedirectJob;
 use App\Models\Client\Login\Library;
 use App\Models\Client\Market\Game;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Psr\Container\NotFoundExceptionInterface;
+
 
 class GameController extends Controller
 {
@@ -21,9 +19,9 @@ class GameController extends Controller
             $game = Game::findOrFail($id);
             $user = Auth::user();
             $hasProductUser = empty($user) ? null : $library->checkProductUser($user->id, $game->id);
-            $priceDiscount = $game->discount ? $game->price - ($game->price / 100 * $game->discount->amount) : null;
+            $price = $game->calculationDiscount();
 
-            return view("Client.Market.game", compact('game', 'priceDiscount', 'hasProductUser'));
+            return view("Client.Market.game", compact('game', 'price', 'hasProductUser'));
         } catch (ModelNotFoundException $e) {
             abort(404);
         }

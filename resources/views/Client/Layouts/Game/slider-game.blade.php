@@ -82,4 +82,3 @@
         carouselFull[next].classList.toggle('start')
     }
 </script>
-
