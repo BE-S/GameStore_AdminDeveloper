@@ -7,6 +7,11 @@ body {
     letter-spacing: 0.05vw;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
 header {
     display: flex;
     flex-direction: column;
@@ -110,12 +115,6 @@ main {
     margin-top: 3vw;
 }
 
-#carouselExampleIndicators {
-    display: flex;
-    width: 60%;
-    flex-direction: row-reverse;
-}
-
 #buttons {
     position: relative;
     overflow: hidden;
@@ -139,28 +138,6 @@ main {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     transition: transform .6s ease-in-out;
-}
-
-#buttons .button img {
-    width: calc(100% + 4px);
-}
-
-.carousel-item {
-    display: block;
-    transform: translateX(100%);
-}
-
-.carousel-item.start {
-    display: block;
-    transform: translateX(100%);
-}
-
-.carousel-item.active {
-    transform: translateX(0);
-}
-
-#back, #next {
-    width: 10%;
 }
 
 .block-text {
@@ -308,11 +285,10 @@ main {
     margin-bottom: 2vw;
 }
 
-.game {
+#history-purchase .game {
     display: flex;
     margin: 0 2vw;
     margin-bottom: 3vw;
-    /* background: rgb(255 255 255 / 10%); */
 }
 
 .cover img {
