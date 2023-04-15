@@ -3,25 +3,31 @@
 namespace App\Http\Controllers\Client\Market;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Market\CartJob;
 use App\Models\Client\Login\Library;
 use App\Models\Client\Market\Game;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 
-class GameController extends Controller
+class GameController extends BaseController
 {
     public function showPage($id)
     {
         try {
             $library = new Library();
+            $cartJob = new CartJob();
+            $cart = $cartJob->getGamesCart();
 
             $game = Game::findOrFail($id);
             $user = Auth::user();
             $hasProductUser = empty($user) ? null : $library->checkProductUser($user->id, $game->id);
             $price = $game->calculationDiscount();
 
-            return view("Client.Market.game", compact('game', 'price', 'hasProductUser'));
+            $cartGame = $cartJob->getGameCart($game->id);
+
+            return view("Client.Market.game", compact('game', 'price', 'hasProductUser', 'cartGame'));
         } catch (ModelNotFoundException $e) {
             abort(404);
         }

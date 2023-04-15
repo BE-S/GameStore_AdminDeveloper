@@ -7,6 +7,7 @@ use App\Models\Client\Market\Catalog\Adventure;
 use App\Models\Client\Market\Catalog\Slider;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Game extends Model
 {
@@ -19,8 +20,13 @@ class Game extends Model
     ];
 
     protected $hidden = [
-        'id', 'developer_id', 'published_id', 'is_published', 'created_at', 'updated_at'
+        'developer_id', 'published_id', 'is_published', 'created_at', 'updated_at'
     ];
+
+    public function findGamesFromCart($cart)
+    {
+        return $cart ? $this->whereIn('id', $cart)->get() : null;
+    }
 
     public function gameCover()
     {

@@ -8,6 +8,7 @@
     <title>Bootstrap Example</title>
 
     <link rel="stylesheet" href="/css/client/index.css">
+    <link rel="stylesheet" href="/css/client/adaptive/index-adaptive.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,8 +35,10 @@
                                     Rub
                                 </span>
                                 <span>
-                                    <img src="http://localhost:8080/image/icon/cart.png" class="icon">
-                                    0
+                                    <a href="{{ route("get.cart") }}">
+                                        <img src="http://localhost:8080/image/icon/cart.png" class="icon">
+                                        {{ empty(session()->get('Cart')) ? 0 : count(session()->get('Cart')) }}
+                                    </a>
                                 </span>
                             </div>
                         </div>
@@ -60,6 +63,9 @@
             @yield('content')
         </main>
     </body>
+    <footer class="footer">
+
+    </footer>
     <script>
         $(function ()
         {
