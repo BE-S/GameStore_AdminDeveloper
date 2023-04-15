@@ -8,7 +8,6 @@ use App\Jobs\Employee\Product\Upload\GameCoverJob;
 use App\Models\Employee\Market\Game;
 use App\Models\Employee\Market\GameCover;
 use Illuminate\Support\Arr;
-use mysql_xdevapi\Exception;
 
 class UploadCoverController extends Controller
 {
@@ -22,7 +21,7 @@ class UploadCoverController extends Controller
 
             $uploadScreen = new GameCoverJob($game->name);
             $uploadScreen->uploadCovers(
-                Arr::only($credentials, ['main', 'small', 'header'])
+                Arr::only($credentials, ['small', 'header', 'poster'])
             );
             $uploadScreen->uploadScreen($credentials['screen']);
 

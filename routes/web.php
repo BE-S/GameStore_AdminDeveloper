@@ -83,10 +83,16 @@ Route::group(['prefix' => 'admin'], function () {
             route::get('', '\App\Http\Controllers\Employee\Product\Create\CreateGameController@showPage')->name('get.create.page-game');
             route::get('/hash={hash}', '\App\Http\Controllers\Employee\Product\Create\CreateGameController@showPage')->name('get.create.page-game.upload.cover');
         });
-
-        Route::get('/search', [ListFinishedProductController::class, 'showPage']);
         route::post('/upload/data/game', '\App\Http\Controllers\Employee\Product\Create\UploadDescriptionController@uploadData')->name('post.upload.description.data');
         route::post('/upload/covers/game', '\App\Http\Controllers\Employee\Product\Create\UploadCoverController@uploadCovers')->name('post.upload.covers.data');
+
+        //ИЗМЕНЕНИЕ КАРТИНОК СТРАНИЦЫ
+        Route::group(['prefix' => 'change/page-game'], function () {
+            route::get('/{id}', [])->name('get.change.upload-cover');
+        });
+        //ИЗМЕНЕНИЕ КАРТИНОК СТРАНИЦЫ
+
+        Route::get('/search', [ListFinishedProductController::class, 'showPage']);
     });
 });
 
@@ -95,8 +101,4 @@ Route::group(['prefix' => 'freekassa'], function () {
     route::get('/result', [ResultController::class, 'index'])->name('get.freekassa.result');
     route::get('/success', [SuccessController::class, 'index'])->name('get.freekassa.success');
     route::get('/fail', [FailController::class, 'index'])->name('get.freekassa.fail');
-});
-
-Route::group(['prefix' => 'buy'], function () {
-    route::get('/game/{id}', [ReservationController::class, 'reservationProduct'])->name('get.buy.game');
 });

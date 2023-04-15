@@ -59,16 +59,16 @@
             <form action="{{ route("post.upload.covers.data") }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label>Основное изображение</label>
-                    <input type="file" name="main">
-                </div>
-                <div class="form-group">
                     <label>Малое изображение</label>
                     <input type="file" name="small">
                 </div>
                 <div class="form-group">
                     <label>Заглавное изображение в магазине</label>
                     <input type="file" name="header">
+                </div>
+                <div class="form-group">
+                    <label>Постер игры</label>
+                    <input type="file" name="poster">
                 </div>
                 <div class="form-group">
                     <label>Скриншоты</label>
