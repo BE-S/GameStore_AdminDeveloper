@@ -6,10 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Client\Market\Game;
 use Illuminate\Http\Request;
 
-class SearchProductControoler extends Controller
+class SearchProductControoler extends BaseController
 {
     public function searchGet($query)
     {
+        $arr = explode(',', $query);
+
+        foreach ($arr as $item) {
+            dump($item);
+        }
+        dd(113);
         $games = Game::where("name", "ilike" , "%$query%")->get();
 
         foreach ($games as $game) {
