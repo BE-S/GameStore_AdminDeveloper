@@ -32,9 +32,27 @@ class Game extends Model
         return $this->hasOne(Discount::class)->where("deleted_at", null);
     }
 
+    public function category()
+    {
+        return $this->hasOne(Category::class);
+    }
+
     public function calculationDiscount()
     {
-        return empty($this->discount) ? $this->price : $discountPrice = $this->price - ($this->price / 100 * $this->discount->amount);
+        return empty($this->discount) ? $this->price : bcdiv(($this->price - ($this->price / 100 * $this->discount->amount)), 1, 2);
+    }
+
+    public function calculationAmountPrice($cartGames)
+    {
+        $amount = 0;
+
+        if ($cartGames) {
+            foreach ($cartGames as $game) {
+                $amount += empty($game->discount->amount) ? $game->price : $game->calculationDiscount();
+            }
+        }
+
+        return bcdiv($amount, 1, 2);
     }
 
     /**

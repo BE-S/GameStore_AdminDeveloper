@@ -10,6 +10,10 @@ use App\Http\Controllers\Client\Payment\FailController;
 use App\Http\Controllers\Client\Market\ReservationController;
 use App\Http\Controllers\Client\Market\SearchProductControoler;
 use App\Http\Controllers\Client\Login\Card\AddCardController;
+use App\Http\Controllers\Client\Market\Catalog\LoadingGamesController;
+use App\Http\Controllers\Client\Market\Cart\CartController;
+use App\Http\Controllers\Client\Market\Cart\AddCartController;
+use App\Http\Controllers\Client\Market\Cart\DeleteFromCartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +31,17 @@ route::get('/search/{query}', [SearchProductControoler::class, "searchGet"])->na
 Route::group(['middleware' => 'record_url'], function() {
     route::get('/', [CatalogController::class, 'showPage'])->name("get.index");
     route::get('/game/{id}', [GameController::class, 'showPage'])->name('get.game');
-    route::get('/cart', '\App\Http\Controllers\Client\Market\CartController@index')->name('get.cart');
+    route::get('/cart', [CartController::class, 'showPage'])->name('get.cart');
 });
+
+route::post('buy', [ReservationController::class, 'reservationProduct'])->name('get.buy.game');
+Route::group(['prefix' => 'cart'], function () {
+    route::post('add', [AddCartController::class, 'addCart'])->name('post.add.cart');
+    route::post('delete', [DeleteFromCartController::class, 'deleteCart'])->name('post.delete.cart');
+    route::post('delete-all', [DeleteFromCartController::class, 'deleteAllCart'])->name('post.all.delete.cart');
+});
+
+route::post('/loading/games', [LoadingGamesController::class, 'load'])->name('post.load.game');
 
 //Auth
 Route::group(['middleware' => 'auth'],  function() {
