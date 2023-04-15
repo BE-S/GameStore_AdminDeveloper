@@ -11,13 +11,17 @@
         </div>
         <div class="text-right background-color padding-block">
             @guest()
-                <a id="sig-in" href="{{ route("get.sig-in") }}">Купить</a>
+                <a id="sig-in" href="{{ route("get.sig-in") }}">Авторизоваться</a>
             @endguest
 
             @auth()
                 @if (empty($hasProductUser))
                     {{ $price . " руб." }}
-                    <a id="buy" href="{{ route("get.buy.game", $game->id) }}">Купить</a>
+                    @if ($cartGame)
+                        <a class="to-cart" href="{{ route("get.cart") }}">В корзине</a>
+                    @else
+                        <a class="to-cart" href="javascript:addToCart({{$game->id}});">В корзину</a>
+                    @endif
                 @else
                     В библиотеке
                 @endif
@@ -62,29 +66,40 @@
     <div class="block-text" id="reviews">
 
     </div>
+
+    <script>
+        function addToCart(id) {
+            $.ajax({
+                url: '{{ route('post.add.cart') }}',
+                type: "POST",
+                data: {
+                    gameId: id
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (result) {
+                    if (result['Error']) {
+                        alert(result['message'])
+                        return;
+                    }
+                    if (result['Duplicate']) {
+                        alert("Товар уже добавлен")
+                        return;
+                    }
+
+                    location = result
+                },
+                statusCode: {
+                    401: function (err) {
+                        console.log(err);
+                    },
+                    500: function (err) {
+                        console.log(err);
+                    }
+                }
+            })
+        }
+    </script>
 @endsection
-
-
-
-{{--const carousel = document.getElementsByClassName('button')--}}
-{{--var height = 0--}}
-{{--var maxHeightCarousel = 6 * 100--}}
-
-{{--if (height < maxHeightCarousel) {--}}
-{{--alert(1)--}}
-{{--$('#back').bind('click', function (e) {--}}
-{{--height += 100--}}
-{{--shiftImage(height)--}}
-{{--})--}}
-
-{{--$('#next').bind('click', function (e) {--}}
-{{--height -= 100--}}
-{{--shiftImage(height)--}}
-{{--})--}}
-{{--}--}}
-
-{{--function shiftImage(height) {--}}
-{{--for (let i = 0; i < maxHeightCarousel; ++i) {--}}
-{{--carousel[i].style.transform = 'translateY(' + height + '%)'--}}
-{{--}--}}
-{{--}--}}

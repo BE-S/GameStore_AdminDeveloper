@@ -1,0 +1,17 @@
+@media (max-width: 1468px) {
+    .category-title div {
+        margin: 0 0.9em;
+    }
+
+    .category-title,
+    .collection-games {
+        width: 979px;
+    }
+}
+
+@media (min-width: 1468px) {
+    .category-title,
+    .collection-games {
+        width: 1475px;
+    }
+}
