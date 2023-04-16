@@ -36,10 +36,9 @@ class RedirectJob implements ShouldQueue
 
     public function redirectGetRequest($url, $param = array())
     {
-        if (empty($param)) {
-            header('Location: ' . $url);
-        } else {
-            header('Location: ' . $url . '?' . http_build_query($param));
+        if ($param) {
+            return $url . '?' . http_build_query($param);
         }
+        return $url;
     }
 }
