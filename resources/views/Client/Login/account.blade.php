@@ -119,9 +119,13 @@
                             return
                         }
 
+                        let buttonAll = document.querySelectorAll(".all")
                         closeButton.classList.toggle('active')
                         createCard(result['number'], result['image'])
-                        createButtonAllCards()
+
+                        if (buttonAll.length < 1) {
+                            createButtonAllCards()
+                        }
                     },
                     statusCode: {
                         401: function (err) {

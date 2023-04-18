@@ -45,7 +45,7 @@ class BankCardJob implements ShouldQueue
             "number" => $number,
             "expiration_date" => $expiry,
             "cvc" => $cvc,
-            "payment_system_id" => 1,
+            "payment_system_id" => $paymentSystem,
         ]);
     }
 
