@@ -59,11 +59,12 @@
                         return;
                     }
                     if (result['Success']) {
+                        let allGame = document.getElementsByClassName('game')
                         let game = document.getElementById(id)
                         game.remove()
+                        $("#count-games").text(allGame.length)
                         $(".amount").text("Итого: " + result['Amount'] + " Рублей");
                     }
-                    console.log(result)
                 },
                 statusCode: {
                     401: function (err) {
@@ -97,6 +98,7 @@
                         }
                         if (result['Success']) {
                             $("div").remove(".game")
+                            $("#count-games").text("0")
                             $(".amount").text("Итого: " + result['Amount'] + " Рублей");
                         }
                     },
