@@ -21,6 +21,7 @@ class SuccessController extends Controller
     public function index()
     {
         //Тестовые данные
+        //Занести key_product_id
         $data = [
             "merchant_id" => '29390',
             "merchant_secret" => 'K2X!x[e?/7z[J01',
