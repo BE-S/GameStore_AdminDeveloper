@@ -39,7 +39,7 @@
             </a>
             <div class="price">
                 <div>
-                    {{ bcdiv($row->game->price, 1, 2) . " руб."}}
+                    {{ bcdiv($row->game->calculationDiscount(), 1, 2) . " руб."}}
                 </div>
             </div>
         </div>
