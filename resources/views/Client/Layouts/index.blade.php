@@ -64,7 +64,30 @@
         </main>
     </body>
     <footer class="footer">
-
+        <div class="links">
+            <div class="social-network">
+                <a href="https://vk.com/"><img src="http://localhost:8080/image/icon/Social%20network/VK.png"></a>
+                <a href="https://web.telegram.org/"><img src="http://localhost:8080/image/icon/Social%20network/telegram.png"></a>
+                <a href="https://twitter.com/"><img src="http://localhost:8080/image/icon/Social%20network/twitter.png"></a>
+                <a href="https://www.instagram.com/"><img src="http://localhost:8080/image/icon/Social%20network/instagram.png"></a>
+            </div>
+            <div class="up">Вверх</div>
+        </div>
+        <div class="author">Made by BES</div>
+        <div class="purchases">
+            <span>
+                <a>
+                    <img src="http://localhost:8080/image/icon/rus.png" class="icon">
+                    <span id="currency">Rub</span>
+                </a>
+            </span>
+            <span>
+                <a href="{{ route("get.cart") }}">
+                    <img src="http://localhost:8080/image/icon/cart.png" class="icon">
+                    <span id="count-games">{{ empty(session()->get('Cart')) ? 0 : count(session()->get('Cart')) }}</span>
+                </a>
+            </span>
+        </div>
     </footer>
     <script>
         $(function ()

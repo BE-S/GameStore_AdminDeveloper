@@ -44,6 +44,13 @@
                             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function (result) {
+                            if (result['End']) {
+                                actionScroll = false;
+                                $('#loading').attr('style', 'display: none;')
+                                $('.footer').attr('style', 'display: flex;')
+                                return;
+                            }
+
                             var loadElement = document.createElement('div')
                             loadElement.className = 'loading-block'
                             loadElement.innerHTML = result['viewLoad']

@@ -756,3 +756,58 @@ main {
 .cart .trash img {
     width: 1.5em;
 }
+
+/*footer*/
+
+.footer {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0 0 0 / 31%);
+    padding: 2em 0;
+}
+
+.social-network a img {
+    width: 3em;
+}
+
+.up {
+    margin-top: 1em;
+    text-align: center;
+    background-color: white;
+    color: black;
+    font-size: 1.3em;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.author {
+    display: flex;
+    margin: 0 25em;
+    align-items: flex-end;
+}
+
+.author, .purchases {
+    height: 7em;
+}
+
+.purchases {
+    display: flex;
+}
+
+.purchases a {
+    display: flex;
+    height: 1em;
+    align-items: center;
+    margin: 0 6px;
+}
+
+.purchases img {
+    width: 2em;
+}
+
+.purchases #currency,
+.purchases #count-games {
+    font-size: 1.5em;
+    margin-left: 5px;
+}

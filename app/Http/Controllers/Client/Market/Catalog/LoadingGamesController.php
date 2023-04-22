@@ -19,6 +19,10 @@ class LoadingGamesController extends BaseController
             $categoryId = $recommendedCategories->getExistenceId($request->categoryId);
             $recommendedCategory = RecommendedCategory::where("category_id", $categoryId)->limit(7)->get();
 
+            if (count($recommendedCategory) < 7) {
+                return response()->json(['End' => true]);
+            }
+
             $blockCategory = $recommendedCategory->take(4);
             $rowCategory = $recommendedCategory->skip(4)->take(3);
             $category = Category::findOrFail($categoryId);
