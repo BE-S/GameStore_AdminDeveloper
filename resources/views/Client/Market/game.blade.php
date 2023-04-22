@@ -16,7 +16,12 @@
 
             @auth()
                 @if (empty($hasProductUser))
-                    {{ $price . " руб." }}
+                    @if ($game->discount)
+                        <span class="standard-price">{{ bcdiv($game->price, 1, 2) . " руб." }}</span>
+                    @endif
+                    <span class="calculation-amount">
+                        {{ $game->calculationDiscount() . " руб." }}
+                    </span>
                     @if ($cartGame)
                         <a class="to-cart" href="{{ route("get.cart") }}">В корзине</a>
                     @else

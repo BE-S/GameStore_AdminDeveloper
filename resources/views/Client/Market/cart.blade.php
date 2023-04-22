@@ -15,7 +15,17 @@
                                 <div>Название: {{ $game->name }}</div>
                             </div>
                             <div class="right">
-                                <div>Стоимость: {{ bcdiv($game->calculationDiscount(), 1, 2) . " руб." }}</div>
+                                <div>
+                                    Стоимость:
+                                    <div class="price">
+                                        @if ($game->discount)
+                                            <span class="standard-price">{{ bcdiv($game->price, 1, 2) . " руб." }}</span>
+                                        @endif
+                                        <span class="calculation-amount">
+                                            {{ $game->calculationDiscount() . " руб." }}
+                                        </span>
+                                    </div>
+                                </div>
                                 <a class="trash" href="javascript:deleteCart({{ $game->id }})">
                                     <img src="http://localhost:8080/image/icon/trash.png">
                                 </a>

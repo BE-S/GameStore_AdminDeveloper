@@ -5,13 +5,21 @@
     <div class="games">
         @foreach ($blockCategory as $block)
             <a class="game" href="{{ route("get.game", $block->game->id) }}">
+                @if ($block->game->discount && count($block->game->keyProduct) > 0)
+                    <div class="discount">
+                        {{ $block->game->discount->amount . "%" }}
+                    </div>
+                @endif
                 <div class="price">
                     @if (count($block->game->keyProduct) <= 0)
                         <div class="stop-out">
                             Нет в наличии
                         </div>
                     @else
-                        <span>
+                        @if ($block->game->discount)
+                            <span class="standard-price">{{ bcdiv($block->game->price, 1, 2) . " руб." }}</span>
+                        @endif
+                        <span class="calculation-amount">
                         {{ $block->game->calculationDiscount() . " руб." }}
                     </span>
                     @endif
@@ -33,6 +41,11 @@
             </div>
             <a class="covers" href="{{ route("get.game", $row->game->id) }}">
                 <picture class="image">
+                    @if ($row->game->discount && count($row->game->keyProduct) > 0)
+                        <div class="discount">
+                            {{ $row->game->discount->amount . "%" }}
+                        </div>
+                    @endif
                     <img src="{{ "/storage/" . $row->game->gameCover->small }}">
                 </picture>
                 <div class="screens">
@@ -53,7 +66,10 @@
                         Нет в наличии
                     </div>
                 @else
-                    <span>
+                    @if ($row->game->discount)
+                        <span class="standard-price">{{ bcdiv($row->game->price, 1, 2) . " руб." }}</span>
+                    @endif
+                    <span class="calculation-amount">
                         {{ $row->game->calculationDiscount() . " руб." }}
                     </span>
                 @endif

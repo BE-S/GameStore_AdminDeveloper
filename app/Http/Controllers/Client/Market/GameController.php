@@ -23,11 +23,10 @@ class GameController extends BaseController
             $game = Game::findOrFail($id);
             $user = Auth::user();
             $hasProductUser = empty($user) ? null : $library->checkProductUser($user->id, $game->id);
-            $price = $game->calculationDiscount();
 
             $cartGame = $cartJob->getGameCart($game->id);
 
-            return view("Client.Market.game", compact('game', 'price', 'hasProductUser', 'cartGame'));
+            return view("Client.Market.game", compact('game', 'hasProductUser', 'cartGame'));
         } catch (ModelNotFoundException $e) {
             abort(404);
         }

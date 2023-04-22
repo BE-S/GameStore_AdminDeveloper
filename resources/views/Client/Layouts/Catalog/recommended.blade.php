@@ -17,11 +17,19 @@
                                     Нет в наличии
                                 </div>
                             @else
-                                <span>
+                                @if ($recommended->game->discount)
+                                    <span class="standard-price">{{ bcdiv($recommended->game->price, 1, 2) . " руб." }}</span>
+                                @endif
+                                <span class="calculation-amount">
                                     {{ $recommended->game->calculationDiscount() . " руб." }}
                                 </span>
                             @endif
                         </div>
+                        @if ($recommended->game->discount && count($recommended->game->keyProduct) > 0)
+                            <div class="discount">
+                                {{ $recommended->game->discount->amount . "%" }}
+                            </div>
+                        @endif
                     </div>
                 </a>
             @endforeach
