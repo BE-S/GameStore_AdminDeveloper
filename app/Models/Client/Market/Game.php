@@ -23,6 +23,11 @@ class Game extends Model
         'developer_id', 'published_id', 'is_published', 'created_at', 'updated_at'
     ];
 
+    public function keyProduct()
+    {
+        return $this->hasMany(KeyProduct::class)->whereNull("deleted_at");
+    }
+
     public function findGamesFromCart($cart)
     {
         return $cart ? $this->whereIn('id', $cart)->get() : null;

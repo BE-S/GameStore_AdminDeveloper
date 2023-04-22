@@ -5,7 +5,17 @@
     <div class="games">
         @foreach ($blockCategory as $block)
             <a class="game" href="{{ route("get.game", $block->game->id) }}">
-                <div class="price">{{ $block->game->price . ' руб.'}}</div>
+                <div class="price">
+                    @if (count($block->game->keyProduct) <= 0)
+                        <div class="stop-out">
+                            Нет в наличии
+                        </div>
+                    @else
+                        <span>
+                        {{ $block->game->calculationDiscount() . " руб." }}
+                    </span>
+                    @endif
+                </div>
                 <div class="game-cover">
                     <picture class="image">
                         <img src="{{ "/storage/" . $block->game->gameCover->poster }}">
@@ -38,9 +48,15 @@
                 </div>
             </a>
             <div class="price">
-                <div>
-                    {{ bcdiv($row->game->calculationDiscount(), 1, 2) . " руб."}}
-                </div>
+                @if (count($row->game->keyProduct) <= 0)
+                    <div class="stop-out">
+                        Нет в наличии
+                    </div>
+                @else
+                    <span>
+                        {{ $row->game->calculationDiscount() . " руб." }}
+                    </span>
+                @endif
             </div>
         </div>
     </div>

@@ -12,9 +12,15 @@
                             <img src="{{ "/storage/" . $recommended->game->gameCover->small }}">
                         </picture>
                         <div class="price">
-                            <span>
-                                {{ $recommended->game->calculationDiscount() . " руб." }}
-                            </span>
+                            @if (count($recommended->game->keyProduct) <= 0)
+                                <div class="stop-out">
+                                    Нет в наличии
+                                </div>
+                            @else
+                                <span>
+                                    {{ $recommended->game->calculationDiscount() . " руб." }}
+                                </span>
+                            @endif
                         </div>
                     </div>
                 </a>
