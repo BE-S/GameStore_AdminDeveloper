@@ -3,11 +3,13 @@
 namespace App\Jobs\Market;
 
 use App\Models\Client\Login\Cart;
+use App\Models\Client\Market\Game;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CartJob implements ShouldQueue
 {
     protected $cart;
+    protected $game;
     protected $Key;
 
     /**
@@ -18,6 +20,7 @@ class CartJob implements ShouldQueue
     public function __construct()
     {
         $this->cart = new Cart();
+        $this->game = new Game();
     }
 
     public function getGamesCart()

@@ -31,10 +31,10 @@ class ReservationController extends BaseController
             }
 
             $cartGames = $cartJob->getGamesCart();
-            $amountCart = $cartJob->amountCart($cartGames);
+            $amountCart = $cartJob->amountCart($cartGames->games_id);
 
             $getData = $reservationJob->createDataRequest($amountCart, $request->cartGames);
-            $reservationProducts = $reservationJob->reservationProduct($cartGames);
+            $reservationProducts = $reservationJob->reservationProduct($cartGames->games_id);
 
             if (isset($reservationProducts['Error'])) {
                 return response()->json($reservationProducts);
