@@ -93,8 +93,8 @@
                         alert("Товар уже добавлен")
                         return;
                     }
-
-                    location = result
+                    console.log(result)
+                    //location = result
                 },
                 statusCode: {
                     401: function (err) {

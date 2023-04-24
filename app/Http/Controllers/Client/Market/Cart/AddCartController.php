@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client\Market\Cart;
 use App\Http\Controllers\Client\Market\BaseController;
 use App\Http\Controllers\Controller;
 use App\Jobs\Market\CartJob;
+use App\Models\Client\Login\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use PHPUnit\Exception;
@@ -15,19 +16,13 @@ class AddCartController extends BaseController
     {
         try {
             $cartJob = new CartJob();
-            $values = $cartJob->getGamesCart();
             $cartGame = $cartJob->getGameCart($request->gameId);
 
             if ($cartGame) {
                 return response()->json(["Duplicate" => true]);
             }
 
-            Session::put('Cart', [$request->gameId]);
-            if (!empty($values)) {
-                foreach ($values as $value) {
-                    Session::push('Cart', $value);
-                }
-            }
+            $cartJob->addGameCart($request->gameId);
 
             return response()->json(route("get.cart"));
         } catch (Exception $e) {

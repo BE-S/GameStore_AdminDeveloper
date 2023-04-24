@@ -31,8 +31,8 @@ class DereservationGameJob implements ShouldQueue
         $order = Orders::where("user_id", auth()->user()->id)->where("status", "В ожидании")->first();
         $reservationProducts = $order ? $this->keyProduct->getReservationProducts($order->id) : null;
 
-        if (!is_array($cartGames)) {
-            $reservationProducts = $reservationProducts->where('game_id', $cartGames);
+        if (!$reservationProducts) {
+            return false;
         }
 
         foreach ($reservationProducts as $reservationProduct) {

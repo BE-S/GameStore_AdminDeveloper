@@ -64,6 +64,7 @@
                     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (result) {
+                    console.log(result)
                     if (result['Error']) {
                         alert(result['message'])
                         return;
@@ -111,6 +112,7 @@
                             $("#count-games").text("0")
                             $(".amount").text("Итого: " + result['Amount'] + " Рублей");
                         }
+                        console.log(result)
                     },
                     statusCode: {
                         401: function (err) {

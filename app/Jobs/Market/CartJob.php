@@ -2,18 +2,12 @@
 
 namespace App\Jobs\Market;
 
-use App\Models\Client\Market\Game;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
+use App\Models\Client\Login\Cart;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Session;
 
 class CartJob implements ShouldQueue
 {
-    protected $game;
+    protected $cart;
     protected $Key;
 
     /**
@@ -23,30 +17,53 @@ class CartJob implements ShouldQueue
      */
     public function __construct()
     {
-        $this->game = new Game();
+        $this->cart = new Cart();
     }
 
     public function getGamesCart()
     {
-        return Session::get("Cart");
+        return $this->cart->getGamesCart();
     }
 
     public function getGameCart($gameId)
     {
         $cart = $this->getGamesCart();
-        $this->key = $this->findKeySession($gameId, $cart);
+        $cartGames = $cart->games_id;
 
-        return Session::get('Cart.' . $this->key);
+        $this->key = $this->findKeySession($gameId, $cartGames);
+
+        return $cartGames ? $cartGames[$this->key] : null;
+    }
+
+    public function addGameCart($gameId)
+    {
+        $cartGames = $this->getGamesCart();
+        $games = $cartGames->games_id;
+
+        $games[$games ? count($games) : 0] = $gameId;
+
+        $cartGames->update([
+            'games_id' => $games
+        ]);
     }
 
     public function deleteGameCart()
     {
-        Session::pull("Cart." . $this->key);
+        $cartGames = $this->getGamesCart();
+        $games = $cartGames->games_id;
+
+        unset($games[$this->key]);
+
+        $cartGames->update([
+            'games_id' => $games
+        ]);
     }
 
-    public function deleteCart()
+    public function deleteCart(Cart $cartGames)
     {
-        Session::pull("Cart");
+        $cartGames->update([
+            'games_id' => []
+        ]);
     }
 
     public function amountCart($cartGames)

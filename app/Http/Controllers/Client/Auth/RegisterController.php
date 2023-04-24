@@ -28,6 +28,7 @@ class RegisterController extends Controller
 
         $user = $registerUser->createUser();
         $registerUser->createDefaultAvatar($user->id);
+        $registerUser->createCart($user->id);
 
         $this->dispatch(new SendVarificationJob($user['email'], $user['job_hash'], 'get.verification'));
 

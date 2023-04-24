@@ -4,6 +4,7 @@ namespace App\Jobs\Auth;
 
 use App\Mail\Verification;
 use App\Models\Client\Login\Avatar;
+use App\Models\Client\Login\Cart;
 use App\Models\Employee\Employee;
 use App\Models\Employee\Role;
 use App\Models\Client\User;
@@ -63,10 +64,17 @@ class RegisterJob implements ShouldQueue
         ]);
     }
 
-    public function createDefaultAvatar($user_id)
+    public function createDefaultAvatar($userId)
     {
         Avatar::create([
-            "user_id" => $user_id,
+            "user_id" => $userId,
+        ]);
+    }
+
+    public function createCart($userId)
+    {
+        Cart::create([
+            "user_id" => $userId
         ]);
     }
 }

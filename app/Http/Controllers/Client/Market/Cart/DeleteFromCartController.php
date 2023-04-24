@@ -29,7 +29,7 @@ class DeleteFromCartController extends BaseController
             $cartJob->deleteGameCart();
 
             $cart = $cartJob->getGamesCart();
-            $games = $cart ? $game->whereIn('id', $cart)->get() : null;
+            $games = $cart ? $game->whereIn('id', $cart->games_id)->get() : null;
 
             return response()->json([
                 'Success' => true,
@@ -52,7 +52,7 @@ class DeleteFromCartController extends BaseController
             $cartGames = $cartJob->getGamesCart();
             $dereservationJob->deReservationProduct($cartGames);
 
-            $cartJob->deleteCart();
+            $cartJob->deleteCart($cartGames);
             return response()->json([
                 'Success' => true,
                 'Amount' => "0.00"
