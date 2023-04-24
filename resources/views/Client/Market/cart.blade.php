@@ -112,7 +112,6 @@
                             $("#count-games").text("0")
                             $(".amount").text("Итого: " + result['Amount'] + " Рублей");
                         }
-                        console.log(result)
                     },
                     statusCode: {
                         401: function (err) {
