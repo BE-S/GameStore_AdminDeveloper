@@ -16,9 +16,14 @@ class KeyProduct extends Model
         return $this->belongsTo(Game::class, "game_id", 'id');
     }
 
-    public function getReservationProducts()
+    public function games()
     {
-        return $this->where("user_id", auth()->user()->id)->where("deleted_at", null)->get();
+        return $this->belongsToMany(Game::class, "game_id", 'id');
+    }
+
+    public function getReservationProducts($orderId)
+    {
+        return $this->where("order_id", $orderId)->where("deleted_at", null)->get();
     }
 
     public function getProducts($cartGames)
@@ -33,54 +38,5 @@ class KeyProduct extends Model
             $product->push($game);
         }
         return $product;
-    }
-
-    public function reservationProduct($cartGames)
-    {
-        $reservationProducts = $this->getReservationProducts();
-
-        if ($reservationProducts) {
-            foreach ($reservationProducts as $reservationProduct) {
-                unset($cartGames[array_search($reservationProduct->game_id, $cartGames)]);
-            }
-        }
-
-        if (empty($cartGames))
-            return $reservationProducts;
-
-        $notReservationProducts = $this->getProducts($cartGames);
-
-        if ($notReservationProducts['Error']) {
-            return $notReservationProducts;
-        }
-
-        foreach ($notReservationProducts as $notReservationProduct) {
-            $notReservationProduct->update([
-                "user_id" => auth()->user()->id,
-                "reservation_at" => Carbon::now(),
-            ]);
-
-            $reservationProducts->push($notReservationProduct);
-        }
-
-        return $reservationProducts;
-    }
-
-    public function deReservationProduct($cartGames)
-    {
-        $reservationProducts = $this->getReservationProducts();
-
-        if (!$cartGames)
-            return false;
-
-        if (!is_array($cartGames))
-            $reservationProducts = $reservationProducts->where('game_id', $cartGames);
-
-        foreach ($reservationProducts as $reservationProduct) {
-            $reservationProduct->update([
-                "user_id" => null,
-                "reservation_at" => null,
-            ]);
-        }
     }
 }

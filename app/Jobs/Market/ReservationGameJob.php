@@ -2,8 +2,10 @@
 
 namespace App\Jobs\Market;
 
+use App\Models\Client\Market\Discount;
 use App\Models\Client\Market\Game;
 use App\Models\Client\Market\KeyProduct;
+use App\Models\Client\Market\Orders;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -12,11 +14,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use PhpParser\Node\Expr\Array_;
 
 class ReservationGameJob implements ShouldQueue
 {
     protected $keyProduct;
     protected $game;
+    protected $discount;
+    protected $orderModel;
     /**
      * Create a new job instance.
      *
@@ -26,6 +31,8 @@ class ReservationGameJob implements ShouldQueue
     {
         $this->keyProduct = new KeyProduct();
         $this->game = new game();
+        $this->discount = new Discount();
+        $this->orderModel = new Orders();
     }
 
     public function createDataRequest($amountCart, $cartGames)
@@ -45,7 +52,18 @@ class ReservationGameJob implements ShouldQueue
 
     public function reservationProduct($cartGames)
     {
-        $reservationProducts = $this->keyProduct->getReservationProducts();
+        $order = $this->orderModel->where("user_id", auth()->user()->id)->where("status", "В ожидании")->first();
+
+        $reservationProducts = $order ? $this->keyProduct->getReservationProducts($order->id) : collect();
+        $games = Game::whereIn("id", $cartGames)->get();
+
+        if ($order && count($order->games_id) != count($cartGames)) {
+            $order->update([
+                'games_id' => $cartGames,
+                'amount' => $this->game->calculationAmountPrice($games),
+                'discounts_id' => $this->discount->discountArray($cartGames),
+            ]);
+        }
 
         if ($reservationProducts) {
             foreach ($reservationProducts as $reservationProduct) {
@@ -63,12 +81,24 @@ class ReservationGameJob implements ShouldQueue
         }
 
         foreach ($notReservationProducts as $notReservationProduct) {
+            $reservationProducts->push($notReservationProduct);
+        }
+
+        if (!$order) {
+            $order = $this->orderModel->create([
+                'user_id' => auth()->user()->id,
+                'games_id' => $cartGames,
+                'discounts_id' => $this->discount->discountArray($cartGames),
+                'amount' => $this->game->calculationAmountPrice($games),
+                'status' => "В ожидании",
+            ]);
+        }
+
+        foreach ($notReservationProducts as $notReservationProduct) {
             $notReservationProduct->update([
-                "user_id" => auth()->user()->id,
+                "order_id" => $order->id,
                 "reservation_at" => Carbon::now(),
             ]);
-
-            $reservationProducts->push($notReservationProduct);
         }
 
         return $reservationProducts;

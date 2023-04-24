@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Models\Client\Market;
+
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Orders extends Model
+{
+    protected $guarded = [
+        'id', 'created_at'
+    ];
+
+    protected $fillable = [
+        'user_id', 'games_id', 'discounts_id', 'amount', 'status', 'updated_at', 'deleted_at'
+    ];
+
+    protected $hidden = [
+        'updated_at', 'deleted_at'
+    ];
+
+    /**
+     * Get the min settings for pc
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function gamesId(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => json_decode($value, true),
+            set: fn ($value) => json_encode($value),
+        );
+    }
+
+    /**
+     * Get the max settings for pc
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function discountsId(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => json_decode($value, true),
+            set: fn ($value) => json_encode($value),
+        );
+    }
+}
