@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Client\Market\Cart;
 
 use App\Http\Controllers\Client\Market\BaseController;
-use App\Http\Controllers\Controller;
 use App\Jobs\Market\CartJob;
+use App\Jobs\Market\DereservationGameJob;
 use App\Models\Client\Market\Game;
-use App\Models\Client\Market\KeyProduct;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use PHPUnit\Exception;
 
 class DeleteFromCartController extends BaseController
@@ -16,9 +14,10 @@ class DeleteFromCartController extends BaseController
     public function deleteCart(Request $request)
     {
         try {
-            $keyProduct = new KeyProduct();
-            $cartJob = new CartJob();
             $game = new Game();
+
+            $cartJob = new CartJob();
+            $dereservationJob = new DereservationGameJob();
 
             $cartGame = $cartJob->getGameCart($request->gameId);
 
@@ -26,7 +25,7 @@ class DeleteFromCartController extends BaseController
                 return response()->json(['Error' => true]);
             }
 
-            $keyProduct->deReservationProduct($cartGame);
+            $dereservationJob->deReservationProduct($cartGame);
             $cartJob->deleteGameCart();
 
             $cart = $cartJob->getGamesCart();
@@ -47,10 +46,11 @@ class DeleteFromCartController extends BaseController
     public function deleteAllCart(Request $request)
     {
         try {
-            $keyProduct = new KeyProduct();
             $cartJob = new CartJob();
+            $dereservationJob = new DereservationGameJob();
+
             $cartGames = $cartJob->getGamesCart();
-            $keyProduct->deReservationProduct($cartGames);
+            $dereservationJob->deReservationProduct($cartGames);
 
             $cartJob->deleteCart();
             return response()->json([
