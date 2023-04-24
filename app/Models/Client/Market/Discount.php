@@ -2,7 +2,6 @@
 
 namespace App\Models\Client\Market;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Discount extends Model
@@ -22,5 +21,10 @@ class Discount extends Model
     public function game()
     {
         return $this->belongsTo(Game::class);
+    }
+
+    public function discountArray($gameId)
+    {
+        return $this->select("game_id", 'amount')->whereIn("game_id", $gameId)->get();
     }
 }
