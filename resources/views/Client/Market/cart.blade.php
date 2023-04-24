@@ -64,7 +64,6 @@
                     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (result) {
-                    console.log(result)
                     if (result['Error']) {
                         alert(result['message'])
                         return;
