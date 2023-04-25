@@ -24,21 +24,23 @@ class ReservationController extends BaseController
             $reservationJob = new ReservationGameJob();
             $cartJob = new CartJob();
             $redirectJob = new RedirectJob();
+            $orderModel = new Orders();
 
             $user = User::findOrFail(auth()->user()->id);
             if (empty($request->cartGames)) {
                 return response()->json(['Error' => false]);
             }
 
+            $order = $orderModel->where("user_id", auth()->user()->id)->where("status", "В ожидании")->first();
             $cartGames = $cartJob->getGamesCart();
             $amountCart = $cartJob->amountCart($cartGames->games_id);
-
-            $getData = $reservationJob->createDataRequest($amountCart, $request->cartGames);
-            $reservationProducts = $reservationJob->reservationProduct($cartGames->games_id);
+            $reservationProducts = $reservationJob->reservationProduct($order, $cartGames->games_id);
 
             if (isset($reservationProducts['Error'])) {
                 return response()->json($reservationProducts);
             }
+
+            $getData = $reservationJob->createDataRequest($order->id, $amountCart, $request->cartGames);
 
             return response()->json(
                 $redirectJob->redirectGetRequest("https://pay.freekassa.ru", $getData)

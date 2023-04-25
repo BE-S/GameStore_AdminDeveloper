@@ -34,7 +34,7 @@ class SuccessController extends Controller
             "phone" => "79515786945",
             "cur" => 1,
         ];
-        $sign = md5($data["merchant_id"].':'.$data["amount"].':'.$data["merchant_secret"].':'.$data["user_id"]);
+//        $sign = md5($data["merchant_id"].':'.$data["amount"].':'.$data["merchant_secret"].':'.$data["user_id"]);
 
 
         //if (!in_array($this->getIP(), array('168.119.157.136', '168.119.60.227', '138.201.88.124', '178.154.197.79'))) die("hacking attempt!");

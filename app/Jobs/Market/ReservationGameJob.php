@@ -21,7 +21,6 @@ class ReservationGameJob implements ShouldQueue
     protected $keyProduct;
     protected $game;
     protected $discount;
-    protected $orderModel;
     /**
      * Create a new job instance.
      *
@@ -35,13 +34,13 @@ class ReservationGameJob implements ShouldQueue
         $this->orderModel = new Orders();
     }
 
-    public function createDataRequest($amountCart, $cartGames)
+    public function createDataRequest($orderId, $amountCart, $cartGames)
     {
         return $get = array(
             'm' => config("payment.freekassa.merchant_id"),
             'oa' => $amountCart,
-            'o' => $cartGames,
-            's' => md5(config("payment.freekassa.merchant_id").':'.$amountCart.':'.config("payment.freekassa.secret_word").':'.config("payment.freekassa.currency").':'),
+            'o' => $orderId,
+            's' => md5(config("payment.freekassa.merchant_id").':'.$amountCart.':'.config("payment.freekassa.secret_word").':'.config("payment.freekassa.currency").':'.$orderId),
             'currency' => config("payment.freekassa.currency"),
             'i' => config("payment.freekassa.i"),
             'lang' => config("payment.freekassa.lang"),
@@ -50,10 +49,8 @@ class ReservationGameJob implements ShouldQueue
         );
     }
 
-    public function reservationProduct($cartGames)
+    public function reservationProduct($order, $cartGames)
     {
-        $order = $this->orderModel->where("user_id", auth()->user()->id)->where("status", "В ожидании")->first();
-
         $reservationProducts = $order ? $this->keyProduct->getReservationProducts($order->id) : collect();
         $games = Game::whereIn("id", $cartGames)->get();
 
