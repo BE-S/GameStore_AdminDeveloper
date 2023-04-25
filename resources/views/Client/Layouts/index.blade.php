@@ -37,7 +37,7 @@
                                 <span>
                                     <a href="{{ route("get.cart") }}">
                                         <img src="http://localhost:8080/image/icon/cart.png" class="icon">
-                                        <span id="count-games">{{ empty(session()->get('Cart')) ? 0 : count(session()->get('Cart')) }}</span>
+                                        <span id="count-games">{{ $countCart ? $countCart : 0 }}</span>
                                     </a>
                                 </span>
                             </div>
