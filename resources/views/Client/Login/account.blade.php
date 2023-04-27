@@ -31,7 +31,7 @@
         </div>
         <div id="history-purchase">
             <div class="title">История покупок</div>
-                    @forelse($library as $product)
+                    @forelse($library as $key => $product)
                         <div class="game">
                             <div class="cover">
                                 <img src="{{ "/storage/" . $product->game->gameCover->small }}">
@@ -39,16 +39,17 @@
                             <div id="description">
                                 <div class="left">
                                     <div>Название: {{ $product->game->name }}</div>
-                                    <div>Дата покупки: {{ $product->created_at->format('d.m.Y') }}</div>
+                                    <div>Дата покупки: {{ $product->created_at ? $product->created_at->format('d.m.Y') : "Недавно" }}</div>
                                 </div>
                                 <div class="right">
-                                        <div>Стоимость: {{ $product->purchase->amount_payment . " рублей" }}</div>
-                                        <div>Скидка: {{ $product->purchase->discount . "%"}}</div>
+                                        <div>Стоимость: {{ $product->game->price . " рублей" }}</div>
+                                        <div>Скидка: {{ $product->discount_amount . "%" }}</div>
                                         <div>Сумма:
-                                            @if ($product->purchase->discount == 0)
-                                                {{ $product->purchase->amount_payment }}
+                                            @if ($product->discount_amount == 0)
+                                                {{ $product->game->price }}
                                             @else
-                                                {{ ($product->purchase->amount_payment * $product->purchase->discount) / 100 . " рублей"}}
+                                                {{--Переделать этот метод--}}
+                                                {{ $product->calculationDiscount() . " рублей"}}
                                             @endif
                                         </div>
                                 </div>

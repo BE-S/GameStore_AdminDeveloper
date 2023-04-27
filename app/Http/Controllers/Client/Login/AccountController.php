@@ -12,8 +12,12 @@ class AccountController extends Controller
     public function index()
     {
         $user = User::findUserId(Auth::user()->id);
-        $library = Library::where("user_id", $user->id)->get();
+        $library = Library::where("user_id", $user->id)->orderBy("created_at", "desc")->get();
         $bankCard = $user->bankCard;
+
+        foreach ($library as $key => $product) {
+            $library[$key]['discount_amount'] = $product->purchase->order->getDiscountFromOrder($product->game_id);
+        }
 
         return view('Client.Login.account', compact("user", "library", "bankCard"));
     }
