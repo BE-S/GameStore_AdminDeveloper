@@ -74,7 +74,8 @@ class RegisterJob implements ShouldQueue
     public function createCart($userId)
     {
         Cart::create([
-            "user_id" => $userId
+            "user_id" => $userId,
+            "games_id" => []
         ]);
     }
 }
