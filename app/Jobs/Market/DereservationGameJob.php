@@ -42,7 +42,7 @@ class DereservationGameJob implements ShouldQueue
             ]);
         }
 
-        if (count($reservationProducts) <= 1 && $order) {
+        if (count($reservationProducts) < 1 && $order) {
             $order->update([
                 'status' => "Отменён",
                 'deleted_at' => Carbon::now(),

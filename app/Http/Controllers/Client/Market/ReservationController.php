@@ -31,15 +31,15 @@ class ReservationController extends BaseController
                 return response()->json(['Error' => false]);
             }
 
-            $order = $orderModel->where("user_id", auth()->user()->id)->where("status", "В ожидании")->first();
             $cartGames = $cartJob->getGamesCart();
             $amountCart = $cartJob->amountCart($cartGames->games_id);
-            $reservationProducts = $reservationJob->reservationProduct($order, $cartGames->games_id);
+            $reservationProducts = $reservationJob->reservationProduct($cartGames->games_id);
 
             if (isset($reservationProducts['Error'])) {
                 return response()->json($reservationProducts);
             }
 
+            $order = $orderModel->findOrderWait();
             $getData = $reservationJob->createDataRequest($order->id, $amountCart, $request->cartGames);
 
             return response()->json(

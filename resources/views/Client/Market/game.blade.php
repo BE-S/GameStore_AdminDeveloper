@@ -15,21 +15,18 @@
             @endguest
 
             @auth()
-                @if (empty($hasProductUser))
-                    @if ($game->discount)
-                        <span class="standard-price">{{ bcdiv($game->price, 1, 2) . " руб." }}</span>
-                    @endif
+                @if ($game->discount)
+                    <span class="standard-price">{{ bcdiv($game->price, 1, 2) . " руб." }}</span>
+                @endif
                     <span class="calculation-amount">
                         {{ $game->calculationDiscount() . " руб." }}
                     </span>
-                    @if ($cartGame)
-                        <a class="to-cart" href="{{ route("get.cart") }}">В корзине</a>
-                    @else
-                        <a class="to-cart" href="javascript:addToCart({{$game->id}});">В корзину</a>
-                    @endif
+                @if ($cartGame)
+                    <a class="to-cart" href="{{ route("get.cart") }}">В корзине</a>
                 @else
-                    В библиотеке
+                    <a class="to-cart" href="javascript:addToCart({{$game->id}});">В корзину</a>
                 @endif
+                @else
             @endauth
         </div>
     </div>

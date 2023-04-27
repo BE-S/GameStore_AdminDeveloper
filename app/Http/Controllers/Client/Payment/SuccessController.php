@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Client\Payment;
 
+use App\Helpers\Collection;
 use App\Http\Controllers\Controller;
 use App\Jobs\Email\SendKeyProductJob;
+use App\Jobs\Market\ReservationGameJob;
+use App\Jobs\Payment\PurchasedGameJob;
+use App\Models\Client\Login\Cart;
 use App\Models\Client\Login\Library;
+use App\Models\Client\Market\Orders;
 use App\Models\Client\Market\PurchasedGame;
 use App\Models\Client\Market\KeyProduct;
 use App\Models\User;
@@ -24,17 +29,14 @@ class SuccessController extends Controller
         //Занести key_product_id
         $data = [
             "merchant_id" => '29390',
+            "amount" => 2499.99,
+            "MERCHANT_ORDER_ID" => $_GET['MERCHANT_ORDER_ID'],
             "merchant_secret" => 'K2X!x[e?/7z[J01',
-            "user_id" => auth()->user()->id,
-            "game_id" => 1,
-            "discount" => 0,
             "int_id" => 1,
-            "amount" => 999.99,
             "email" => "danil.dogi007@mail.ru",
-            "phone" => "79515786945",
             "cur" => 1,
         ];
-//        $sign = md5($data["merchant_id"].':'.$data["amount"].':'.$data["merchant_secret"].':'.$data["user_id"]);
+        $sign = md5($data["merchant_id"].':'.$data["amount"].':'.$data["merchant_secret"].':'.auth()->user()->id);
 
 
         //if (!in_array($this->getIP(), array('168.119.157.136', '168.119.60.227', '138.201.88.124', '178.154.197.79'))) die("hacking attempt!");
@@ -47,21 +49,49 @@ class SuccessController extends Controller
 
         //Оплата прошла успешно, можно проводить операцию.
         try {
+            $library = new Library();
+            $purchasedGame = new PurchasedGame();
             $keyProduct = new KeyProduct();
+            $purchasedGameJob = new PurchasedGameJob();
 
-            //НУЖНО КАК-ТО РЕЗЕРВИРОВАТЬ ТОВАР ЧТОБЫ ЧЕЛОВЕК НЕ МОГ КУПИТЬ НЕ СУЩЕСТВУЮЩИЙ ТОВАР
-            $key = $keyProduct->where("user_id", $data["user_id"])->first();
-            $key->update(["deleted_at" => Carbon::now()]);
+            if ($purchasedGame->checkPurchased($data['MERCHANT_ORDER_ID'])) {
+                die('Заказ уже оплачен');
+            }
 
-            $this->dispatch(new SendKeyProductJob($data["email"], $key->key_code));
+            $order = Orders::find($data['MERCHANT_ORDER_ID']);
+            $orderCorrect = $purchasedGameJob->checkOrder($order, $data);
+
+            if (isset($orderCorrect['error'])) {
+                die($orderCorrect['message']);
+            }
+
+            $keys = $keyProduct->where("order_id", $data['MERCHANT_ORDER_ID'])->get();
+            $notAibilytyKeys = $purchasedGameJob->checkavAilabilityKeys($keys);
+
+            if ($notAibilytyKeys) {
+                $reservationJob = new ReservationGameJob();
+                $reservationProducts = $reservationJob->reservationProduct($notAibilytyKeys);
+
+                if (isset($reservationProducts['Error'])) {
+                    die("К сожалению товар закончился. Обратитесь в техподдержку, за возратом средств.");
+                }
+            }
+            $keyCode = Collection::getColumnsFromCollection($keys, "key_code");
+            $gameId = Collection::getColumnsFromCollection($keys, "game_id");
+
+            $order->update(['status' => "Оплачено"]);
+            $keyProduct->deleteKeyProduct($keys);
+            $purchaseRecord = $purchasedGame->createPurchesedGame($data, $keyCode, $sign);
+            $library->addLibraryGame(auth()->user()->id, $gameId, $purchaseRecord->id);
+
+            $cart = new Cart();
+            $cartGames = $cart->getGamesCart();
+            $cartGames->updateGames([]);
+
+            $this->dispatch(new SendKeyProductJob($data["email"], $keyCode, $gameId));
         } catch (ModelNotFoundException $e) {
             dd($e);
         }
-        $library = new Library();
-        $purchasedGame = new PurchasedGame();
-
-        $purchaseRecord = $purchasedGame->createPurchesedGame($data, $key, $sign);
-        $library->addLibraryGame($data["user_id"], $data["game_id"], $purchaseRecord->id);
 
         die("yes");
     }

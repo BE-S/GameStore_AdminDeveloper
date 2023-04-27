@@ -20,6 +20,22 @@ class Orders extends Model
         'updated_at', 'deleted_at'
     ];
 
+    public function findOrderWait()
+    {
+        return $this->where("user_id", auth()->user()->id)->where("status", "В ожидании")->first();
+    }
+
+    public function getDiscountFromOrder($gameId) {
+        $discounts = Discount::whereIn("id", $this->discounts_id)->get();
+
+        foreach ($discounts as $discount) {
+            if ($discount->game_id == $gameId) {
+                return $discount->amount;
+            }
+        }
+        return 0;
+    }
+
     /**
      * Get the min settings for pc
      *

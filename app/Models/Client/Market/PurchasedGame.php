@@ -12,24 +12,30 @@ class PurchasedGame extends Model
     ];
 
     protected $fillable = [
-        "user_id", "game_id", "discount", "key_id", "merchant_order_id", "int_id", "amount_payment", "p_email", "p_phone", "cur_id", "sign"
+        "user_id", "key_id", "merchant_order_id", "int_id", "amount_payment", "cur_id", "sign"
     ];
 
     protected $hidden = [
-        "merchant_order_id", "int_id", "cur_id", "sign"
+        "int_id", "cur_id", "sign"
     ];
 
-    public function createPurchesedGame($data, $key, $sign) {
+    public function order()
+    {
+        return $this->belongsTo(Orders::class, "merchant_order_id");
+    }
+
+    public function checkPurchased($order_id)
+    {
+        return $this->where("merchant_order_id", $order_id)->first();
+    }
+
+    public function createPurchesedGame($data, $keyCode, $sign) {
         return $this->create([
-            "user_id" => $data["user_id"],
-            "game_id" => $data["game_id"],
-            "discount" => $data["discount"],
-            "key_id" => $key->id,
-            "merchant_order_id" => $data["merchant_id"],
-            "int_id" => $data["int_id"],
+            "user_id" => auth()->user()->id,
             "amount_payment" => $data["amount"],
-            "p_email" => $data["email"],
-            "p_phone" => $data["phone"],
+            "key_id" => json_encode($keyCode),
+            "merchant_order_id" => $data["MERCHANT_ORDER_ID"],
+            "int_id" => $data["int_id"],
             "cur_id" => $data["cur"],
             "sign" => $sign
         ]);

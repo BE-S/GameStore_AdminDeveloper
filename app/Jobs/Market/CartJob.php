@@ -10,7 +10,7 @@ class CartJob implements ShouldQueue
 {
     protected $cart;
     protected $game;
-    protected $Key;
+    protected $key;
 
     /**
      * Create a new job instance.
@@ -31,11 +31,15 @@ class CartJob implements ShouldQueue
     public function getGameCart($gameId)
     {
         $cart = $this->getGamesCart();
-        $cartGames = $cart->games_id;
 
+        if (count($cart->games_id) == 0) {
+            return null;
+        }
+
+        $cartGames = $cart->games_id;
         $this->key = $this->findKeySession($gameId, $cartGames);
 
-        return $cartGames ? $cartGames[$this->key] : null;
+        return $this->key === false ? null : $cartGames[$this->key];
     }
 
     public function addGameCart($gameId)
@@ -56,6 +60,7 @@ class CartJob implements ShouldQueue
         $games = $cartGames->games_id;
 
         unset($games[$this->key]);
+        $games = array_values($games);
 
         $cartGames->update([
             'games_id' => $games

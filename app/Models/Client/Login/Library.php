@@ -19,7 +19,7 @@ class Library extends Model
 
     public function purchase()
     {
-        return $this->belongsTo(PurchasedGame::class);
+        return $this->belongsTo(PurchasedGame::class, "purchase_id");
     }
 
     public function game()
@@ -32,12 +32,19 @@ class Library extends Model
         return $this->where("user_id", $user_id)->where("game_id", $game_id)->first();
     }
 
-    public function addLibraryGame($userId, $gameId, $purchaseId)
+    public function calculationDiscount()
     {
-        $this->create([
-           "user_id" => $userId,
-           "game_id" => $gameId,
-           "purchase_id" => $purchaseId
-        ]);
+        return empty($this->discount_amount) ? $this->game->price : bcdiv($this->game->price - ($this->game->price / 100 * $this->discount_amount), 1, 2);
+    }
+
+    public function addLibraryGame($userId, $games, $purchaseId)
+    {
+        foreach ($games as $game) {
+            $this->create([
+                "user_id" => $userId,
+                "game_id" => $game,
+                "purchase_id" => $purchaseId
+            ]);
+        }
     }
 }

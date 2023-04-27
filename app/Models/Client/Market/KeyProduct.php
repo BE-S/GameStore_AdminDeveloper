@@ -39,4 +39,11 @@ class KeyProduct extends Model
         }
         return $product;
     }
+
+    public function deleteKeyProduct($keys)
+    {
+        foreach ($keys as $key) {
+            $key->update(["deleted_at" => Carbon::now()]);
+        }
+    }
 }

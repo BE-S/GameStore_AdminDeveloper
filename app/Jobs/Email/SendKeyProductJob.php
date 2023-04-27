@@ -3,6 +3,7 @@
 namespace App\Jobs\Email;
 
 use App\Mail\KeyProductMail;
+use App\Models\Client\Market\Game;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,17 +17,19 @@ class SendKeyProductJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $email;
-    protected $key_code;
+    protected $keyCode;
+    protected $games;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($email, $key_code)
+    public function __construct($email, $keyCode, $gameId)
     {
         $this->email = $email;
-        $this->key_code = $key_code;
+        $this->keyCode = $keyCode;
+        $this->games = Game::whereIn("id", $gameId)->get();
     }
 
     /**
@@ -36,6 +39,6 @@ class SendKeyProductJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new KeyProductMail($this->key_code));
+        Mail::to($this->email)->send(new KeyProductMail($this->keyCode, $this->games));
     }
 }

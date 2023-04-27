@@ -2,6 +2,7 @@
 
 namespace App\Models\Client\Market;
 
+use App\Helpers\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Discount extends Model
@@ -25,6 +26,8 @@ class Discount extends Model
 
     public function discountArray($gameId)
     {
-        return $this->select("game_id", 'amount')->whereIn("game_id", $gameId)->get();
+        $discount = $this->select("id")->whereIn("game_id", $gameId)->get();
+
+        return Collection::getColumnsFromCollection($discount, "id");
     }
 }

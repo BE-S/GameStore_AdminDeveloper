@@ -13,15 +13,17 @@ class KeyProductMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $keyGame;
+    protected $keyCode;
+    protected $games;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($keyGame)
+    public function __construct($keyCode, $games)
     {
-        $this->keyGame = $keyGame;
+        $this->keyCode = $keyCode;
+        $this->games = $games;
     }
 
     /**
@@ -44,9 +46,10 @@ class KeyProductMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'Client/Mail/key-product',
+            view: 'Client/Mail/Purchase',
             with: [
-                'keyGame' => $this->keyGame,
+                'keyCode' => $this->keyCode,
+                'games' => $this->games,
             ]
         );
     }

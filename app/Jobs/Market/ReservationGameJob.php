@@ -21,6 +21,7 @@ class ReservationGameJob implements ShouldQueue
     protected $keyProduct;
     protected $game;
     protected $discount;
+    protected $orderModel;
     /**
      * Create a new job instance.
      *
@@ -49,12 +50,13 @@ class ReservationGameJob implements ShouldQueue
         );
     }
 
-    public function reservationProduct($order, $cartGames)
+    public function reservationProduct($cartGames)
     {
+        $order = $this->orderModel->findOrderWait();
         $reservationProducts = $order ? $this->keyProduct->getReservationProducts($order->id) : collect();
         $games = Game::whereIn("id", $cartGames)->get();
 
-        if ($order && count($order->games_id) != count($cartGames)) {
+        if ($order && ($this->checkUpdateCart($order, $cartGames) || $this->checkExistDiscounts($order, $cartGames))) {
             $order->update([
                 'games_id' => $cartGames,
                 'amount' => $this->game->calculationAmountPrice($games),
@@ -99,5 +101,15 @@ class ReservationGameJob implements ShouldQueue
         }
 
         return $reservationProducts;
+    }
+
+    public function checkExistDiscounts($order, $cartGames)
+    {
+        return count(array_intersect($order->discounts_id, $this->discount->discountArray($cartGames))) != count($this->discount->discountArray($cartGames));
+    }
+
+    public function checkUpdateCart($order, $cartGames)
+    {
+        return count(array_intersect($order->games_id, $cartGames)) != count($order->games_id);
     }
 }
