@@ -12,7 +12,7 @@
         </div>
         <div class="form-group">
             <label>Описание игры</label>
-            <textarea type="text" name="description">{{ $game ? $game->description : null }}</textarea>
+            <textarea id="summernote" type="text" name="description">{{ $game ? $game->description : null }}</textarea>
             <label class="error-description"></label>
         </div>
         <div class="form-group">
