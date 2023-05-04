@@ -33,13 +33,13 @@ class CartJob implements ShouldQueue
         $cart = $this->getGamesCart();
 
         if (count($cart->games_id) == 0) {
-            return null;
+            return false;
         }
 
         $cartGames = $cart->games_id;
         $this->key = $this->findKeySession($gameId, $cartGames);
 
-        return $this->key === false ? null : $cartGames[$this->key];
+        return $this->key === false ? false : $cartGames[$this->key];
     }
 
     public function addGameCart($gameId)
