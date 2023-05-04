@@ -16,11 +16,13 @@ class GameController extends BaseController
     public function showPage($id)
     {
         try {
-            $library = new Library();
             $cartJob = new CartJob();
 
             $game = Game::findOrFail($id);
-            $user = Auth::user();
+
+            if (!$game->is_published) {
+                abort(404);
+            }
 
             $cartGame = $cartJob->getGameCart($game->id);
 

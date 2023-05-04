@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Admin\Product\CreateProduct;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UploadDescriptionDataRequest extends FormRequest
+class UploadDataRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +25,7 @@ class UploadDescriptionDataRequest extends FormRequest
     public function rules()
     {
         return [
+            'gameId' => 'integer',
             'name' => 'required|string|max:64',
             'price' => 'required|numeric',
             'description' => 'required|string',
@@ -40,8 +42,8 @@ class UploadDescriptionDataRequest extends FormRequest
             'price.required' => 'Поле не должно быть пустым!',
             'price.numeric' => 'Цена указывается цифрами. Пример: 100.00',
             'description.required' => 'Поле не должно быть пустым!',
-            'min_settings.*.required' => 'Поле не должно быть пустым!',
-            'max_settings.*.required' => 'Поле не должно быть пустым!',
+            'min_settings.*.required' => 'Поле "ОС" не должно быть пустым!',
+            'max_settings.*.required' => 'Поле "ОС" не должно быть пустым!',
             'min_settings.*.max:24' => 'Максимум 24 символа',
             'max_settings.*.max:24' => 'Максимум 24 символа',
         ];

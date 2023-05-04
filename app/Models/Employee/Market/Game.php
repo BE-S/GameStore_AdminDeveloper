@@ -2,20 +2,31 @@
 
 namespace App\Models\Employee\Market;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Game extends Model
+class Game extends \App\Models\Client\Market\Game
 {
     /**
      * Write code on Method
      *
      * @return response()
      */
-    protected $fillable = [
-        'name', 'price', 'description', 'min_settings', 'max_settings', 'developer_id', 'published_id'
+
+    protected $guarded = [
+        'id', 'created_at'
     ];
+
+    protected $fillable = [
+        'name', 'price', 'description', 'min_settings', 'max_settings', 'is_published', 'developer_id', 'published_id', 'deleted_at'
+    ];
+
+    public function deleteGame()
+    {
+        $this->update([
+            'deleted_at' => Carbon::now()
+        ]);
+    }
 
     /**
      * Get the min settings for pc

@@ -3,6 +3,12 @@
 @section('content')
     <link rel="stylesheet" href="/css/client/game-slider.css">
 
+    @if (!$game->is_published)
+        <div id="published">
+            <div>Не опубликовано</div>
+        </div>
+    @endif
+
     @include('Client.Layouts.Game.slider-game', $game)
 
     <div class="block-text" id="add-cart">
@@ -15,18 +21,25 @@
             @endguest
 
             @auth()
-                @if ($game->discount)
-                    <span class="standard-price">{{ bcdiv($game->price, 1, 2) . " руб." }}</span>
-                @endif
-                    <span class="calculation-amount">
-                        {{ $game->calculationDiscount() . " руб." }}
-                    </span>
-                @if ($cartGame)
-                    <a class="to-cart" href="{{ route("get.cart") }}">В корзине</a>
+                @if (count($game->keyProduct) <= 0)
+                    <div class="stop-out" style="justify-content: end">
+                        Нет в наличии
+                    </div>
                 @else
-                    <a class="to-cart" href="javascript:addToCart({{$game->id}});">В корзину</a>
+                    @if ($game->discount)
+                        <span class="standard-price">{{ bcdiv($game->price, 1, 2) . " руб." }}</span>
+                    @endif
+                        <span class="calculation-amount">
+                            {{ $game->calculationDiscount() . " руб." }}
+                        </span>
+                    @isset($cartGame)
+                        @if ($cartGame)
+                            <a class="to-cart" href="{{ route("get.cart") }}">В корзине</a>
+                        @else
+                            <a class="to-cart" href="javascript:addToCart({{$game->id}});">В корзину</a>
+                        @endif
+                    @endisset
                 @endif
-                @else
             @endauth
         </div>
     </div>

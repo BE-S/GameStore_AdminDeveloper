@@ -15,7 +15,7 @@ class SearchProductControoler extends BaseController
         foreach ($arr as $item) {
             dump($item);
         }
-        dd(113);
+
         $games = Game::where("name", "ilike" , "%$query%")->get();
 
         foreach ($games as $game) {

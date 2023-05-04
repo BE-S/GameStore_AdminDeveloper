@@ -1,7 +1,14 @@
 <?php
 
+use App\Http\Controllers\Employee\Dashboard\IndexlController;
+use App\Http\Controllers\Employee\Dashboard\Product\Add\CoverController;
+use App\Http\Controllers\Employee\Dashboard\Product\Add\DataController;
+use App\Http\Controllers\Employee\Dashboard\Product\Add\UploadCoverController;
+use App\Http\Controllers\Employee\Dashboard\Product\Add\UploadDataController;
+use App\Http\Controllers\Employee\Dashboard\Product\DashboardGameController;
+use App\Http\Controllers\Employee\Dashboard\Product\SearchGameController;
+use App\Http\Controllers\Employee\Product\PreviewGameController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Employee\Product\List\ListFinishedProductController;
 use App\Http\Controllers\Client\Market\GameController;
 use App\Http\Controllers\Client\Market\CatalogController;
 use App\Http\Controllers\Client\Payment\ResultController;
@@ -14,6 +21,9 @@ use App\Http\Controllers\Client\Market\Catalog\LoadingGamesController;
 use App\Http\Controllers\Client\Market\Cart\CartController;
 use App\Http\Controllers\Client\Market\Cart\AddCartController;
 use App\Http\Controllers\Client\Market\Cart\DeleteFromCartController;
+use App\Http\Controllers\Employee\Dashboard\Product\DashbordGamesController;
+use App\Http\Controllers\Employee\Dashboard\Product\PublishController;
+use App\Http\Controllers\Employee\Dashboard\Product\DeleteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,20 +89,29 @@ Route::group(['prefix' => 'admin'], function () {
     });
 
     Route::group(['middleware' => 'admin'], function () {
-        Route::group(['prefix' => 'create/page-game'], function () {
-            route::get('', '\App\Http\Controllers\Employee\Product\Create\CreateGameController@showPage')->name('get.create.page-game');
-            route::get('/hash={hash}', '\App\Http\Controllers\Employee\Product\Create\CreateGameController@showPage')->name('get.create.page-game.upload.cover');
-        });
-        route::post('/upload/data/game', '\App\Http\Controllers\Employee\Product\Create\UploadDescriptionController@uploadData')->name('post.upload.description.data');
-        route::post('/upload/covers/game', '\App\Http\Controllers\Employee\Product\Create\UploadCoverController@uploadCovers')->name('post.upload.covers.data');
+        Route::group(['prefix' => '/dashboard'], function () {
+            route::get('/', [IndexlController::class, 'showPage'])->name('get.dashboard');
 
-        //ИЗМЕНЕНИЕ КАРТИНОК СТРАНИЦЫ
-        Route::group(['prefix' => 'change/page-game'], function () {
-            route::get('/{id}', [])->name('get.change.upload-cover');
+        Route::group(['prefix' => '/upload/game'], function () {
+            Route::group(['prefix' => '/data'], function () {
+                route::get('/{id?}', [DataController::class, 'showPage'])->name('get.dashboard.upload.game.data');
+                route::post('/loading', [UploadDataController::class, 'uploadData'])->name('post.dashboard.upload.game.data.loading');
+                route::post('update/loading', [UploadDataController::class, 'uploadUpdateData'])->name('post.dashboard.upload.game.data.update.loading');
+            });
+            Route::group(['prefix' => '/cover'], function () {
+                route::get('/{id}', [CoverController::class, 'showPage'])->name('get.dashboard.upload.game.cover');
+                route::post('/loading', [UploadCoverController::class, 'uploadCovers'])->name('post.dashboard.upload.game.cover.loading');
+                route::post('update/loading', [UploadCoverController::class, 'uploadUpdateCover'])->name('post.dashboard.upload.game.cover.update.loading');
+            });
         });
-        //ИЗМЕНЕНИЕ КАРТИНОК СТРАНИЦЫ
+            route::get('/game/{id}', [DashboardGameController::class, 'showPage'])->name('get.dashboard.game');
+            route::post('/publish', [PublishController::class, 'changePublish'])->name('post.dashboard.publish');
+            route::post('/delete', [DeleteController::class, 'delete'])->name('post.dashboard.delete');
+            route::get('/games', [DashbordGamesController::class, 'showPage'])->name('get.dashboard.games');
+            route::post('/games/search', [SearchGameController::class, 'search'])->name('post.dashboard.games.search');
+        });
 
-        Route::get('/search', [ListFinishedProductController::class, 'showPage']);
+        route::get('preview/game/{id}', [PreviewGameController::class, 'showPage'])->name('get.admin.game');
     });
 });
 
