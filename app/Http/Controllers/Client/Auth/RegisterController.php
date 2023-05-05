@@ -23,7 +23,10 @@ class RegisterController extends Controller
         $registerUser = new RegisterJob(new User(), $credentials, $service->generateHashPass($credentials['password']));
 
         if ($registerUser->checkUser()) {
-            return response()->json(['result' => false]);
+            return response()->json([
+                'error' => true,
+                'message' => 'Пользователь уже существует'
+            ]);
         }
 
         $user = $registerUser->createUser();
@@ -32,6 +35,9 @@ class RegisterController extends Controller
 
         $this->dispatch(new SendVarificationJob($user['email'], $user['job_hash'], 'get.verification'));
 
-        return response()->json(['result' => true]);
+        return response()->json([
+            'success' => true,
+            'message' => 'На вашу почту выслано сообщение с ссылкой на авторизацию'
+        ]);
     }
 }

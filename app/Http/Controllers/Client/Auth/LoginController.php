@@ -11,6 +11,7 @@ use App\Jobs\RedirectJob;
 use App\Models\Client\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\ValidationException;
 
 
 class LoginController extends Controller
@@ -22,18 +23,30 @@ class LoginController extends Controller
 
     public function login(SigInRequest $request, AuthService $service)
     {
-        $credentials = $request->only('email', 'password');
-        $login = new LoginJob(new User(), $credentials);
-        $redirect = new RedirectJob();
+        try {
+            $credentials = $request->only('email', 'password');
+            $login = new LoginJob(new User(), $credentials);
+            $redirect = new RedirectJob();
 
-        if (!$login->checkUser() || $login->checkEmployee()) {
-            return response()->json(['error' => 'Пользователь не существует']);
+            if (!$login->checkUser() || $login->checkEmployee()) {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Пользователь не существует'
+                ]);
+            }
+
+            if (!$login->authentication()) {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Данные не верны'
+                ]);
+            }
+
+            return response()->json(['success' => $redirect->redirectPastUrl()]);
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'errors' => $exception->validator->errors()->all()
+            ], 400);
         }
-
-        if (!$login->authentication()) {
-            return response()->json(['error' => 'Не верный пароль']);
-        }
-
-        return response()->json(['success' => $redirect->redirectPastUrl()]);
     }
 }
