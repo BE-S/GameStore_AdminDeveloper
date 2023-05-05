@@ -21,7 +21,7 @@
     margin-top: 2em;
 }
 
-#information, #public, #delete {
+#information, #preview, #public, #delete {
     margin-top: 1.5em;
 }
 
@@ -47,7 +47,7 @@
     width: 25em;
 }
 
-.change-settings #description {
+.change-settings #data {
     margin-right: 0.7em;
 }
 

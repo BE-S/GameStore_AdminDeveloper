@@ -16,8 +16,6 @@ class SearchGameController extends Controller
         }
         $viewLoad = view('Admin.Layouts.games', compact('games'));
 
-        return response()->json([
-            'viewLoad' => $viewLoad->toHtml(),
-        ]);
+        return response()->json(['viewLoad' => $viewLoad->toHtml()]);
     }
 }

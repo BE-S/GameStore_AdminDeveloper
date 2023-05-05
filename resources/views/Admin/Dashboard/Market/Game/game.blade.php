@@ -2,14 +2,18 @@
 
 @section('content')
 
+    <link rel="stylesheet" href="/css/admin/preview.css">
+    <link rel="stylesheet" href="/css/client/game-slider.css">
+
     <div class="window-setting">
         <img src="{{ '/storage/' . $game->gameCover->small }}">
         <div class="buttons">
             <div class="change-settings">
-                <button type="button" id="description" class="btn btn-info">Изменить описание</button>
+                <button type="button" id="data" class="btn btn-info">Изменить описание</button>
                 <button type="button" id="screen" class="btn btn-info">Изменить скрины</button>
             </div>
             <button type="button" id="information" class="btn btn-primary">Информация</button>
+            <button type="button" id="preview" class="btn btn-primary">Предпросмотр страницы</button>
             <button type="button" id="public" class="btn btn-success">{{ $game->is_published ? 'Снять с публикации' : 'Опубликовать' }}</button>
             <button type="button" id="delete" class="btn btn-danger">Удалить</button>
         </div>
@@ -27,9 +31,12 @@
 
     <script>
         $(function () {
-            $('#description').bind('click', function (e) {
+            $('#data').bind('click', function (e) {
                 if ($('.change-cover').css('display') !== 'none') {
                     $('.change-cover').toggle('active')
+                }
+                if ($('.background-preview')) {
+                    $('.background-preview').remove()
                 }
                 $('.change-data').toggle('active')
             })
@@ -38,7 +45,22 @@
                 if ($('.change-data').css('display') !== 'none') {
                     $('.change-data').toggle('active')
                 }
+                if ($('.background-preview')) {
+                    $('.background-preview').remove()
+                }
                 $('.change-cover').toggle('active')
+            })
+
+            $('#preview').bind('click', function (e) {
+                if ($('.background-preview')) {
+                    $('.background-preview').remove()
+                }
+                if ($('.change-data').css('display') !== 'none') {
+                    $('.change-data').toggle('active')
+                }
+                if ($('.change-cover').css('display') !== 'none') {
+                    $('.change-cover').toggle('active')
+                }
             })
 
             $('#game-info').bind('click', function (e) {
@@ -223,6 +245,37 @@
                         } else {
                             $('#public').text('Опубликовать')
                         }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        var errors = jqXHR.responseJSON.errors;
+                    },
+                    statusCode: {
+                        401: function (err) {
+                            console.log(err);
+                        },
+                        500: function (err) {
+                            console.log(err);
+                        }
+                    }
+                })
+            });
+
+            $('#preview').bind('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '{{ route('post.dashboard.preview') }}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        gameId: {{ $game ? $game->id : null }}
+                    },
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (result) {
+                        $('.window-content').append(result['loadView'])
+                        let slide = $('.carousel-item').first()
+                        slide.attr('class', 'carousel-item active');
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         var errors = jqXHR.responseJSON.errors;

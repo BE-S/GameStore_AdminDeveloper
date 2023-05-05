@@ -7,7 +7,7 @@ use App\Http\Controllers\Employee\Dashboard\Product\Add\UploadCoverController;
 use App\Http\Controllers\Employee\Dashboard\Product\Add\UploadDataController;
 use App\Http\Controllers\Employee\Dashboard\Product\DashboardGameController;
 use App\Http\Controllers\Employee\Dashboard\Product\SearchGameController;
-use App\Http\Controllers\Employee\Product\PreviewGameController;
+use App\Http\Controllers\Employee\Dashboard\Product\PreviewPageGameController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\Market\GameController;
 use App\Http\Controllers\Client\Market\CatalogController;
@@ -105,13 +105,14 @@ Route::group(['prefix' => 'admin'], function () {
             });
         });
             route::get('/game/{id}', [DashboardGameController::class, 'showPage'])->name('get.dashboard.game');
-            route::post('/publish', [PublishController::class, 'changePublish'])->name('post.dashboard.publish');
-            route::post('/delete', [DeleteController::class, 'delete'])->name('post.dashboard.delete');
             route::get('/games', [DashbordGamesController::class, 'showPage'])->name('get.dashboard.games');
             route::post('/games/search', [SearchGameController::class, 'search'])->name('post.dashboard.games.search');
-        });
 
-        route::get('preview/game/{id}', [PreviewGameController::class, 'showPage'])->name('get.admin.game');
+            //Buttons
+            route::post('/publish', [PublishController::class, 'changePublish'])->name('post.dashboard.publish');
+            route::post('/preview', [PreviewPageGameController::class, 'getPage'])->name('post.dashboard.preview');
+            route::post('/delete', [DeleteController::class, 'delete'])->name('post.dashboard.delete');
+        });
     });
 });
 
