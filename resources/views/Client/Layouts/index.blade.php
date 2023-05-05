@@ -46,10 +46,16 @@
                 </div>
                 @auth()
                     @if (url()->current() != route('get.account'))
-                        <a id="account" href="{{ route("get.account") }}">
-                            <img class="image" src="{{ asset('/storage/' . $account->avatar->path_small) }}">
-                            <div>{{ $account->name }}</div>
-                        </a>
+                        <div class="nav-account">
+                            <a id="account" href="{{ route("get.account") }}">
+                                <img class="image" src="{{ asset('/storage/' . $account->avatar->path_small) }}">
+                                <div>{{ $account->name }}</div>
+                                <li class="nav-item dropdown">
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="{{ route('get.logout') }}">Выйти</a>
+                                    </div>
+                                </li>
+                            </a>
                     @endif
                 @endauth
                 @guest()
