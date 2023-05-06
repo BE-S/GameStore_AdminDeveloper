@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginJob implements ShouldQueue
 {
-    protected $credentials;
+    protected $login;
+    protected $remember;
     protected $user;
 
     /**
@@ -22,9 +23,10 @@ class LoginJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($model, $credentials)
+    public function __construct($model, $login, $remember)
     {
-        $this->credentials = $credentials;
+        $this->login = $login;
+        $this->remember = $remember;
     }
 
     /**
@@ -34,7 +36,7 @@ class LoginJob implements ShouldQueue
      */
     public function checkUser()
     {
-        $this->user = User::where('email', $this->credentials['email'])->first();
+        $this->user = User::where('email', $this->login['email'])->first();
 
         return $this->user;
     }
@@ -57,6 +59,6 @@ class LoginJob implements ShouldQueue
 
     public function authentication()
     {
-        return Auth::attempt($this->credentials, true);
+        return Auth::attempt($this->login, $this->remember);
     }
 }

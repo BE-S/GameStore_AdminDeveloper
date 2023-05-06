@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Employee\Auth\Employee;
 use App\Models\Employee\Client;
 use App\Models\Client\User;
 use Closure;

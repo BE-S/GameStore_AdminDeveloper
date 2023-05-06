@@ -5,31 +5,54 @@ namespace App\Http\Controllers\Employee\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\Auth\SigInRequest;
 use App\Jobs\Auth\LoginJob;
+use App\Jobs\IpJob;
 use App\Models\Client\User;
+use App\Models\Employee\Employee;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
     public function showView()
     {
-        return view('Admin.Auth.login');
+        $ipJob = new IpJob();
+        $employee = new Employee();
+        $employeeIp = $employee->getEmployeeIp($ipJob->getIp());
+
+        return $employeeIp ? view('Admin.Auth.login') : abort(403);
     }
 
     public function login(SigInRequest $request)
     {
-        $credentials = $request->only('email', 'password');
+        try {
+            $remember = $request->only('remember');
+            $login = $request->only('email', 'password');
 
-        $login = new LoginJob(new User(), $credentials);
+            $login = new LoginJob(new User(), $login, $remember);
 
-        if (!$login->checkUser() || $login->checkRoleEmployee()) {
-            return response()->json(['error' => 'Пользователь не существует']);
+            if (!$login->checkUser() || $login->checkRoleEmployee()) {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Пользователь не существует',
+                ]);
+            }
+
+            if (!$login->authentication()) {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Не верный пароль',
+                ]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'href' => route('get.dashboard'),
+            ]);
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'errors' => $exception->validator->errors()->all()
+            ], 400);
         }
-
-        if (!$login->authentication()) {
-            return response()->json(['error' => 'Не верный пароль']);
-        }
-
-        return response()->json(['success' => true]);
     }
 }

@@ -79,6 +79,7 @@
 
             function clearError()
             {
+                $('.server-message').text('')
                 $('.error-message.email').text('')
                 $('.error-message.password').text('')
                 $('#InputEmail').css('border', 'none')
