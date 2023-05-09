@@ -1,6 +1,6 @@
 @extends('Admin.Layouts.index')
 
-@section('content')
+@section('panel')
 
 <div class="background-admin">
     <div class="login-box">
@@ -76,8 +76,7 @@
                     },
                     success: function (result) {
                         clearError()
-                        console.log(result)
-                        return
+
                         if (result['error']) {
                             $('.server-message').css('color', 'red').text(result['message'])
                         }
@@ -89,6 +88,10 @@
                         var errors = jqXHR.responseJSON.errors;
                         clearError()
 
+                        if (result) {
+                            alert('Ошибка сервера');
+                            return;
+                        }
                         if (errors['email']) {
                             $('#InputEmail').css('border', '1px solid red')
                             $('.error-message.email').css('color', 'red').text(errors['email'])

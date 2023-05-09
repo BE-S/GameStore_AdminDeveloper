@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Employee\Dashboard\Product\Add;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Product\CreateProduct\UploadCoverRequest;
-use App\Http\Requests\Admin\Product\UpdateProduct\UpdateCoverRequest;
+    use App\Http\Requests\Employee\Product\CreateProduct\UploadCoverRequest;
+use App\Http\Requests\Employee\Product\UpdateProduct\UpdateCoverRequest;
 use App\Jobs\Employee\Product\Upload\GameCoverJob;
 use App\Models\Employee\Market\Game;
 use App\Models\Employee\Market\GameCover;

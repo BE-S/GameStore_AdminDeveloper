@@ -8,7 +8,7 @@
         $('#game-cover').bind('click', function (e) {
             e.preventDefault();
             var formData = new FormData($('form')[0])
-            var gameId = {{ $game ? $game->id : null }}
+            var gameId = {{ isset($game) ? $game->id : null }}
             formData.append('gameId', gameId)
 
             $.ajax({

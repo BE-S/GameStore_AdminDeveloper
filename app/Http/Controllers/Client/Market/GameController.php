@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs\Market\CartJob;
 use App\Models\Client\Login\Library;
 use App\Models\Client\Market\Game;
+use App\Models\Client\Market\Review;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -17,16 +18,15 @@ class GameController extends BaseController
     {
         try {
             $cartJob = new CartJob();
-
             $game = Game::findOrFail($id);
+            $reviews = Review::where('game_id', $game->id)->orderBy('created_at', 'desc')->take(10)->get();
 
             if (!$game->is_published) {
                 abort(404);
             }
-
             $cartGame = $cartJob->getGameCart($game->id);
 
-            return view("Client.Market.game", compact('game', 'cartGame'));
+            return view("Client.Market.game", compact('game', 'cartGame', 'reviews'));
         } catch (ModelNotFoundException $e) {
             abort(404);
         }

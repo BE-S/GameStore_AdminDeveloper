@@ -25,7 +25,7 @@ class LoginController extends Controller
     {
         try {
             $credentials = $request->only('email', 'password');
-            $login = new LoginJob(new User(), $credentials);
+            $login = new LoginJob($credentials, true);
             $redirect = new RedirectJob();
 
             if (!$login->checkUser() || $login->checkEmployee()) {

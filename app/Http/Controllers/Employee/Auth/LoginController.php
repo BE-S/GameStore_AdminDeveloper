@@ -20,7 +20,7 @@ class LoginController extends Controller
         $employee = new Employee();
         $employeeIp = $employee->getEmployeeIp($ipJob->getIp());
 
-        return $employeeIp ? view('Admin.Auth.login') : abort(403);
+        return $employeeIp ? view('Admin.Auth.login') : abort(404);
     }
 
     public function login(SigInRequest $request)
@@ -29,7 +29,7 @@ class LoginController extends Controller
             $remember = $request->only('remember');
             $login = $request->only('email', 'password');
 
-            $login = new LoginJob(new User(), $login, $remember);
+            $login = new LoginJob($login, $remember);
 
             if (!$login->checkUser() || $login->checkRoleEmployee()) {
                 return response()->json([

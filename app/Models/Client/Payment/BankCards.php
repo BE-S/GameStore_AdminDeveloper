@@ -17,6 +17,6 @@ class BankCards extends Model
     }
 
     public function checkDuplicate($number) {
-        return $this->where('number', $number)->first();
+        return $this->where('user_id', auth()->user()->id)->where('number', $number)->first();
     }
 }

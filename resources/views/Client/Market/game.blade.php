@@ -9,9 +9,11 @@
         </div>
     @endif
 
-    @include('Client.Layouts.Game.slider-game', $game)
+    @include('Client.Widgets.Game.slider-game', compact('game'))
 
-    @include('Client.Layouts.Game.information-game', compact('game', 'cartGame'))
+    @include('Client.Widgets.Game.information-game', compact('game', 'cartGame'))
+
+    @include('Client.Widgets.Game.review', compact('reviews'))
 
     <script>
         function addToCart(id) {

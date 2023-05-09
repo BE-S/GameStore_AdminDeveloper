@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Employee\Dashboard\Product\Add;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Product\CreateProduct\UploadDataRequest;
+use App\Http\Requests\Employee\Product\CreateProduct\UploadDataRequest;
 use App\Jobs\Employee\Product\Upload\GameDescriptionJob;
 use App\Models\Client\Market\Game;
 use App\Models\Employee\Market\GameCover;
@@ -31,7 +31,7 @@ class UploadDataController extends Controller
             }
             GameCover::createCoverGame($createGame->id, "assets/game/Default/Default.png");
 
-            return response()->json(["href" => route('get.upload.game.cover', $createGame->id)]);
+            return response()->json(["href" => route('get.dashboard.upload.game.cover', $createGame->id)]);
         } catch (ValidationException $exception) {
             return response()->json([
                 'errors' => $exception->validator->errors()->all()

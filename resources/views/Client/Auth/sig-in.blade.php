@@ -57,6 +57,10 @@
                         var errors = jqXHR.responseJSON.errors;
                         clearError()
 
+                        if (!errors) {
+                            alert('Ошибка сервера')
+                            return;
+                        }
                         if (errors['email']) {
                             $('#InputEmail').css('border', '1px solid red')
                             $('.error-message.email').text(errors['email'])

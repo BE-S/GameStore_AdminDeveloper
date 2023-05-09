@@ -23,7 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function bankCard()
     {
-        return $this->hasMany(BankCards::class);
+        return $this->hasMany(BankCards::class, 'user_id');
     }
 
     public function avatar()

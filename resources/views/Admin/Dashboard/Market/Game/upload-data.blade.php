@@ -8,15 +8,14 @@
             $('#game-info').bind('click', function (e) {
                 e.preventDefault();
 
-                const formDataMin = {};
-                const formDataMax = {};
+                const formDataMin = {}
+                const formDataMax = {}
 
                 $.ajax({
-                    url: '{{ route("post.dashboard.upload.game.data.loading") }}',
+                    url: '{{ route("post.dashboard.upload.game.data.update.loading") }}',
                     type: "POST",
                     dataType: 'json',
                     data: {
-                        gameId: {{ $game ? $game->id : null }},
                         name: $('input[name="name"]').val(),
                         price: $('input[name="price"]').val(),
                         description: $('textarea[name="description"]').val(),

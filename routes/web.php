@@ -96,12 +96,12 @@ Route::group(['prefix' => 'admin'], function () {
             Route::group(['prefix' => '/data'], function () {
                 route::get('/{id?}', [DataController::class, 'showPage'])->name('get.dashboard.upload.game.data');
                 route::post('/loading', [UploadDataController::class, 'uploadData'])->name('post.dashboard.upload.game.data.loading');
-                route::post('update/loading', [UploadDataController::class, 'uploadUpdateData'])->name('post.dashboard.upload.game.data.update.loading');
+                route::post('update/loading', [UploadDataController::class, 'uploadData'])->name('post.dashboard.upload.game.data.update.loading');
             });
             Route::group(['prefix' => '/cover'], function () {
                 route::get('/{id}', [CoverController::class, 'showPage'])->name('get.dashboard.upload.game.cover');
                 route::post('/loading', [UploadCoverController::class, 'uploadCovers'])->name('post.dashboard.upload.game.cover.loading');
-                route::post('update/loading', [UploadCoverController::class, 'uploadUpdateCover'])->name('post.dashboard.upload.game.cover.update.loading');
+                route::post('update/loading', [UploadCoverController::class, 'uploadCover'])->name('post.dashboard.upload.game.cover.update.loading');
             });
         });
             route::get('/game/{id}', [DashboardGameController::class, 'showPage'])->name('get.dashboard.game');

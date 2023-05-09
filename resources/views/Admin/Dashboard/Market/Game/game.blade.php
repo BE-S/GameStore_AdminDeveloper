@@ -19,12 +19,12 @@
         </div>
     </div>
     <div class="window-content">
-        <div class="change-data">
-            @include('Admin.Layouts.input-data', $game)
-            <div class="change-message data"></div>
-        </div>
         <div class="change-cover">
             @include('Admin.Layouts.input-cover', $game)
+            <div class="alert change-message cover" role="alert"></div>
+        </div>
+        <div class="change-data">
+            @include('Admin.Layouts.input-data', $game)
             <div class="alert change-message cover" role="alert"></div>
         </div>
     </div>

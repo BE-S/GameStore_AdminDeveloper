@@ -23,7 +23,7 @@ class LoginJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($model, $login, $remember)
+    public function __construct($login, $remember)
     {
         $this->login = $login;
         $this->remember = $remember;

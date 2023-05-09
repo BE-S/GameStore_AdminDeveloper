@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-data">
     <form id="data">
         <div class="form-group">
             <label>Название игры</label>
@@ -37,6 +37,6 @@
                 <label class="error-max"></label>
             </div>
         </div>
-        <input type="submit" id="game-info">
+        <div id="game-info" class="btn btn-primary">Отправить<div>
     </form>
 </div>
