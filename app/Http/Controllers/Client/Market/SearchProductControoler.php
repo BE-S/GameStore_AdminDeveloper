@@ -4,32 +4,27 @@ namespace App\Http\Controllers\Client\Market;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client\Market\Game;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class SearchProductControoler extends BaseController
 {
+    //$arr = explode(',', $query);
     public function searchGet($query)
     {
-        $arr = explode(',', $query);
+        $game = new Game();
+        $games = $game->searchName($query);
 
-        foreach ($arr as $item) {
-            dump($item);
-        }
-
-        $games = Game::where("name", "ilike" , "%$query%")->get();
-
-        foreach ($games as $game) {
-            echo $game->name . " " . $game->price . "<br>";
-        };
+        return view('Client.Market.search', compact('games', 'query'));
     }
 
     public function searchPost(Request $request)
     {
         $credentials = $request->only('query');
-        $query = $credentials['query'];
+        $game = new Game();
+        $games = $game->searchName($credentials['query']);
+        $viewLoad = view('Client.Layouts.Catalog.search-input', compact('games'));
 
-        $games = Game::where("name", "ilike" , "%$query%")->take(5)->get();
-
-        return response()->json([$games]);
+        return response()->json(['viewLoad' => $viewLoad->toHtml()]);
     }
 }

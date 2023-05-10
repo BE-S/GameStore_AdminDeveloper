@@ -24,6 +24,8 @@
             var maxCategory = 1;
             var actionScroll = true;
 
+            $('.footer').css('display', 'none')
+
             $(window).scroll(function() {
                 var scroll = $(window).scrollTop() + $(window).height()
                 //Если скролл до конца елемента

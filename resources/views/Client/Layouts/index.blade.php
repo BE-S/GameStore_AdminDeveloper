@@ -22,7 +22,8 @@
             <nav id="navigation">
                 <div class="index">
                     <div id="search-field">
-                        <input id="insertedSpace" type="text" placeholder="Поиск">
+                        <input id="insertedSpace" type="text" autocomplete="off" placeholder="Поиск">
+                        <div id="search-result"></div>
                     </div>
                         <div id="links">
                             <div class="left">
@@ -105,8 +106,23 @@
                 }
             });
 
+            $('body').on('change', function(event) {
+                console.log(event.target)
+                if (!$(event.target).is('#search-result')) {
+                    $('#search-result').css('display', 'none')
+                    $('#search-result').empty()
+                }
+                if ($(event.target).is('#insertedSpace')) {
+                    $('#search-result').css('display', 'flex')
+                }
+            });
+
             $("#insertedSpace").keyup(function (e) {
                 let name = $('#insertedSpace').val()
+
+                if (name.length <= 0) {
+                    $('#search-result').css('display', 'none')
+                }
 
                 if (name.length > 0) {
                     let last = name.length - 1
@@ -133,11 +149,10 @@
                             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function (result) {
-                            $.each(result, function (index, value) {
-                                $.each(value, function (index, element) {
-                                    console.log(element['name'])
-                                })
-                            })
+                            if ($('#search-result')) {
+                                $('#search-result').empty()
+                            }
+                            $('#search-result').append(result['viewLoad'])
                         },
                         statusCode: {
                             401: function (err) {

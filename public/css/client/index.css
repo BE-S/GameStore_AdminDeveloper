@@ -66,6 +66,38 @@ header #navigation {
     justify-content: space-between;
 }
 
+#search-result {
+    position: absolute;
+    flex-direction: column;
+    display: none;
+    z-index: 2;
+    top: 6em;
+    background-color: rgb(52 4 84 / 92%);
+    width: calc(31em + 8px);
+}
+
+#search-result a {
+    display: flex;
+    padding: 0.5em;
+    align-items: center;
+}
+
+#search-result a:hover {
+    background-color: rgb(255 255 255 / 4%);
+}
+
+#search-result img {
+    width: 46%;
+}
+
+#search-result div {
+    margin-left: 0.5em;
+}
+
+#search-result p {
+    margin: 0;
+}
+
 #links {
     margin-top: 0.4vw;
 }
@@ -348,7 +380,7 @@ main {
 
 .background.block {
     display: flex;
-    width: 83em;
+    width: 100%;
     flex-direction: column;
     background: rgba(0, 0, 0, 0.4);
 }
@@ -904,11 +936,13 @@ main {
 /*footer*/
 
 .footer {
-    display: none;
-    align-items: center;
+    display: flex;
     justify-content: center;
     background-color: rgb(0 0 0 / 31%);
     padding: 2em 0;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
 }
 
 .social-network a img {
@@ -1138,4 +1172,59 @@ main {
     text-align: initial;
     font-size: 1em;
     margin-bottom: 0.5em;
+}
+
+/*search*/
+.result {
+    margin: 2em 20em;
+}
+
+.link-game {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+    background-color: rgb(255 255 255 / 1%);
+}
+
+.result img {
+    width: 23em;
+}
+.search .search-text {
+    margin-top: 1em;
+    margin-left: 21em;
+}
+
+.search #query {
+    font-weight: bold;
+}
+
+.result .name,
+.result .price {
+    font-size: 1.3em;
+}
+
+.result .inscription {
+    width: 100%;
+    margin-left: 3em;
+}
+
+.result .grade {
+    width: 100%;
+    text-align: end;
+    margin-right: 2em;
+}
+
+.result .name {
+
+}
+
+.result .price {
+    display: flex;
+    flex-direction: row;
+}
+
+.result .price .standard-price {display: flex;align-items: center;}
+
+.result .price .calculation-amount {
+    padding-left: 0.5em;
 }

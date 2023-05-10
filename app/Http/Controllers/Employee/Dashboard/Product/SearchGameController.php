@@ -10,10 +10,9 @@ class SearchGameController extends Controller
 {
     public function search(Request $request)
     {
-        $games = [];
-        foreach ($request->all() as $key => $category) {
-            $games = Game::where($key, $category)->whereNull('deleted_at')->get();
-        }
+        $game = new Game();
+        $games = $game->searchCategory($request->all());
+
         $viewLoad = view('Admin.Layouts.games', compact('games'));
 
         return response()->json(['viewLoad' => $viewLoad->toHtml()]);

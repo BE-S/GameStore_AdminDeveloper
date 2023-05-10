@@ -20,7 +20,7 @@ class Game extends Model
     ];
 
     protected $hidden = [
-        'developer_id', 'published_id', 'is_published', 'created_at', 'updated_at'
+        'is_published', 'job_hash', 'developer_id', 'published_id', 'created_at', 'updated_at'
     ];
 
     public function keyProduct()
@@ -51,6 +51,20 @@ class Game extends Model
     public function calculationDiscount()
     {
         return empty($this->discount) ? $this->price : bcdiv(($this->price - ($this->price / 100 * $this->discount->amount)), 1, 2);
+    }
+
+    public function searchName($query)
+    {
+        return $this->where("name", "ilike" , "%$query%")->get();
+    }
+
+    public function searchCategory($categories)
+    {
+        $games = [];
+        foreach ($categories as $key => $category) {
+            $games = $this->where($key, $category)->whereNull('deleted_at')->get();
+        }
+        return $games;
     }
 
     public function calculationAmountPrice($cartGames)
