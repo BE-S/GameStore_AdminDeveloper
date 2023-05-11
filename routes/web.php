@@ -25,6 +25,7 @@ use App\Http\Controllers\Employee\Dashboard\Product\DashbordGamesController;
 use App\Http\Controllers\Employee\Dashboard\Product\PublishController;
 use App\Http\Controllers\Employee\Dashboard\Product\DeleteController;
 use App\Http\Controllers\Client\Politics\AgreementController;
+use App\Http\Controllers\Client\Politics\CookieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,7 @@ Route::group(['prefix' => 'cart'], function () {
 
 Route::group(['prefix' => 'politics'], function () {
     route::get('/agreement/{section?}', [AgreementController::class, 'showPage'])->name('get.politics.agreement');
+    route::get('/cookie', [CookieController::class, 'showPage'])->name('get.politics.cookie');
 });
 
 route::post('/loading/games', [LoadingGamesController::class, 'load'])->name('post.load.game');

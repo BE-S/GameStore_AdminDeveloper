@@ -78,7 +78,7 @@
                 <div class="link-politics">
                     <a href="{{ route('get.politics.agreement', 'rights') }}">Права и обязанности сторон</a>
                     <a href="{{ route('get.politics.agreement', 'returns') }}">Возвраты</a>
-                    <a href="{{ route('get.politics.agreement', 'cookie') }}">Файлы cookie</a>
+                    <a href="{{ route('get.politics.cookie') }}">Файлы cookie</a>
                 </div>
             </div>
         </div>

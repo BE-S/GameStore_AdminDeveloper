@@ -1326,6 +1326,8 @@ main {
     width: 80%;
     font-size: 1.2em;
     font-family: 'Ubuntu';
+    background-color: rgb(0 0 0 / 20%);
+    padding: 2em 2em;
 }
 
 .light-text {
