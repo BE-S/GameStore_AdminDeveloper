@@ -40,7 +40,7 @@
                         url: '{{ route('post.load.game') }}',
                         type: "POST",
                         data: {
-                            categoryId: category,
+                            genreId: category,
                         },
                         headers: {
                             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')

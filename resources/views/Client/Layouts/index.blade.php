@@ -71,43 +71,29 @@
         </main>
     </body>
     <footer class="footer">
-        <div class="links">
-            <div class="social-network">
-                <a href="https://vk.com/"><img src="http://localhost:8080/image/icon/Social%20network/VK.png"></a>
-                <a href="https://web.telegram.org/"><img src="http://localhost:8080/image/icon/Social%20network/telegram.png"></a>
-                <a href="https://twitter.com/"><img src="http://localhost:8080/image/icon/Social%20network/twitter.png"></a>
-                <a href="https://www.instagram.com/"><img src="http://localhost:8080/image/icon/Social%20network/instagram.png"></a>
+        <div id="content">
+            <img src="/image/icon/brand.png">
+            <div id="text">
+                {{ \Carbon\Carbon::now()->year }} Сторагамес.рф. Все права защищены.
+                <div class="link-politics">
+                    <a href="{{ route('get.politics.agreement', 'rights') }}">Права и обязанности сторон</a>
+                    <a href="{{ route('get.politics.agreement', 'returns') }}">Возвраты</a>
+                    <a href="{{ route('get.politics.agreement', 'cookie') }}">Файлы cookie</a>
+                </div>
             </div>
-            <div class="up">Вверх</div>
-        </div>
-        <div class="author">Made by BES</div>
-        <div class="purchases">
-            <span>
-                <a>
-                    <img src="http://localhost:8080/image/icon/rus.png" class="icon">
-                    <span id="currency">Rub</span>
-                </a>
-            </span>
-            <span>
-                <a href="{{ route("get.cart") }}">
-                    <img src="http://localhost:8080/image/icon/cart.png" class="icon">
-                    <span id="count-games">{{ empty(session()->get('Cart')) ? 0 : count(session()->get('Cart')) }}</span>
-                </a>
-            </span>
         </div>
     </footer>
     <script>
         $(function ()
         {
-            $('input').keydown(function(e) {
-                if(e.keyCode === 13) {
+            $('#insertedSpace').keydown(function(e) {
+                if (e.keyCode === 13) {
                     let name = $('#insertedSpace').val()
                     location = 'http://localhost:8080/search/' + name
                 }
             });
 
             $('body').on('change', function(event) {
-                console.log(event.target)
                 if (!$(event.target).is('#search-result')) {
                     $('#search-result').css('display', 'none')
                     $('#search-result').empty()

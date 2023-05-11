@@ -82,7 +82,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -190,6 +190,7 @@ return [
          * Application Service Providers...
          */
         App\Providers\IndexViewServiceProvider::class,
+        App\Providers\LanguageProvider::class,
         App\Providers\CollectionHelperProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,

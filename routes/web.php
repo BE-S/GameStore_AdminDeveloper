@@ -6,7 +6,7 @@ use App\Http\Controllers\Employee\Dashboard\Product\Add\DataController;
 use App\Http\Controllers\Employee\Dashboard\Product\Add\UploadCoverController;
 use App\Http\Controllers\Employee\Dashboard\Product\Add\UploadDataController;
 use App\Http\Controllers\Employee\Dashboard\Product\DashboardGameController;
-use App\Http\Controllers\Employee\Dashboard\Product\SearchGameController;
+//use App\Http\Controllers\Employee\Dashboard\Product\SearchGameController;
 use App\Http\Controllers\Employee\Dashboard\Product\PreviewPageGameController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\Market\GameController;
@@ -15,7 +15,7 @@ use App\Http\Controllers\Client\Payment\ResultController;
 use App\Http\Controllers\Client\Payment\SuccessController;
 use App\Http\Controllers\Client\Payment\FailController;
 use App\Http\Controllers\Client\Market\ReservationController;
-use App\Http\Controllers\Client\Market\SearchProductControoler;
+use App\Http\Controllers\Client\Market\SearchGameController;
 use App\Http\Controllers\Client\Login\Card\AddCardController;
 use App\Http\Controllers\Client\Market\Catalog\LoadingGamesController;
 use App\Http\Controllers\Client\Market\Cart\CartController;
@@ -24,6 +24,7 @@ use App\Http\Controllers\Client\Market\Cart\DeleteFromCartController;
 use App\Http\Controllers\Employee\Dashboard\Product\DashbordGamesController;
 use App\Http\Controllers\Employee\Dashboard\Product\PublishController;
 use App\Http\Controllers\Employee\Dashboard\Product\DeleteController;
+use App\Http\Controllers\Client\Politics\AgreementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,8 +36,9 @@ use App\Http\Controllers\Employee\Dashboard\Product\DeleteController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-route::post('/search', [SearchProductControoler::class, "searchPost"])->name("post.search");
-route::get('/search/{query}', [SearchProductControoler::class, "searchGet"])->name("get.search");
+route::post('/search/post', [SearchGameController::class, "searchPost"])->name("post.search");
+route::post('/search/property', [SearchGameController::class, "searchProperty"])->name("post.search.property");
+route::get('/search/{query?}', [SearchGameController::class, "searchGet"])->name("get.search");
 
 Route::group(['middleware' => 'record_url'], function() {
     route::get('/', [CatalogController::class, 'showPage'])->name("get.index");
@@ -46,9 +48,13 @@ Route::group(['middleware' => 'record_url'], function() {
 
 route::post('buy', [ReservationController::class, 'reservationProduct'])->name('get.buy.game');
 Route::group(['prefix' => 'cart'], function () {
-    route::post('add', [AddCartController::class, 'addCart'])->name('post.add.cart');
-    route::post('delete', [DeleteFromCartController::class, 'deleteCart'])->name('post.delete.cart');
-    route::post('delete-all', [DeleteFromCartController::class, 'deleteAllCart'])->name('post.all.delete.cart');
+    route::post('/add', [AddCartController::class, 'addCart'])->name('post.add.cart');
+    route::post('/delete', [DeleteFromCartController::class, 'deleteCart'])->name('post.delete.cart');
+    route::post('/delete-all', [DeleteFromCartController::class, 'deleteAllCart'])->name('post.all.delete.cart');
+});
+
+Route::group(['prefix' => 'politics'], function () {
+    route::get('/agreement/{section?}', [AgreementController::class, 'showPage'])->name('get.politics.agreement');
 });
 
 route::post('/loading/games', [LoadingGamesController::class, 'load'])->name('post.load.game');
@@ -59,7 +65,7 @@ Route::group(['middleware' => 'auth'],  function() {
 
     Route::group(['middleware' => 'verified'], function() {
         route::get('/account/*', '\App\Http\Controllers\Client\Login\AccountController@index')->name('get.account');
-        route::post('add-card', [AddCardController::class, '__invoke'])->name('post.add-card');
+        route::post('/add-card', [AddCardController::class, '__invoke'])->name('post.add-card');
     });
 });
 

@@ -1,7 +1,7 @@
 @extends('Client.Layouts.index')
 
 @section('content')
-    <div class="background block cart" style="text-align: center">
+    <div class="background block cart" style="text-align: center; margin-bottom: 14%">
         <div class="title">Корзина с покупочками</div>
         <div class="games">
             @isset($cartGames)

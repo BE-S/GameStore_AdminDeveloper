@@ -232,7 +232,7 @@ main {
     position: relative;
     flex-direction: row;
     justify-content: end;
-    align-items: end;
+    align-items: center;
     padding-right: 3vw;
     padding-top: 1.4vw;
     padding-bottom: 1.4vw;
@@ -380,9 +380,64 @@ main {
 
 .background.block {
     display: flex;
-    width: 100%;
+    width: 83em;
     flex-direction: column;
     background: rgba(0, 0, 0, 0.4);
+}
+
+.block {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.search.block {
+    width: 100%;
+    flex-direction: row;
+    position: relative;
+    background: rgba(0, 0, 0, 0.4);
+    min-height: 42em;
+}
+
+#search-info {
+    width: 100%;
+}
+
+#search-categories .block .title {
+    background-color: rgb(255 255 255 / 5%);
+    padding: 7px 0;
+    font-weight: bold;
+    padding-left: 3px;
+}
+
+#search-categories {
+    position: absolute;
+    display: flex;
+    align-items: flex-start;
+    margin-top: 2em;
+    margin-right: 1em;
+    right: 1em;
+    padding: 1em 0;
+    background: none;
+    width: 13em;
+    flex-direction: column;
+}
+
+#search-categories p {
+    padding: 8px 0 8px 6px;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+#search-categories p:nth-child(odd) {
+    background-color: rgb(255 255 255 / 5%);
+}
+
+#search-categories input {
+    width: auto;
+}
+
+.search-categories label {
+    padding-left: 1em;
 }
 
 #account-block {
@@ -717,7 +772,7 @@ main {
     margin-left: 1em;
 }
 
-.discount {
+.price .discount {
     position: absolute;
     background: rgb(0 0 0 / 70%);
     font-size: 1.2em;
@@ -940,9 +995,42 @@ main {
     justify-content: center;
     background-color: rgb(0 0 0 / 31%);
     padding: 2em 0;
-    position: absolute;
     width: 100%;
-    bottom: 0;
+    margin-top: 1em;
+}
+
+.footer img {
+    width: 7em;
+    margin-right: 2em;
+}
+
+.footer .link-politics a:nth-child(2) {
+    border-left: 1px solid;
+    border-right: 1px solid;
+    padding: 0 10px;
+}
+
+.footer .link-politics a:nth-child(1) {
+    padding-right: 7px;
+}
+
+.footer .link-politics a:nth-child(3) {
+    padding-left: 7px;
+}
+
+.footer #content {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    height: 5em;
+    align-items: center;
+    padding: 0 3em;
+    border-left: 1px solid;
+    border-right: 1px solid;
+}
+
+.footer #content #text {
+
 }
 
 .social-network a img {
@@ -1227,4 +1315,29 @@ main {
 
 .result .price .calculation-amount {
     padding-left: 0.5em;
+}
+
+.politic {
+    display: flex;
+    justify-content: center;
+}
+
+.agreement {
+    width: 80%;
+    font-size: 1.2em;
+    font-family: 'Ubuntu';
+}
+
+.light-text {
+    color: red;
+    transition: all 5s ease;
+}
+
+.title-header {
+    font-weight: bold;
+    font-size: 1.25em;
+}
+
+.definition {
+    font-weight: 600;
 }

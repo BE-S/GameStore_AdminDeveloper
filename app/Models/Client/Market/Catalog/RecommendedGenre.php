@@ -2,12 +2,12 @@
 
 namespace App\Models\Client\Market\Catalog;
 
-use App\Models\Client\Market\Category;
+use App\Models\Client\Market\Genres;
 use App\Models\Client\Market\Game;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RecommendedCategory extends Model
+class RecommendedGenre extends Model
 {
     public function game()
     {
@@ -16,7 +16,7 @@ class RecommendedCategory extends Model
 
     public function getExistenceId($id)
     {
-        $categories = Category::all();
+        $categories = Genres::all();
         $maxId = $categories->max("id");
 
         for ($id; $id <= $maxId; ++$id) {
@@ -24,7 +24,7 @@ class RecommendedCategory extends Model
             if (!$category) {
                 continue;
             }
-            $recommendedCategory = RecommendedCategory::where("category_id", $id)->limit(7)->get();
+            $recommendedCategory = RecommendedGenre::where("genre_id", $id)->limit(7)->get();
             if ($recommendedCategory->isEmpty() || $recommendedCategory->count() < 7) {
                 continue;
             }

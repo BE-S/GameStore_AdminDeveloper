@@ -20,7 +20,7 @@ class Game extends Model
     ];
 
     protected $hidden = [
-        'is_published', 'job_hash', 'developer_id', 'published_id', 'created_at', 'updated_at'
+        'is_published', 'job_hash', 'genres_id', 'developer_id', 'published_id', 'created_at', 'updated_at'
     ];
 
     public function keyProduct()
@@ -43,9 +43,9 @@ class Game extends Model
         return $this->hasOne(Discount::class)->where("deleted_at", null);
     }
 
-    public function category()
+    public function genres()
     {
-        return $this->hasOne(Category::class);
+        return $this->hasOne(Genres::class);
     }
 
     public function calculationDiscount()
@@ -53,16 +53,32 @@ class Game extends Model
         return empty($this->discount) ? $this->price : bcdiv(($this->price - ($this->price / 100 * $this->discount->amount)), 1, 2);
     }
 
-    public function searchName($query)
-    {
-        return $this->where("name", "ilike" , "%$query%")->get();
+    public function getReadyGames() {
+        return $this->whereNull('deleted_at')->where('is_published', true)->get();
     }
 
-    public function searchCategory($categories)
+    public function searchName($query)
     {
-        $games = [];
-        foreach ($categories as $key => $category) {
-            $games = $this->where($key, $category)->whereNull('deleted_at')->get();
+        return $this->where("name", "ilike" , "%$query%")->whereNull('deleted_at')->where('is_published', true)->get();
+    }
+
+    public function searchCategory($games, $genres)
+    {
+        return $games->whereIn('genre_id', $genres)->whereNull('deleted_at');
+    }
+
+    public function searchProperty($games, $properties)
+    {
+        foreach ($properties as $key => $property) {
+            $result = [];
+            if ($key == 'discount' && $property == 'true') {
+                foreach ($games as $game) {
+                    if ($game->discount) {
+                        array_push($result, $game);
+                    }
+                }
+                $games = $result;
+            }
         }
         return $games;
     }
