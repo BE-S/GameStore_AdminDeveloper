@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee\Market\Game;
 use Illuminate\Http\Request;
 
-class SearchGameController extends Controller
+class DashboardSearchGameController extends Controller
 {
     public function search(Request $request)
     {
         $game = new Game();
-        $games = $game->searchCategory($request->all());
+        $games = $game->getNotReadyGames();
+        $games = $game->searchProperty($games, $request->all());
 
         $viewLoad = view('Admin.Layouts.games', compact('games'));
 

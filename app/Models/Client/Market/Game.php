@@ -62,7 +62,7 @@ class Game extends Model
         return $this->where("name", "ilike" , "%$query%")->whereNull('deleted_at')->where('is_published', true)->get();
     }
 
-    public function searchCategory($games, $genres)
+    public function searchGenre($games, $genres)
     {
         return $games->whereIn('genre_id', $genres)->whereNull('deleted_at');
     }
@@ -78,6 +78,9 @@ class Game extends Model
                     }
                 }
                 $games = $result;
+            }
+            if ($key == 'is_published') {
+                $games = $games->where('is_published', filter_var($property, FILTER_VALIDATE_BOOLEAN));
             }
         }
         return $games;

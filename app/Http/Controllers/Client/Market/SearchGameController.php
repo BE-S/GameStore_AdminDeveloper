@@ -36,7 +36,7 @@ class SearchGameController extends BaseController
         $games = $request->query ? $game->searchName($request->search) : $game->getReadyGames();
 
         if ($request->categories) {
-            $games = $game->searchCategory($games, $request->categories);
+            $games = $game->searchGenre($games, $request->categories);
         }
         if ($request->properties) {
             $games = $game->searchProperty($games, $request->properties);

@@ -21,6 +21,10 @@ class Game extends \App\Models\Client\Market\Game
         'name', 'price', 'description', 'min_settings', 'max_settings', 'is_published', 'developer_id', 'published_id', 'deleted_at'
     ];
 
+    public function getNotReadyGames() {
+        return $this->whereNull('deleted_at')->get();
+    }
+
     public function deleteGame()
     {
         $this->update([

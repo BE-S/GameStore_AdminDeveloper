@@ -6,7 +6,7 @@ use App\Http\Controllers\Employee\Dashboard\Product\Add\DataController;
 use App\Http\Controllers\Employee\Dashboard\Product\Add\UploadCoverController;
 use App\Http\Controllers\Employee\Dashboard\Product\Add\UploadDataController;
 use App\Http\Controllers\Employee\Dashboard\Product\DashboardGameController;
-//use App\Http\Controllers\Employee\Dashboard\Product\SearchGameController;
+use App\Http\Controllers\Employee\Dashboard\Product\DashboardSearchGameController;
 use App\Http\Controllers\Employee\Dashboard\Product\PreviewPageGameController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\Market\GameController;
@@ -112,7 +112,7 @@ Route::group(['prefix' => 'admin'], function () {
         });
             route::get('/game/{id}', [DashboardGameController::class, 'showPage'])->name('get.dashboard.game');
             route::get('/games', [DashbordGamesController::class, 'showPage'])->name('get.dashboard.games');
-            route::post('/games/search', [SearchGameController::class, 'search'])->name('post.dashboard.games.search');
+            route::post('/games/search', [DashboardSearchGameController::class, 'search'])->name('post.dashboard.games.search');
 
             //Buttons
             route::post('/publish', [PublishController::class, 'changePublish'])->name('post.dashboard.publish');
