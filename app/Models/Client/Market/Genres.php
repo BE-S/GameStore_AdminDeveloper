@@ -18,4 +18,11 @@ class Genres extends Model
     protected $hidden = [
         'id', 'created_at', 'updated_at'
     ];
+
+    public function getIdGenres($genres)
+    {
+        $genres = $this->whereIn('name', $genres)->get();
+
+        return $genres->pluck('id')->toArray();
+    }
 }

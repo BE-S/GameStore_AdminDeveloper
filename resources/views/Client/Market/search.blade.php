@@ -21,9 +21,16 @@
             </div>
             <div class="block">
                 <div class="title">Категории</div>
-                @foreach($categories as $category)
+                @foreach($categories as $key => $category)
                     <p>
-                        <input class="category genre" type="checkbox" value="{{ $category->id }}">
+                        @if ($genresId)
+                            @foreach($genresId as $genreId)
+                                <input class="category genre" type="checkbox" {{ $category->id == $genreId ? 'checked="true"' : null }} value="{{ $category->id }}">
+                            @endforeach
+                        @else
+                            <input class="category genre" type="checkbox" value="{{ $category->id }}">
+                        @endif
+
                         <label>{{ $category->name }}</label>
                     </p>
                 @endforeach
@@ -40,6 +47,10 @@
 
         function sendCategory() {
             var discount = document.getElementsByClassName('discount');
+
+            var baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            var newUrl = baseUrl + '';
+            history.pushState(null, null, newUrl);
 
             $.ajax({
                 url: '{{ route("post.search.property") }}',

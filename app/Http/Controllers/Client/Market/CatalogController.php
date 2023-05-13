@@ -7,6 +7,7 @@ use App\Models\Client\Market\Catalog\RecommendedGames;
 use App\Models\Client\Market\Catalog\RecommendedDiscount;
 use App\Models\Client\Market\Catalog\Slider;
 use App\Models\Client\Market\Game;
+use Illuminate\Http\Request;
 
 class CatalogController extends BaseController
 {

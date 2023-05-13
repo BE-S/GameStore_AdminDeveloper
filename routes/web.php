@@ -26,6 +26,7 @@ use App\Http\Controllers\Employee\Dashboard\Product\PublishController;
 use App\Http\Controllers\Employee\Dashboard\Product\DeleteController;
 use App\Http\Controllers\Client\Politics\AgreementController;
 use App\Http\Controllers\Client\Politics\CookieController;
+use App\Http\Controllers\MyController;
 
 /*
 |--------------------------------------------------------------------------

@@ -7,6 +7,7 @@ use App\Jobs\Market\CartJob;
 use App\Models\Client\Login\Library;
 use App\Models\Client\Market\Game;
 use App\Models\Client\Market\Review;
+use App\Models\Client\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -24,7 +25,7 @@ class GameController extends BaseController
             if (!$game->is_published) {
                 abort(404);
             }
-            $cartGame = $cartJob->getGameCart($game->id);
+            $cartGame = Auth::check() ? $cartJob->getGameCart($game->id) : null;
 
             return view("Client.Market.game", compact('game', 'cartGame', 'reviews'));
         } catch (ModelNotFoundException $e) {

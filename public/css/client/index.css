@@ -107,8 +107,13 @@ header #navigation {
     margin: 0 0.5vw
 }
 
+#navigation .left {
+    display: flex;
+}
+
 .left a {
     margin-right: 1vw;
+    cursor: pointer;
 }
 
 .right a {
@@ -146,7 +151,33 @@ header #navigation {
     border-radius: 0;
 }
 
-.nav-account:hover .dropdown-menu {
+.nav-item .dropdown .category {
+    left: 3.6em;
+}
+
+.category {
+    flex-direction: column;
+}
+
+.category .nav-item.dropdown {
+    left: 2.8em;
+}
+
+.category .dropdown-menu {
+    width: 6em;
+    background-color: rgb(4 0 50 / 70%);
+    border: none;
+}
+
+.category .dropdown-menu .dropdown-item {
+    padding: 0 0.4em;
+    font-size: 0.6em;
+    color: white;
+    text-align: center;
+    border: none;
+}
+
+.category:hover .dropdown-menu {
     display: block;
     margin-top: 0;
 }

@@ -7,6 +7,7 @@ use App\Models\Client\Market\Catalog\Adventure;
 use App\Models\Client\Market\Catalog\Slider;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 
 class Game extends Model
@@ -62,7 +63,7 @@ class Game extends Model
         return $this->where("name", "ilike" , "%$query%")->whereNull('deleted_at')->where('is_published', true)->get();
     }
 
-    public function searchGenre($games, $genres)
+    public function searchGenreId($games, $genres)
     {
         return $games->whereIn('genre_id', $genres)->whereNull('deleted_at');
     }

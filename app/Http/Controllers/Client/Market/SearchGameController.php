@@ -10,14 +10,23 @@ use Illuminate\Support\Str;
 
 class SearchGameController extends BaseController
 {
-    public function searchGet($query = null)
+    public function searchGet(Request $request, $query = null)
     {
         $game = new Game();
         $games = $query ? $game->searchName($query) : $game->getReadyGames();
+        $genresId = array();
+
+        if ($request->query()) {
+            $genre = new Genres();
+            $genres = $request->query('genre');
+            $genresId = $genre->getIdGenres($genres);
+            $games = $game->searchGenreId($games, $genresId);
+        }
+
         $countFound = Lang::choice('lang.product', count($games), ['count' => count($games)]);
         $categories = Genres::all();
 
-        return view('Client.Market.search', compact('games', 'query', 'categories', 'countFound'));
+        return view('Client.Market.search', compact('games', 'query', 'categories', 'countFound', 'genresId'));
     }
 
     public function searchPost(Request $request)
@@ -36,7 +45,7 @@ class SearchGameController extends BaseController
         $games = $request->query ? $game->searchName($request->search) : $game->getReadyGames();
 
         if ($request->categories) {
-            $games = $game->searchGenre($games, $request->categories);
+            $games = $game->searchGenreId($games, $request->categories);
         }
         if ($request->properties) {
             $games = $game->searchProperty($games, $request->properties);

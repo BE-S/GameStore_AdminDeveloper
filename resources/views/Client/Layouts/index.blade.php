@@ -27,8 +27,19 @@
                     </div>
                         <div id="links">
                             <div class="left">
-                                <a href="{{ route("get.index") }}">Каталог</a>
-                                <a>Категории</a>
+                                <nav>
+                                    <a href="{{ route("get.index") }}">Каталог</a>
+                                </nav>
+                                <nav class="category">
+                                    <a>Категории</a>
+                                    <li class="nav-item dropdown">
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            @foreach($genres as $genre)
+                                                <a class="dropdown-item" href="{{ route('get.search') }}/?genre[]={{ $genre->name }}">{{ $genre->name }}</a>
+                                            @endforeach
+                                        </div>
+                                    </li>
+                                </nav>
                             </div>
                             <div class="right">
                                 <span>

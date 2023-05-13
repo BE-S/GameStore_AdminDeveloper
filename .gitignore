@@ -4,7 +4,6 @@
 /public/hot
 /storage/*.key
 /vendor
-.env
 .env.backup
 .env.production
 .phpunit.result.cache
@@ -19,3 +18,4 @@ yarn-error.log
 /postgres_data
 first()
 package-lock.json
+.env
