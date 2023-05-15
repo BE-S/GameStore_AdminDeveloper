@@ -13,7 +13,7 @@ class Review extends Model
     ];
 
     protected $fillable = [
-        'user_id', 'review', 'score', 'updated_at'
+        'user_id', 'game_id', 'review', 'grade', 'updated_at'
     ];
 
     protected $hidden = [

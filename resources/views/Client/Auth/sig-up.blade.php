@@ -1,29 +1,6 @@
 @extends('Client.Layouts.index')
 
 @section('content')
-{{--<div class='container w-50'>--}}
-{{--    <div class="row mb-3">--}}
-{{--        <div class="col-sm-10 w-100">--}}
-{{--            <input type="name" class="form-control form-control-sm" id="InputName" placeholder="Имя">--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--    <div class="row mb-3">--}}
-{{--        <div class="col-sm-10 w-100">--}}
-{{--            <input type="email" class="form-control form-control-sm" id="InputEmail" placeholder="Почта">--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--    <div class="row mb-3">--}}
-{{--        <div class="col-sm-10 w-100">--}}
-{{--            <input type="password" class="form-control form-control-sm" id="InputPass" placeholder="Пароль">--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--    <div class="row mb-3">--}}
-{{--        <div class="col-sm-10 w-100">--}}
-{{--            <input type="password" class="form-control form-control-sm" id="InputPassRepeat" placeholder="Ещё раз пароль">--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--    <button class="btn btn-primary mb-3" style="width: 100%" id="btn" data-page_tocken="{{ csrf_token() }}">Войти</button>--}}
-{{--</div>--}}
 
 <div class="container-fluid">
 

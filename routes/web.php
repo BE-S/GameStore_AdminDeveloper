@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Client\Market\ReviewController;
 use App\Http\Controllers\Employee\Dashboard\IndexlController;
 use App\Http\Controllers\Employee\Dashboard\Product\Add\CoverController;
 use App\Http\Controllers\Employee\Dashboard\Product\Add\DataController;
@@ -26,7 +27,7 @@ use App\Http\Controllers\Employee\Dashboard\Product\PublishController;
 use App\Http\Controllers\Employee\Dashboard\Product\DeleteController;
 use App\Http\Controllers\Client\Politics\AgreementController;
 use App\Http\Controllers\Client\Politics\CookieController;
-use App\Http\Controllers\MyController;
+use App\Http\Controllers\Employee\Auth\LoginEmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ use App\Http\Controllers\MyController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 route::post('/search/post', [SearchGameController::class, "searchPost"])->name("post.search");
 route::post('/search/property', [SearchGameController::class, "searchProperty"])->name("post.search.property");
 route::get('/search/{query?}', [SearchGameController::class, "searchGet"])->name("get.search");
@@ -68,6 +70,7 @@ Route::group(['middleware' => 'auth'],  function() {
 
     Route::group(['middleware' => 'verified'], function() {
         route::get('/account/*', '\App\Http\Controllers\Client\Login\AccountController@index')->name('get.account');
+        route::post('/publish/review', [ReviewController::class, 'publish'])->name('put.review');
         route::post('/add-card', [AddCardController::class, '__invoke'])->name('post.add-card');
     });
 });
@@ -93,8 +96,8 @@ Route::group(['middleware' => 'guest'], function () {
 //section for admin
 Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => 'guest'], function () {
-        route::get('/login', '\App\Http\Controllers\Employee\Auth\LoginController@showView')->name('get.admin.login');
-        route::post('/login/check', '\App\Http\Controllers\Employee\Auth\LoginController@login')->name('post.admin.login.check');
+        route::get('/login', [LoginEmployeeController::class, 'showPage'])->name('get.admin.login');
+        route::post('/login/check', [LoginEmployeeController::class, 'login'])->name('post.admin.login.check');
     });
 
     Route::group(['middleware' => 'admin'], function () {

@@ -326,16 +326,43 @@ main {
     flex-direction: column;
 }
 
+#review #recommended {
+    display: none;
+}
+
 .container .review-content {
+    position: relative;
     flex-direction: initial;
     align-items: start;
     background-color: rgb(97 97 97 / 11%);
     padding-bottom: 0;
 }
 
+.review-content a,
+.review-content #change-review {
+    padding: 0.2em 2em;
+    background-color: rgb(255 255 255 / 20%);
+    color: white;
+    border: none;
+}
+
+.review-content #change-review {
+    width: 11.8em;
+    display: none;
+    cursor: pointer;
+}
+
 .container .user-review {
     width: 14em;
     margin-left: 2em;
+}
+
+.review-text textarea {
+    margin-bottom: 0;
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid #ffffff54;
+    color: white
 }
 
 .container .review-text {
@@ -1189,7 +1216,7 @@ picture .discount {
     color: #fff;
     background-color: #4E4C97;
 }
-.server-message {
+.form-container .server-message {
     margin: 0 0 2em 0em;
     display: flex;
     border-bottom: 3px solid #4E4C97;
@@ -1354,8 +1381,36 @@ picture .discount {
     margin-right: 2em;
 }
 
-.result .name {
+.review-content.read .grade {
+    position: absolute;
+    padding: 0;
+    width: 10em;
+    right: 7px;
+    top: 9px;
+    font-size: 1em;
+}
 
+.review-content.read .grade.yes {
+    color: #00d200;
+}
+
+.review-content.read .grade.no {
+    color: #ff0000;
+}
+
+#recommended .grade:hover {
+    background-color: rgb(255 255 255 / 15%)
+}
+
+#recommended {
+    padding-top: 0;
+}
+
+.review-text .server-message {
+    display: none;
+    color: red;
+    padding: 0.5em 0em;
+    align-items: center;
 }
 
 .result .price {

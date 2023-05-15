@@ -11,10 +11,11 @@ use App\Models\Employee\Employee;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use PHPUnit\Exception;
 
-class LoginController extends Controller
+class LoginEmployeeController extends Controller
 {
-    public function showView()
+    public function showPage()
     {
         $ipJob = new IpJob();
         $employee = new Employee();
@@ -51,8 +52,12 @@ class LoginController extends Controller
             ]);
         } catch (ValidationException $exception) {
             return response()->json([
-                'errors' => $exception->validator->errors()->all()
+                'error' => $exception->validator->errors()->all()
             ], 400);
+        } catch (Exception $exception) {
+            return response()->json([
+                'error' => 'Ошибка сервера'
+            ]);
         }
     }
 }
