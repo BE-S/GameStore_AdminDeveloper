@@ -10,6 +10,9 @@
                 <div class="name">
                     {{ $user->name }}
                 </div>
+                <div>
+                    <div id="change-account">Изменить профиль</div>
+                </div>
             </div>
                 <div id="cards">
                     <div class="title">Карты</div>
@@ -99,6 +102,10 @@
 
             $('.add').bind('click', function (e) {
                 closeButton.classList.toggle('active')
+            })
+
+            $('#change-account').bind('click', function (e) {
+
             })
 
             $('#accept').bind('click', function (e) {

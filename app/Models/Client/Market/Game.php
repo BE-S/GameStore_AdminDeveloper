@@ -49,6 +49,11 @@ class Game extends Model
         return $this->hasOne(Genres::class);
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class)->orderBy('created_at', 'desc')->take(10);
+    }
+
     public function calculationDiscount()
     {
         return empty($this->discount) ? $this->price : bcdiv(($this->price - ($this->price / 100 * $this->discount->amount)), 1, 2);

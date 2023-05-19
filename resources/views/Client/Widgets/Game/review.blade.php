@@ -26,7 +26,7 @@
         </div>
     @endauth
     @foreach($reviews as $review)
-        <div class="container">
+        <div class="container read" id="{{ $review->id }}">
             <div class="review-content read">
                 <div class="user-review">
                     <img src="{{'/storage/' . $review->user->avatar->path_small }}" alt="Avatar" style="width:90px">
@@ -38,7 +38,23 @@
                 <div class="grade {{ $review->grade ? 'yes' : 'no' }}">{{ $review->grade ? 'Рекомендую' : 'Не рекомендую' }}</div>
             </div>
             <div class="data-preview">
-                <div class="emoji">emoji</div>
+                <div class="container-emoji">
+                    <div class="review-emoji">
+                        @include('Client.Widgets.Game.reviewEmoji', compact('review'))
+                    </div>
+                </div>
+                <div class="menu-emoji">
+                    <img class="menu" src="/image/icon/points menu.png">
+                    <div class="emoji-list">
+                        <div class="window">
+                            @foreach($emojiAll as $emoji)
+                                <a href="javascript:putReview({{ $review->id }}, {{ $emoji->id }});" class="background-emoji">
+                                    <img src="{{ $emoji->path }}">
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     @endforeach
@@ -52,7 +68,7 @@
         var grade = button == 'Да' ? true : false
 
         $.ajax({
-            url: '{{ route('put.review') }}',
+            url: '{{ route('post.review') }}',
             type: "POST",
             data: {
                 gameId: gameId,
@@ -64,7 +80,6 @@
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (result) {
-                console.log(result)
                 if (result['success']) {
                     $('.server-message').css('display', 'flex')
                     $('.server-message').css('color', '#00de00')
@@ -101,6 +116,184 @@
             }
         })
     })
+
+    function putReview(reviewId, emojiId)
+    {
+        $.ajax({
+            url: '{{ route('post.emoji') }}',
+            type: "POST",
+            data: {
+                reviewId: reviewId,
+                emojiId: emojiId,
+            },
+            dataType: 'json',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (result) {
+                var element = $('#' + reviewId).find('.block-emoji.' + emojiId)
+
+                if (result['success']) {
+                    if (element.length) {
+                        if (result['count'] > 0) {
+                            element.find('p').text(result['count'])
+                        } else {
+                            element.remove()
+                        }
+                    } else {
+                        console.log(result)
+                        var a = $('<a class="block-emoji ' + emojiId + '" href="javascript:putReview(' + reviewId + ', ' + emojiId + ')"> <img src="' + result['path'] + '"> <p class="count-emoji">' + result['count'] + '</p> </a>');
+                        $('#' + reviewId).find('.review-emoji').append(a)
+                        if (result['previous']) {
+                            let lastEmoji = $('#' + reviewId).find('.block-emoji.' + result['previous']).find('.count-emoji')
+                            let count = lastEmoji.text()
+                            lastEmoji.text(count - 1)
+                        }
+                    }
+                }
+                checkCountEmoji(reviewId)
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                var errors = jqXHR.responseJSON.errors; // Ошибки в формате JSON
+
+                console.log(errors)
+            },
+            statusCode: {
+                401: function (err) {
+                    console.log(err);
+                },
+                500: function (err) {
+                    console.log(err);
+                }
+            }
+        })
+    }
+
+    setInterval(getCountEmoji, 5000)
+
+    function checkCountEmoji(reviewId)
+    {
+        var emoji = $('#' + reviewId).find('.block-emoji')
+
+        for (let i = 0; i < emoji.length; ++i) {
+            let count = emoji[i]
+            let element = $(count).find('.count-emoji').text()
+            if (element <= 0) {
+                $(count).remove()
+            }
+        }
+    }
+
+    function updateCountEmoji(reviewId, countNew, emojiId)
+    {
+        var emoji = $('#' + reviewId).find('.block-emoji')
+
+        if (emoji.length > 1 && emojiId == 0) {
+            emoji.remove()
+        }
+
+        for (let i = 0; i < emoji.length; ++i) {
+            let elementEmojiId = $(emoji[i]).attr('class').split(' ')[1]
+            if (elementEmojiId == emojiId) {
+                let count = emoji[i]
+                let element = $(count).find('.count-emoji').text()
+                if (element != countNew) {
+                    $('#' + reviewId).find('.block-emoji.' + emojiId).find('.count-emoji').text(countNew)
+                    console.log(element)
+                }
+            }
+        }
+        checkCountEmoji(reviewId)
+    }
+
+    function getCountEmoji()
+    {
+        var container = $('.container.read')
+        var reviews = []
+
+        for (let i = 0; i < container.length; ++i) {
+            reviews.push($(container[i]).attr('id'))
+        }
+
+        $.ajax({
+            url: '{{ route('post.update.emoji') }}',
+            type: "POST",
+            data: {
+                reviewId: reviews,
+            },
+            dataType: 'json',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (result) {
+                if (result['success']) {
+                    const emoji = result['countEmoji']
+
+                    for (let key in emoji) {
+                        const emojiPage = $('#' + key).find('.block-emoji')
+
+                        if (emoji[key].length < emojiPage.length && emojiPage.length >= 1) {
+                            let emojiIdPage = []
+                            let emojiIdServer = []
+                            for (let i = 0; i < emojiPage.length; ++i) {
+                                emojiIdPage[i] = $(emojiPage[i]).attr('class').split(' ')[1]
+                            }
+                            for (let key2 in emoji[key]) {
+                                emojiIdServer[key2] = emoji[key][key2]['emoji_id']
+                            }
+                            var newArray = emojiIdPage.filter(function(element) {
+                                return emojiIdServer.indexOf(element) === -1;
+                            });
+                            for (let i = 0; i < emojiPage.length; ++i) {
+                                $('#' + key).find('.block-emoji.' + newArray[i]).remove()
+                            }
+                            continue
+                        }
+                        if (emoji[key].length >= 1 && emojiPage.length < emoji[key].length) {
+                            let emojiIdPage = []
+                            let emojiIdServer = []
+                            for (let i = 0; i < emojiPage.length; ++i) {
+                                emojiIdPage[i] = $(emojiPage[i]).attr('class').split(' ')[1]
+                            }
+                            for (let key2 in emoji[key]) {
+                                emojiIdServer[key2] = emoji[key][key2]['emoji_id']
+                            }
+                            var newArray = emojiIdServer.filter(function(element) {
+                                return emojiIdPage.indexOf(element) === -1;
+                            });
+                            for (let i = 0; i < newArray.length; ++i) {
+                                var a = $('<a class="block-emoji ' + newArray[i] + '" href="javascript:putReview(' + key + ', ' + newArray[i] + ')"> <img src="' + emoji[key][i]['path'] + '"> <p class="count-emoji">' + emoji[key][i]['count'] + '</p> </a>');
+                                $('#' + key).find('.review-emoji').append(a)
+                            }
+                            continue
+                        }
+                        if (emoji[key].length > 0) {
+                            let count = emoji[key][0]['count']
+                            let emojiId = emoji[key][0]['emoji_id']
+                            updateCountEmoji(key, count, emojiId)
+                        }
+                    }
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                var errors = jqXHR.responseJSON.errors; // Ошибки в формате JSON
+
+                if (!errors) {
+                    $('.server-message').text('Ошибка сервера');
+                    return;
+                }
+
+            },
+            statusCode: {
+                401: function (err) {
+                    console.log(err);
+                },
+                500: function (err) {
+                    console.log(err);
+                }
+            }
+        })
+    }
 
     function review(id) {
         gameId = id

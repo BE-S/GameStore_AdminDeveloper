@@ -30,6 +30,20 @@ class Review extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function reviewEmoji()
+    {
+        return $this->hasMany(ReviewEmoji::class, 'review_id');
+    }
+
+    public function reviewEmojiCount()
+    {
+        return $this->hasMany(ReviewEmoji::class, 'review_id')
+            ->selectRaw('emoji_id, count(*)')
+            ->where('review_id', $this->id)
+            ->whereNull('deleted_at')
+            ->groupBy('emoji_id');
+    }
+
     public function createdReview($data)
     {
         return $this->create([

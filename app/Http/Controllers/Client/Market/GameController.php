@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Client\Market;
 use App\Http\Controllers\Controller;
 use App\Jobs\Market\CartJob;
 use App\Models\Client\Login\Library;
+use App\Models\Client\Market\Emoji;
 use App\Models\Client\Market\Game;
 use App\Models\Client\Market\Review;
+use App\Models\Client\Market\ReviewEmoji;
 use App\Models\Client\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -19,42 +21,34 @@ class GameController extends BaseController
     {
         try {
             $cartJob = new CartJob();
+            $emoji = new Emoji();
+            $reviewEmojiModel = new ReviewEmoji();
+
             $game = Game::findOrFail($id);
-            $reviews = Review::where('game_id', $game->id)->orderBy('created_at', 'desc')->take(10)->get();
+            $emojiAll = $emoji->all();
+            $reviews = $game->reviews;
 
             if (!$game->is_published) {
                 abort(404);
             }
             $cartGame = Auth::check() ? $cartJob->getGameCart($game->id) : null;
 
-            return view("Client.Market.game", compact('game', 'cartGame', 'reviews'));
+            return view("Client.Market.game", compact('game', 'cartGame', 'reviews', 'emojiAll', 'reviewEmojiModel'));
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
     }
 }
 
-//$merchant_id = 29390;
-//$secret_word = 'K2X!x[e?/7z[J01';
-//$currency = 'RUB';
-//
-//$get = array(
-//    'm' => '29390',
-//    'oa' => '100.11',
-//    'o' => '1',
-//    's' => md5($merchant_id.':'.'100.11'.':'.$secret_word.':'.$currency.':'.'1'),
-//    'currency' => 'RUB',
-//    'i' => '1',
-//    'lang' => 'ru',
-//    'user' => 'test@mail.ru',
-//    'pay' => 'купить'
-//);
-//
-//$ch = curl_init('https://pay.freekassa.ru/' . '?' . http_build_query($get));
-//curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-//curl_setopt($ch, CURLOPT_HEADER, false);
-//$html = curl_exec($ch);
-//curl_close($ch);
-//
-//return
+/*
+ * получить emoji
+    foreach ($reviews as $review) {
+                foreach ($review->reviewEmoji as $reviewEmoji) {
+                    dd($reviewEmoji->emoji);
+                }
+            }
+*/
+
+//                foreach ($reviewEmojiModel->uniqueEmoji($review->id) as $test) {
+//                    dd($test);
+//                }

@@ -28,6 +28,8 @@ use App\Http\Controllers\Employee\Dashboard\Product\DeleteController;
 use App\Http\Controllers\Client\Politics\AgreementController;
 use App\Http\Controllers\Client\Politics\CookieController;
 use App\Http\Controllers\Employee\Auth\LoginEmployeeController;
+use App\Http\Controllers\Client\Market\PutEmojiController;
+use App\Http\Controllers\Client\Market\UpdateCountEmojiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +64,7 @@ Route::group(['prefix' => 'politics'], function () {
     route::get('/cookie', [CookieController::class, 'showPage'])->name('get.politics.cookie');
 });
 
+route::post('/update/emoji', [UpdateCountEmojiController::class, 'updateEmoji'])->name('post.update.emoji');
 route::post('/loading/games', [LoadingGamesController::class, 'load'])->name('post.load.game');
 
 //Auth
@@ -70,7 +73,8 @@ Route::group(['middleware' => 'auth'],  function() {
 
     Route::group(['middleware' => 'verified'], function() {
         route::get('/account/*', '\App\Http\Controllers\Client\Login\AccountController@index')->name('get.account');
-        route::post('/publish/review', [ReviewController::class, 'publish'])->name('put.review');
+        route::post('/publish/review', [ReviewController::class, 'publish'])->name('post.review');
+        route::post('/put/emoji', [PutEmojiController::class, 'putEmoji'])->name('post.emoji');
         route::post('/add-card', [AddCardController::class, '__invoke'])->name('post.add-card');
     });
 });

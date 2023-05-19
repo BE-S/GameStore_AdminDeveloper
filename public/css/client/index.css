@@ -177,7 +177,8 @@ header #navigation {
     border: none;
 }
 
-.category:hover .dropdown-menu {
+.category:hover .dropdown-menu,
+.nav-account:hover .dropdown-menu {
     display: block;
     margin-top: 0;
 }
@@ -225,6 +226,7 @@ main {
 }
 
 .block-text div {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -381,7 +383,7 @@ main {
 
 .container .data-preview {
     background-color: rgb(97 97 97 / 11%);
-    padding: 0 2em;
+    padding: 0;
     flex-direction: row;
 }
 
@@ -389,17 +391,99 @@ main {
     align-items: start;
 }
 
-.container .emoji {
-    padding-top: 0;
-    align-items: end;
+.data-preview .container-emoji {
+    align-items: flex-end;
+    padding: 0;
 }
 
-.container {
-    width: 100%;
+.data-preview .menu-emoji:hover .emoji-list {
+    display: flex;
+}
+
+.emoji-list:hover {
+    display: flex;
+}
+
+.data-preview .emoji-list {
+    position: absolute;
+    display: none;
+    flex-direction: row;
+    width: 10em;
+    top: 2em;
+    right: 1.2em;
+    background-color: rgb(255 255 255);
     padding: 0;
-    padding: 16px;
-    margin: 16px 0;
-    padding: 1em 3em;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 20px 0px 20px 20px;
+    z-index: 1;
+}
+
+.emoji-list .window {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.5em;
+}
+
+.emoji-list .background-emoji:hover {
+    background-color: rgb(0.0.0);
+}
+
+.container .menu-emoji {
+    align-items: end;
+    padding-right: 1em;
+    width: 2em;
+}
+
+.container .review-emoji {
+    display: flex;
+    flex-wrap: wrap;
+    padding-right: 1em;
+    max-width: 44em;
+    flex-direction: row-reverse;
+}
+
+.container .review-emoji .block-emoji {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    min-width: 44px;
+    width: 6%;
+    max-width: 99px;
+    flex-direction: row;
+    background-color: rgb(255 255 255 / 10%);
+    border-radius: 10px;
+    margin: 4px 2px;
+    height: 24px;
+    justify-content: center;
+}
+
+.container .review-emoji .block-emoji p {
+    margin: 0;
+    font-size: 16px;
+    max-width: 5em;
+}
+
+.container .review-emoji img,
+.container .background-emoji,
+.container .menu-emoji img {
+    width: 18px;
+    margin: 3px;
+}
+
+.container .background-emoji {
+    padding: 0;
+}
+
+.container .background-emoji:hover {
+    background-color: rgb(0 0 0 / 10%);
+}
+
+.container .menu-emoji .menu {
+    border-radius: 0;
+    width: 4px;
 }
 
 /* Clear floats after containers */
