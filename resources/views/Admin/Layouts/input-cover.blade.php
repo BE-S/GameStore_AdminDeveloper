@@ -102,6 +102,8 @@
                 @endif
             @endisset
         </div>
-        <div id="game-cover" class="btn btn-primary">Отправить</div>
+        <div id="send" class="cover">
+            <div class="btn btn-primary">Отправить</div>
+        </div>
     </form>
 </div>

@@ -117,7 +117,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::group(['prefix' => '/cover'], function () {
                 route::get('/{id}', [CoverController::class, 'showPage'])->name('get.dashboard.upload.game.cover');
                 route::post('/loading', [UploadCoverController::class, 'uploadCovers'])->name('post.dashboard.upload.game.cover.loading');
-                route::post('update/loading', [UploadCoverController::class, 'uploadCover'])->name('post.dashboard.upload.game.cover.update.loading');
+                route::post('update/loading', [UploadCoverController::class, 'uploadUpdateCover'])->name('post.dashboard.upload.game.cover.update.loading');
             });
         });
             route::get('/game/{id}', [DashboardGameController::class, 'showPage'])->name('get.dashboard.game');

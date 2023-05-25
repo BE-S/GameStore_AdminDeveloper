@@ -168,7 +168,7 @@
                 }
             });
 
-            $('#game-cover').bind('click', function (e) {
+            $('#send.cover').bind('click', function (e) {
                 e.preventDefault();
                 var formData = new FormData($('#covers')[0])
                 var gameId = {{ $game ? $game->id : null }}

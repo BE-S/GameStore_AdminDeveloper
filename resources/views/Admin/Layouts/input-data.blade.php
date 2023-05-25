@@ -37,6 +37,8 @@
                 <label class="error-max"></label>
             </div>
         </div>
-        <div id="game-info" class="btn btn-primary">Отправить<div>
+        <div id="send">
+            <div class="btn btn-primary">Отправить<div>
+        </div>
     </form>
 </div>

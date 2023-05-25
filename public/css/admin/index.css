@@ -178,8 +178,16 @@ textarea {
     content: "Выбрать";
 }
 
-#game-cover {
+.cover-load {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#send {
+    display: flex;
+    justify-content: end;
     margin-bottom: 1em;
+    margin-right: 1em;
 }
 
 .game-cover {
