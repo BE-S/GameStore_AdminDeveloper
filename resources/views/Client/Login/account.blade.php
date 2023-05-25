@@ -1,8 +1,30 @@
 @extends('Client.Layouts.index', [$account = true])
 
 @section('content')
-    <div class="background block">
-        <div id="account-block">
+    <div class="background block change">
+        <div class="panel-account">
+            <ul>
+                <li>Имя</li>
+                <li>Аватар</li>
+            </ul>
+        </div>
+        <div class="account-block">
+            <div class="block-name">
+                <label>Имя</label>
+                <input name="name" value="{{ $user->name }}" placeholder="Имя">
+                <button id="change-name">Заменить</button>
+            </div>
+            <div class="block-avatar">
+                <div>
+                    <div class="avatar square"><img src="{{"/storage/" . $user->avatar->path_big }}" width="100%" height="100%"></div>
+                    <div class="avatar circle"><img class="image circle-avatar" src="{{ asset('/storage/' . $account->avatar->path_small) }}"></div>
+                </div>
+                <button id="change-avatar">Заменить</button>
+            </div>
+        </div>
+    </div>
+    <div class="background block account">
+        <div class="account-block">
             <div id="user">
                 <div id="avatar">
                     <img src="{{"/storage/" . $user->avatar->path_big }}" width="100%" height="100%">
@@ -105,7 +127,8 @@
             })
 
             $('#change-account').bind('click', function (e) {
-
+                $('.background.account').css('display', 'none')
+                $('.background.change').css('display', 'flex')
             })
 
             $('#accept').bind('click', function (e) {

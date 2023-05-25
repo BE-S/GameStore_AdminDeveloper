@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Laravel 9 Send Email Example</title>
+        <link rel="stylesheet" href="/css/client/mail.css">
     </head>
     <body>
         <div>

@@ -36,6 +36,13 @@ class Orders extends Model
         return 0;
     }
 
+    public function calculationDiscountPurchased($game_id)
+    {
+        $game = Game::find($game_id);
+
+        return empty($this->discounts_id) ? $game->price : bcdiv($game->price - ($game->price / 100 * $this->getDiscountFromOrder($game_id)), 1, 2);
+    }
+
     /**
      * Get the min settings for pc
      *

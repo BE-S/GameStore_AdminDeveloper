@@ -21,6 +21,15 @@
 
 .content {
     display: flex;
+    text-align: center;
+}
+
+.content .table-hover .title {
+    background: #9c9c9c1c;
+}
+
+.content .table-hover .href-purchased {
+    cursor: pointer;
 }
 
 .change-settings {
@@ -219,4 +228,132 @@ textarea {
 .alert.alert-danger {
     opacity: 1;
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/*Merchant*/
+
+.list {
+    display: flex;
+    flex-direction: column;
+    width: 85em;
+}
+
+.merchant {
+    display: flex;
+    padding: 0 1em;
+    background: white;
+    justify-content: center;
+}
+
+.merchant p {
+    padding: 0 1em;
+    width: 100%;
+}
+
+
+/*Purchased*/
+
+.blocks {
+    width: 15em;
+}
+
+.blocks p {
+    margin: 0;
+    color: white;
+}
+
+.purchased {
+    display: none;
+    margin-left: 3em;
+    flex-direction: column;
+}
+
+.purchased .active {
+    display: flex;
+}
+
+.new.btn .active {
+    display: none;
+}
+
+.applications {
+    margin: 0 3em;
+    display: flex;
+    flex-direction: column;
+}
+
+.applications .table-hover .active {
+    display: none;
+}
+
+.applications p {
+    text-align: left;
+    font-weight: bold;
+    font-size: 1.4em;
+    font-style: inherit;
+}
+
+.applications p .active {
+    display: none;
+}
+
+.purchased .product {
+    display: flex;
+    margin-bottom: 1em;
+}
+
+.purchased .product div {
+    display: flex;
+    width: 11em;
+    align-items: center;
+    justify-content: center;
+    background: white;
+}
+
+.purchased .product .mark-return {
+    width: 2em;
+    padding-right: 1em;
+}
+
+.purchased .return {
+    text-align: end;
+    margin-left: 1em;
+}
+
+#application-date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 1em;
+}
+
+.purchased .product .info-application {
+    width: 14em;
+}
+
+.info-application .trash,
+.info-application .reload {
+    background: red;
+    width: 2em;
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.purchased .product .info-application .p-3.mb-2 {
+    font-size: 0.9em;
+    padding: 0.4em!important;
+    width: 9em;
+    margin-bottom: 0!important;
+}
+
+.purchased .return .btn {
+    width: 10em;
+}
+
+.purchased .product .info {
+    height: 6em;
+    width: 10em;
 }

@@ -177,6 +177,29 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Покупки
+                                    <i class="fas fa-angle-right right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('get.dashboard.upload.game.data') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Заявки на возрат</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('get.dashboard.purchase.games') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Просмотр покупок</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

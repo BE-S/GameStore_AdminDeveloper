@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Client\Market\ReviewController;
-use App\Http\Controllers\Employee\Dashboard\IndexlController;
+use App\Http\Controllers\Employee\Dashboard\IndexController;
 use App\Http\Controllers\Employee\Dashboard\Product\Add\CoverController;
 use App\Http\Controllers\Employee\Dashboard\Product\Add\DataController;
 use App\Http\Controllers\Employee\Dashboard\Product\Add\UploadCoverController;
@@ -30,6 +30,13 @@ use App\Http\Controllers\Client\Politics\CookieController;
 use App\Http\Controllers\Employee\Auth\LoginEmployeeController;
 use App\Http\Controllers\Client\Market\PutEmojiController;
 use App\Http\Controllers\Client\Market\UpdateCountEmojiController;
+use App\Http\Controllers\Employee\Dashboard\Product\PurchasedGamesController;
+use App\Http\Controllers\Employee\Dashboard\Product\PurchasedGameController;
+use App\Http\Controllers\Employee\Dashboard\Product\ApplicationReturnController;
+use App\Http\Controllers\Employee\Dashboard\Product\DeleteApplicationReturnController;
+use App\Http\Controllers\Employee\Dashboard\Product\ActivateApplicationReturnController;
+use App\Http\Controllers\Employee\Dashboard\Client\ClientsController;
+use App\Http\Controllers\Employee\Dashboard\Client\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,7 +113,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::group(['middleware' => 'admin'], function () {
         Route::group(['prefix' => '/dashboard'], function () {
-            route::get('/', [IndexlController::class, 'showPage'])->name('get.dashboard');
+            route::get('/', [IndexController::class, 'showPage'])->name('get.dashboard');
 
         Route::group(['prefix' => '/upload/game'], function () {
             Route::group(['prefix' => '/data'], function () {
@@ -128,6 +135,20 @@ Route::group(['prefix' => 'admin'], function () {
             route::post('/publish', [PublishController::class, 'changePublish'])->name('post.dashboard.publish');
             route::post('/preview', [PreviewPageGameController::class, 'getPage'])->name('post.dashboard.preview');
             route::post('/delete', [DeleteController::class, 'delete'])->name('post.dashboard.delete');
+
+            Route::group(['prefix' => '/purchase'], function () {
+                route::get('/games', [PurchasedGamesController::class, '__invoke'])->name('get.dashboard.purchase.games');
+                route::get('/game/{id}', [PurchasedGameController::class, '__invoke'])->name('get.dashboard.purchase.game');
+
+                route::post('/create/application', [ApplicationReturnController::class, '__invoke'])->name('post.dashboard.purchase.create.application');
+                route::post('/delete/application', [DeleteApplicationReturnController::class, '__invoke'])->name('post.dashboard.purchase.delete.application');
+                route::post('/activate/application', [ActivateApplicationReturnController::class, '__invoke'])->name('post.dashboard.purchase.activate.application');
+            });
+
+            Route::group(['prefix' => 'client'], function () {
+                route::get('/clients', [ClientsController::class, '__invoke'])->name('get.dashboard.clients');
+                route::get('/client/{id}', [ClientController::class, '__invoke'])->name('get.dashboard.client');
+            });
         });
     });
 });
