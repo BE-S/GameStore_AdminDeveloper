@@ -2,8 +2,14 @@
 
 @section('content')
 
-<div class="container-fluid">
+    <style>
+        .footer {
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
 
+<div class="container-fluid">
     <div class="offset-md-4 col-md-4 offset-sm-3 col-sm-6">
         <div class="form-container">
             <h3 class="title">Вход в Аккаунт</h3>
@@ -17,12 +23,12 @@
                 <div class="form-group">
                     <input type="password" class="form-control" id="InputPass" placeholder="Пароль">
                 </div>
+                <a href="{{ route('get.recovery-login') }}" class="remember">Забыли пароль</a>
                 <div class="btn signup">Вход</div>
                 <a class="btn signin" href="{{ route("get.sig-up") }}">Регистрация</a>
             </form>
         </div>
     </div>
-
 </div>
 
     <script>

@@ -1,4 +1,4 @@
-@extends('Admin.Layouts.admin-panel')
+@extends('Admin.Layouts.admin-panel', ['title' => 'Загрузка информации'])
 
 @section('content')
     @include('Admin.Layouts.input-data')

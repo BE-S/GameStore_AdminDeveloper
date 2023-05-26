@@ -1,6 +1,14 @@
 @extends('Client.Layouts.index')
 
 @section('content')
+
+    <style>
+        .footer {
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+
     <div class='container w-28'>
         <div class="row mb-3">
                 <div class="col-sm-10 w-100"><input type="password" class="form-control form-control-sm" id="InputPass" placeholder="Новый пароль"></div>

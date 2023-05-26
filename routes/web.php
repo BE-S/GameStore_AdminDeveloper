@@ -87,22 +87,22 @@ Route::group(['middleware' => 'auth'],  function() {
 });
 
 //guest
-Route::group(['middleware' => 'guest'], function () {
-    //user
-    route::get('/sig-up', '\App\Http\Controllers\Client\Auth\RegisterController@index')->name('get.sig-up');
-    route::post('/sig-up/check', '\App\Http\Controllers\Client\Auth\RegisterController@register')->name('post.sig-up.check');
+    Route::group(['middleware' => 'guest'], function () {
+        //user
+        route::get('/sig-up', [RegisterController::class, 'index'])->name('get.sig-up');
+        route::post('/sig-up/check', [RegisterController::class, 'register'])->name('post.sig-up.check');
 
-    route::get('/sig-in', '\App\Http\Controllers\Client\Auth\LoginController@index')->name('get.sig-in');
-    route::post('/sig-in/check', '\App\Http\Controllers\Client\Auth\LoginController@login')->name('post.sig-in.check');
+        route::get('/sig-in', [LoginController::class, 'index'])->name('get.sig-in');
+        route::post('/sig-in/check', [LoginController::class, 'login'])->name('post.sig-in.check');
 
-    route::get('/verification/code/{token}', '\App\Http\Controllers\Client\Auth\VerificationController@sendVerification')->name('get.verification');
+        route::get('/verification/code/{token}', [VerificationController::class, 'sendVerification'])->name('get.verification');
 
-    route::get('/recovery-login', '\App\Http\Controllers\Client\Auth\RecoveryController@index')->name('get.recovery-login');
-    route::post('/recovery-login/check', '\App\Http\Controllers\Client\Auth\RecoveryController@recoveryLogin')->name('post.recovery-login');
+        route::get('/recovery-login', [RecoveryController::class, 'index'])->name('get.recovery-login');
+        route::post('/recovery-login/check', [RecoveryController::class, 'recoveryLogin'])->name('post.recovery-login');
 
-    route::get('/change-password/code/{token}', '\App\Http\Controllers\Client\Auth\ChangePasswordController@index')->name('get.change-password');
-    route::post('/change-password/check', '\App\Http\Controllers\Client\Auth\ChangePasswordController@changePass')->name('post.change-password');
-});
+        route::get('/change-password/code/{token?}', [ChangePasswordController::class, 'index'])->name('get.change-password');
+        route::post('/change-password/check', [ChangePasswordController::class, 'changePass'])->name('post.change-password');
+    });
 
 //section for admin
 Route::group(['prefix' => 'admin'], function () {

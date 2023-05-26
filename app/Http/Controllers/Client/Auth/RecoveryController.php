@@ -23,13 +23,21 @@ class RecoveryController extends Controller
         $userModel = new User();
         $user = $userModel->findUserEmail($credentials['email']);
 
+        if (!$user) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Пользователь не найден'
+            ]);
+        }
+
         $recPass = new RecoveryJob($user);
         $recPass->setHashJob($service->generateJobHash());
 
         $this->dispatch(new SendVarificationJob($user['email'], $user['job_hash'], 'get.change-password'));
 
         return response()->json([
-            'Чекай почту'
+            'success' => true,
+            'message' => 'Письмо отправлено на вашу почту'
         ]);
     }
 }

@@ -22,6 +22,10 @@ a {
     text-decoration: none;
 }
 
+li {
+    list-style-type: none;
+}
+
 a:hover {
     color: white;
 }
@@ -160,18 +164,18 @@ header #navigation {
 }
 
 .category .nav-item.dropdown {
-    left: 2.8em;
+    left: 1em;
 }
 
 .category .dropdown-menu {
-    width: 6em;
+    width: 8em;
     background-color: rgb(4 0 50 / 70%);
     border: none;
 }
 
 .category .dropdown-menu .dropdown-item {
     padding: 0 0.4em;
-    font-size: 0.6em;
+    font-size: 1em;
     color: white;
     text-align: center;
     border: none;
@@ -183,11 +187,32 @@ header #navigation {
     margin-top: 0;
 }
 
+.category .dropdown-menu a:hover {
+    background: #ffffff4a;
+}
+
+.panel-account {
+    height: 16em;
+}
+
+.background .change {
+    display: flex;
+    height: 38em;
+}
+
+.block-name {
+
+}
+
+.block-avatar {
+    display: none;
+}
+
 #account div {
     text-align: center;
 }
 
-#account .image {
+.circle-avatar {
     width: 45px;
     border-radius: 50%;
 }
@@ -525,6 +550,13 @@ main {
     width: 83em;
     flex-direction: column;
     background: rgba(0, 0, 0, 0.4);
+    align-items: center;
+}
+
+.background.block.change {
+    display: none;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .block {
@@ -582,7 +614,7 @@ main {
     padding-left: 1em;
 }
 
-#account-block {
+.account-block {
     display: flex;
     width: 70vw;
     flex-direction: row;
@@ -1317,6 +1349,16 @@ picture .discount {
     text-align: left;
     margin-bottom: 35px;
 }
+
+.form-horizontal .remember {
+    display: flex;
+    color: black;
+    justify-content: flex-end;
+    margin-right: 0.6em;
+    margin-bottom: 0.6em;
+    font-size: 0.9em;
+}
+
 .form-horizontal .form-control{
     color: #4E4C97;
     background: #F7F8F9;

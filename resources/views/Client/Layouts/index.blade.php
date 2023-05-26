@@ -60,7 +60,7 @@
                     @if (url()->current() != route('get.account'))
                         <div class="nav-account">
                             <a id="account" href="{{ route("get.account") }}">
-                                <img class="image" src="{{ asset('/storage/' . $account->avatar->path_small) }}">
+                                <img class="image circle-avatar" src="{{ asset('/storage/' . $account->avatar->path_small) }}">
                                 <div>{{ $account->name }}</div>
                                 <li class="nav-item dropdown">
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -71,7 +71,7 @@
                     @endif
                 @endauth
                 @guest()
-                    @if (url()->current() != route('get.sig-up') && url()->current() != route('get.sig-in'))
+                    @if (url()->current() != route('get.sig-up') && url()->current() != route('get.sig-in') && url()->current() != route('get.sig-in') && url()->current() != route('get.recovery-login') && url()->current() != route('get.change-password'))
                         <a href="{{ route("get.sig-in") }}">Авторизация</a>
                     @endif
                 @endguest
