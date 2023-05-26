@@ -65,7 +65,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function employee()
     {
-        return $this->hasOne(Employee::class);
+        return $this->hasOne(Employee::class)->whereNull('deleted_at');
     }
 
     public function cart()

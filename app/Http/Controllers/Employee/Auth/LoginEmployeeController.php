@@ -19,9 +19,16 @@ class LoginEmployeeController extends Controller
     {
         $ipJob = new IpJob();
         $employee = new Employee();
-        $employeeIp = $employee->getEmployeeIp($ipJob->getIp());
+        $employee = $employee->getEmployeeIp($ipJob->getIp());
 
-        return $employeeIp ? view('Admin.Auth.login') : abort(404);
+        if (!$employee) {
+            abort(404);
+        }
+        if ($employee->user->ban) {
+            return redirect(route('get.ban'));
+        }
+
+        return view('Admin.Auth.login');
     }
 
     public function login(SigInRequest $request)
