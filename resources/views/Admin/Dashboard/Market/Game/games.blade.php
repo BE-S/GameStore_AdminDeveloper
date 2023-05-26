@@ -1,9 +1,9 @@
-@extends('Admin.Layouts.admin-panel')
+@extends('Admin.Layouts.admin-panel', ['title' => 'ПродуктЫ'])
 
 @section('content')
     <div id="list-games">
         <div class="categories">
-            <label id="category-published">
+            <label id="category-published" style="text-align: left">
                 <label for="radio-1" class="radio-label">
                     <input type="radio" id="published" name="published" value="true">
                     <span class="radio"></span>

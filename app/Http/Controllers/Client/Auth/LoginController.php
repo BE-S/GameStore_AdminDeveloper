@@ -35,6 +35,13 @@ class LoginController extends Controller
                 ]);
             }
 
+            if ($login->checkBan()) {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Пользователь заблокирован'
+                ]);
+            }
+
             if (!$login->authentication()) {
                 return response()->json([
                     'error' => true,

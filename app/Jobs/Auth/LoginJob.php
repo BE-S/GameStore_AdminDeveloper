@@ -41,6 +41,11 @@ class LoginJob implements ShouldQueue
         return $this->user;
     }
 
+    public function checkBan()
+    {
+        return $this->user->ban ? true : false;
+    }
+
     public function checkEmployee()
     {
         if (is_null($this->user->employee_id)) {

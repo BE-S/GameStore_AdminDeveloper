@@ -178,27 +178,20 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('get.dashboard.purchase.games') }}" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
                                     Покупки
-                                    <i class="fas fa-angle-right right"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('get.dashboard.upload.game.data') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Заявки на возрат</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('get.dashboard.purchase.games') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Просмотр покупок</p>
-                                    </a>
-                                </li>
-                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('get.dashboard.clients') }}" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Клиенты
+                                </p>
+                            </a>
                         </li>
                     </ul>
                 </nav>
@@ -214,7 +207,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
+                            <h1 class="m-0">{{ $title }}</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">

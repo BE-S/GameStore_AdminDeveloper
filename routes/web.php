@@ -37,6 +37,13 @@ use App\Http\Controllers\Employee\Dashboard\Product\DeleteApplicationReturnContr
 use App\Http\Controllers\Employee\Dashboard\Product\ActivateApplicationReturnController;
 use App\Http\Controllers\Employee\Dashboard\Client\ClientsController;
 use App\Http\Controllers\Employee\Dashboard\Client\ClientController;
+use App\Http\Controllers\Employee\Dashboard\Client\BanController;
+use App\Http\Controllers\Client\Login\MessageBanController;
+use App\Http\Controllers\Client\Auth\RegisterController;
+use App\Http\Controllers\Client\Auth\LoginController;
+use App\Http\Controllers\Client\Auth\VerificationController;
+use App\Http\Controllers\Client\Auth\RecoveryController;
+use App\Http\Controllers\Client\Auth\ChangePasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,42 +56,46 @@ use App\Http\Controllers\Employee\Dashboard\Client\ClientController;
 |
 */
 
-route::post('/search/post', [SearchGameController::class, "searchPost"])->name("post.search");
-route::post('/search/property', [SearchGameController::class, "searchProperty"])->name("post.search.property");
-route::get('/search/{query?}', [SearchGameController::class, "searchGet"])->name("get.search");
+Route::group(['middleware' => 'ban'], function() {
+    route::get('/ban', [MessageBanController::class, "__invoke"])->name("get.ban");
 
-Route::group(['middleware' => 'record_url'], function() {
-    route::get('/', [CatalogController::class, 'showPage'])->name("get.index");
-    route::get('/game/{id}', [GameController::class, 'showPage'])->name('get.game');
-    route::get('/cart', [CartController::class, 'showPage'])->name('get.cart');
-});
+    route::post('/search/post', [SearchGameController::class, "searchPost"])->name("post.search");
+    route::post('/search/property', [SearchGameController::class, "searchProperty"])->name("post.search.property");
+    route::get('/search/{query?}', [SearchGameController::class, "searchGet"])->name("get.search");
 
-route::post('buy', [ReservationController::class, 'reservationProduct'])->name('get.buy.game');
-Route::group(['prefix' => 'cart'], function () {
-    route::post('/add', [AddCartController::class, 'addCart'])->name('post.add.cart');
-    route::post('/delete', [DeleteFromCartController::class, 'deleteCart'])->name('post.delete.cart');
-    route::post('/delete-all', [DeleteFromCartController::class, 'deleteAllCart'])->name('post.all.delete.cart');
-});
+    Route::group(['middleware' => 'record_url'], function () {
+        route::get('/', [CatalogController::class, 'showPage'])->name("get.index");
+        route::get('/game/{id}', [GameController::class, 'showPage'])->name('get.game');
+        route::get('/cart', [CartController::class, 'showPage'])->name('get.cart');
+    });
 
-Route::group(['prefix' => 'politics'], function () {
-    route::get('/agreement/{section?}', [AgreementController::class, 'showPage'])->name('get.politics.agreement');
-    route::get('/cookie', [CookieController::class, 'showPage'])->name('get.politics.cookie');
-});
+    Route::group(['prefix' => 'cart'], function () {
+        route::post('/add', [AddCartController::class, 'addCart'])->name('post.add.cart');
+        route::post('/delete', [DeleteFromCartController::class, 'deleteCart'])->name('post.delete.cart');
+        route::post('/delete-all', [DeleteFromCartController::class, 'deleteAllCart'])->name('post.all.delete.cart');
+    });
 
-route::post('/update/emoji', [UpdateCountEmojiController::class, 'updateEmoji'])->name('post.update.emoji');
-route::post('/loading/games', [LoadingGamesController::class, 'load'])->name('post.load.game');
+    Route::group(['prefix' => 'politics'], function () {
+        route::get('/agreement/{section?}', [AgreementController::class, 'showPage'])->name('get.politics.agreement');
+        route::get('/cookie', [CookieController::class, 'showPage'])->name('get.politics.cookie');
+    });
+
+    route::post('/update/emoji', [UpdateCountEmojiController::class, 'updateEmoji'])->name('post.update.emoji');
+    route::post('/loading/games', [LoadingGamesController::class, 'load'])->name('post.load.game');
 
 //Auth
-Route::group(['middleware' => 'auth'],  function() {
-    route::get('/logout', '\App\Http\Controllers\Client\Auth\LogoutController@index')->name('get.logout');
+    Route::group(['middleware' => 'auth'], function () {
+        route::get('/logout', '\App\Http\Controllers\Client\Auth\LogoutController@index')->name('get.logout');
 
-    Route::group(['middleware' => 'verified'], function() {
-        route::get('/account/*', '\App\Http\Controllers\Client\Login\AccountController@index')->name('get.account');
-        route::post('/publish/review', [ReviewController::class, 'publish'])->name('post.review');
-        route::post('/put/emoji', [PutEmojiController::class, 'putEmoji'])->name('post.emoji');
-        route::post('/add-card', [AddCardController::class, '__invoke'])->name('post.add-card');
+        Route::group(['middleware' => 'verified'], function () {
+            route::get('/account/*', '\App\Http\Controllers\Client\Login\AccountController@index')->name('get.account');
+            route::post('/publish/review', [ReviewController::class, 'publish'])->name('post.review');
+            route::post('/put/emoji', [PutEmojiController::class, 'putEmoji'])->name('post.emoji');
+            route::post('/add-card', [AddCardController::class, '__invoke'])->name('post.add-card');
+
+            route::post('buy', [ReservationController::class, 'reservationProduct'])->name('get.buy.game');
+        });
     });
-});
 
 //guest
     Route::group(['middleware' => 'guest'], function () {
@@ -105,57 +116,60 @@ Route::group(['middleware' => 'auth'],  function() {
     });
 
 //section for admin
-Route::group(['prefix' => 'admin'], function () {
-    Route::group(['middleware' => 'guest'], function () {
-        route::get('/login', [LoginEmployeeController::class, 'showPage'])->name('get.admin.login');
-        route::post('/login/check', [LoginEmployeeController::class, 'login'])->name('post.admin.login.check');
-    });
+    Route::group(['prefix' => 'admin'], function () {
+        Route::group(['middleware' => 'guest'], function () {
+            route::get('/login', [LoginEmployeeController::class, 'showPage'])->name('get.admin.login');
+            route::post('/login/check', [LoginEmployeeController::class, 'login'])->name('post.admin.login.check');
+        });
 
-    Route::group(['middleware' => 'admin'], function () {
-        Route::group(['prefix' => '/dashboard'], function () {
-            route::get('/', [IndexController::class, 'showPage'])->name('get.dashboard');
+        Route::group(['middleware' => 'admin'], function () {
+            Route::group(['prefix' => '/dashboard'], function () {
+                route::get('/', [IndexController::class, 'showPage'])->name('get.dashboard');
 
-        Route::group(['prefix' => '/upload/game'], function () {
-            Route::group(['prefix' => '/data'], function () {
-                route::get('/{id?}', [DataController::class, 'showPage'])->name('get.dashboard.upload.game.data');
-                route::post('/loading', [UploadDataController::class, 'uploadData'])->name('post.dashboard.upload.game.data.loading');
-                route::post('update/loading', [UploadDataController::class, 'uploadData'])->name('post.dashboard.upload.game.data.update.loading');
-            });
-            Route::group(['prefix' => '/cover'], function () {
-                route::get('/{id}', [CoverController::class, 'showPage'])->name('get.dashboard.upload.game.cover');
-                route::post('/loading', [UploadCoverController::class, 'uploadCovers'])->name('post.dashboard.upload.game.cover.loading');
-                route::post('update/loading', [UploadCoverController::class, 'uploadUpdateCover'])->name('post.dashboard.upload.game.cover.update.loading');
+                Route::group(['prefix' => '/upload/game'], function () {
+                    Route::group(['prefix' => '/data'], function () {
+                        route::get('/{id?}', [DataController::class, 'showPage'])->name('get.dashboard.upload.game.data');
+                        route::post('/loading', [UploadDataController::class, 'uploadData'])->name('post.dashboard.upload.game.data.loading');
+                        route::post('update/loading', [UploadDataController::class, 'uploadData'])->name('post.dashboard.upload.game.data.update.loading');
+                    });
+                    Route::group(['prefix' => '/cover'], function () {
+                        route::get('/{id}', [CoverController::class, 'showPage'])->name('get.dashboard.upload.game.cover');
+                        route::post('/loading', [UploadCoverController::class, 'uploadCovers'])->name('post.dashboard.upload.game.cover.loading');
+                        route::post('update/loading', [UploadCoverController::class, 'uploadUpdateCover'])->name('post.dashboard.upload.game.cover.update.loading');
+                    });
+                });
+                route::get('/game/{id}', [DashboardGameController::class, 'showPage'])->name('get.dashboard.game');
+                route::get('/games', [DashbordGamesController::class, 'showPage'])->name('get.dashboard.games');
+                route::post('/games/search', [DashboardSearchGameController::class, 'search'])->name('post.dashboard.games.search');
+
+                //Buttons
+                route::post('/publish', [PublishController::class, 'changePublish'])->name('post.dashboard.publish');
+                route::post('/preview', [PreviewPageGameController::class, 'getPage'])->name('post.dashboard.preview');
+                route::post('/delete', [DeleteController::class, 'delete'])->name('post.dashboard.delete');
+
+                Route::group(['prefix' => '/purchase'], function () {
+                    route::get('/games', [PurchasedGamesController::class, '__invoke'])->name('get.dashboard.purchase.games');
+                    route::get('/game/{id}', [PurchasedGameController::class, '__invoke'])->name('get.dashboard.purchase.game');
+
+                    route::post('/create/application', [ApplicationReturnController::class, '__invoke'])->name('post.dashboard.purchase.create.application');
+                    route::post('/delete/application', [DeleteApplicationReturnController::class, '__invoke'])->name('post.dashboard.purchase.delete.application');
+                    route::post('/activate/application', [ActivateApplicationReturnController::class, '__invoke'])->name('post.dashboard.purchase.activate.application');
+                });
+
+                Route::group(['prefix' => 'client'], function () {
+                    route::get('', [ClientsController::class, '__invoke'])->name('get.dashboard.clients');
+                    route::get('/{id}', [ClientController::class, '__invoke'])->name('get.dashboard.client');
+
+                    route::post('/ban', [BanController::class, '__invoke'])->name('get.dashboard.client.ban');
+                });
             });
         });
-            route::get('/game/{id}', [DashboardGameController::class, 'showPage'])->name('get.dashboard.game');
-            route::get('/games', [DashbordGamesController::class, 'showPage'])->name('get.dashboard.games');
-            route::post('/games/search', [DashboardSearchGameController::class, 'search'])->name('post.dashboard.games.search');
-
-            //Buttons
-            route::post('/publish', [PublishController::class, 'changePublish'])->name('post.dashboard.publish');
-            route::post('/preview', [PreviewPageGameController::class, 'getPage'])->name('post.dashboard.preview');
-            route::post('/delete', [DeleteController::class, 'delete'])->name('post.dashboard.delete');
-
-            Route::group(['prefix' => '/purchase'], function () {
-                route::get('/games', [PurchasedGamesController::class, '__invoke'])->name('get.dashboard.purchase.games');
-                route::get('/game/{id}', [PurchasedGameController::class, '__invoke'])->name('get.dashboard.purchase.game');
-
-                route::post('/create/application', [ApplicationReturnController::class, '__invoke'])->name('post.dashboard.purchase.create.application');
-                route::post('/delete/application', [DeleteApplicationReturnController::class, '__invoke'])->name('post.dashboard.purchase.delete.application');
-                route::post('/activate/application', [ActivateApplicationReturnController::class, '__invoke'])->name('post.dashboard.purchase.activate.application');
-            });
-
-            Route::group(['prefix' => 'client'], function () {
-                route::get('/clients', [ClientsController::class, '__invoke'])->name('get.dashboard.clients');
-                route::get('/client/{id}', [ClientController::class, '__invoke'])->name('get.dashboard.client');
-            });
-        });
     });
-});
 
 // Payment Freekassa
-Route::group(['prefix' => 'freekassa'], function () {
-    route::get('/result', [ResultController::class, 'index'])->name('get.freekassa.result');
-    route::get('/success', [SuccessController::class, 'index'])->name('get.freekassa.success');
-    route::get('/fail', [FailController::class, 'index'])->name('get.freekassa.fail');
+    Route::group(['prefix' => 'freekassa'], function () {
+        route::get('/result', [ResultController::class, 'index'])->name('get.freekassa.result');
+        route::get('/success', [SuccessController::class, 'index'])->name('get.freekassa.success');
+        route::get('/fail', [FailController::class, 'index'])->name('get.freekassa.fail');
+    });
 });

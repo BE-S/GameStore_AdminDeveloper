@@ -9,11 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class KeyProduct extends Model
 {
-    protected $guarded = [];
+    protected $guarded = [
+        'id', 'created_at'
+    ];
 
     public function game()
     {
-        return $this->belongsTo(Game::class, "game_id", 'id');
+        return $this->belongsTo(Game::class, "game_id");
     }
 
     public function games()

@@ -13,11 +13,15 @@ class ApplicationReturn extends Model
     ];
 
     protected $fillable = [
-        'key_id', 'employee_id', 'user_id', 'purchase_id', 'application_date', 'status', 'deleted_at'
+        'key_id', 'employee_id', 'user_id', 'purchase_id', 'application_date', 'status', 'updated_at', 'deleted_at'
     ];
 
     protected $hidden = [
-        'id', 'key_id', 'employee_id', 'user_id', 'purchase_id', 'deleted_at'
+        'id', 'key_id', 'employee_id', 'user_id', 'purchase_id', 'updated_at', 'deleted_at'
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
     ];
 
     public function keyProduct()

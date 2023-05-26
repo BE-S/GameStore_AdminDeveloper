@@ -357,3 +357,92 @@ textarea {
     height: 6em;
     width: 10em;
 }
+
+/*User*/
+
+#user.window-setting {
+    width: 27em;
+    height: auto;
+}
+
+#user.window-setting .name {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 0.5em;
+}
+
+#user.window-setting .date-reg {
+    font-size: 0.8em;
+    margin-top: 0.5em;
+}
+
+#user.window-setting .info img {
+    border-radius: 300px;
+    border: 3px solid #aaaaaa;
+}
+
+#user.window-setting .info {
+    margin-top: 1em;
+}
+
+#user.window-setting .data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 2em;
+    margin-bottom: 3em;
+    font-weight: bold;
+}
+
+#user.window-setting .data div {
+    display: flex;
+    border-top: 1px solid #d2d2d2;
+    text-align: left;
+    width: 100%;
+    padding: 0.7em 0;
+    padding-right: 4em;
+    padding-left: 0.5em;
+}
+
+#user.window-setting .data div:nth-child(4) {
+    border-bottom: 1px solid #d2d2d2;
+}
+
+.user-widgets {
+    margin-left: 1em;
+    display: flex;
+    font-size: 1em;
+}
+
+.user-widgets .col-lg-3.col-6 {
+    max-width: none;
+}
+
+.user-widgets .small-box.bg-info {
+    width: 21em;
+    text-align: initial;
+    padding-left: 1em;
+}
+
+#ban {
+    margin: 0 0.4em;
+}
+
+.image-ban {
+    display: flex;
+    position: absolute;
+    transform: rotate(326deg);
+    top: 7em;
+    left: 2em;
+    opacity: 0.6;
+}
+
+.window-setting.buttons {
+    height: auto;
+    margin-top: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding: 1em 1em;
+    justify-content: center;
+}
