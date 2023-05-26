@@ -72,7 +72,7 @@
                 @endauth
                 @guest()
                     @if (url()->current() != route('get.sig-up') && url()->current() != route('get.sig-in') && url()->current() != route('get.sig-in') && url()->current() != route('get.recovery-login') && url()->current() != route('get.change-password'))
-                        <a href="{{ route("get.sig-in") }}">Авторизация</a>
+                        <a id="authorization" href="{{ route("get.sig-in") }}">Авторизация</a>
                     @endif
                 @endguest
             </nav>

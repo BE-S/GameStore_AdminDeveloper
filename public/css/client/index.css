@@ -55,6 +55,21 @@ header #navigation {
     justify-content: center;
 }
 
+#navigation #authorization {
+    display: flex;
+    border: 1px solid #ffffff69;
+    position: absolute;
+    right: 1em;
+    padding: 0.5em 2em;
+    justify-content: center;
+    align-items: center;
+}
+
+#navigation #authorization:hover {
+    background-color: rgb(255 255 255 / 20%);
+    transition: .1s ease-in-out;
+}
+
 #navigation .bottom {
     display: flex;
     width: 100%;
