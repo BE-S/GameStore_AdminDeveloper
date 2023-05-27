@@ -3,7 +3,7 @@
         <img src="{{ '/storage/' . $game->gameCover->store_header_image }}">
         <div>
             <p class="name">{{ $game->name }}</p>
-            <p class="price">{{ $game->price }}</p>
+            <p class="price">{{ $game->calculationDiscount() }} рублей</p>
         </div>
     </a>
 @endforeach
