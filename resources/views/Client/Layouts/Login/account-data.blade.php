@@ -10,7 +10,7 @@
     <div id="basic" class="active">
         <div>
             <div class="block-avatar">
-                <div class="avatar square"><img id="square" class="image" src="{{ "/storage/" . $user->avatar->path_big }}" width="100%" height="100%"></div>
+                <div class="avatar square"><img id="square" class="image" src="{{ "/storage/" . $user->avatar->path_big }}" width="301px" height="301px"></div>
                 <div class="avatar circle"><img id="circle" class="image circle-avatar" src="{{ "/storage/" . $account->avatar->path_small }}"></div>
                 <div id="upload-content">
                     <input type="file" name="avatar" id="upload-account">
@@ -27,7 +27,7 @@
     <div id="email">
         <div class="block-email">
             <label>Введите новую почта</label>
-            <input name="email" value="{{ $user->email }}" placeholder="Почта">
+            <input name="email" placeholder="Почта">
         </div>
         <button id="change-email">Изменить</button>
     </div>
@@ -67,8 +67,8 @@
             var canvasSquare = document.createElement('canvas');
             var canvasCircle = document.createElement('canvas');
 
-            canvasSquare.width = 200;
-            canvasSquare.height = 200;
+            canvasSquare.width = 301;
+            canvasSquare.height = 301;
             var ctxOne = canvasSquare.getContext('2d');
             ctxOne.drawImage(img, 0, 0, canvasSquare.width, canvasSquare.height);
             uploadSquare = canvasSquare.toDataURL('image.png');
@@ -141,18 +141,19 @@
         })
     })
     $('#change-email').bind('click', function (e) {
+        console.log($('input[name="email"]').val())
         $.ajax({
-            url: '',
+            url: "{{ route('post.change.email') }}",
             type: "POST",
             data: {
-
+                email: $('input[name="email"]').val()
             },
             dataType: 'json',
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (result) {
-
+                console.log(result)
             },
             statusCode: {
                 401: function (err) {

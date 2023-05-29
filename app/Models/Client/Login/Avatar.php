@@ -12,7 +12,7 @@ class Avatar extends Model
     ];
 
     protected $fillable = [
-        'path_big', 'path_small', 'updated_at', 'deleted_at'
+        'user_id', 'path_big', 'path_small', 'updated_at', 'deleted_at'
     ];
 
     public function updateAvatar($square, $circle)

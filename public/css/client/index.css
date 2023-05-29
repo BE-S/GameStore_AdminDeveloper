@@ -188,10 +188,6 @@ header #navigation {
     position: absolute;
 }
 
-#basic .avatar.square img {
-    width: 14em;
-}
-
 #basic .avatar.circle {
     margin-left: 2em;
 }
@@ -726,7 +722,7 @@ main {
 
 .account-block {
     display: flex;
-    width: 70vw;
+    width: 100%;
     flex-direction: row;
     margin-top: 2vw;
 }
