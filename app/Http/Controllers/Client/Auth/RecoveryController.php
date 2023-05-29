@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\Auth\recoveryRequest;
 use App\Http\Service\AuthService;
 use App\Jobs\Auth\RecoveryJob;
-use App\Jobs\Email\SendVarificationJob;
+use App\Jobs\Email\SendVerificationJob;
 use App\Models\Client\User;
 
 class RecoveryController extends Controller
@@ -33,7 +33,7 @@ class RecoveryController extends Controller
         $recPass = new RecoveryJob($user);
         $recPass->setHashJob($service->generateJobHash());
 
-        $this->dispatch(new SendVarificationJob($user['email'], $user['job_hash'], 'get.change-password'));
+        $this->dispatch(new SendVerificationJob($user['email'], $user['job_hash'], 'get.change-password'));
 
         return response()->json([
             'success' => true,

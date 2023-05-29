@@ -5,9 +5,8 @@ namespace App\Jobs\Email;
 use App\Mail\Verification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
-use App\Jobs\ProcessPodcast;
 
-class SendVarificationJob implements ShouldQueue
+class SendVerificationJob implements ShouldQueue
 {
     protected $email;
     protected $jobHash;

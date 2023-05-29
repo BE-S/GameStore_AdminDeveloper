@@ -2,12 +2,11 @@
 
 namespace App\Jobs\Auth;
 
-use App\Models\Client\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Auth;
 
-class VarificationJob implements ShouldQueue
+class VerificationJob implements ShouldQueue
 {
     protected $model;
     protected $user;
@@ -35,7 +34,7 @@ class VarificationJob implements ShouldQueue
         return $this->user->email_verified_at ? true : false;
     }
 
-    public function varificationUser()
+    public function verificationUser()
     {
         if (!$this->user)
             dd('Перенаправление на страницу ошибки');

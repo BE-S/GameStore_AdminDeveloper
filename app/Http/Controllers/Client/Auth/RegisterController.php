@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\Auth\SigUpRequest;
 use App\Http\Service\AuthService;
 use App\Jobs\Auth\RegisterJob;
-use App\Jobs\Email\SendVarificationJob;
+use App\Jobs\Email\SendVerificationJob;
 use App\Models\Client\User;
 
 class RegisterController extends Controller
@@ -33,7 +33,7 @@ class RegisterController extends Controller
         $registerUser->createDefaultAvatar($user->id);
         $registerUser->createCart($user->id);
 
-        $this->dispatch(new SendVarificationJob($user['email'], $user['job_hash'], 'get.verification'));
+        $this->dispatch(new SendVerificationJob($user['email'], $user['job_hash'], 'get.verification'));
 
         return response()->json([
             'success' => true,
