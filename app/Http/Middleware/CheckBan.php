@@ -19,7 +19,7 @@ class CheckBan
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check()) {
-            $client = User::findUserId(Auth::user()->id);
+            $client = User::findOrFail(Auth::user()->id);
 
             if ($client->ban) {
                 if (url()->current() != route('get.ban')) {

@@ -94,11 +94,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Avatar::class, 'user_id');
     }
 
-    public static function findUserId($id)
-    {
-        return User::where('id', $id)->first();
-    }
-
     public function findUserEmail($email)
     {
         return User::where('email', $email)->first();
