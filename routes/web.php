@@ -37,7 +37,7 @@ use App\Http\Controllers\Employee\Dashboard\Product\DeleteApplicationReturnContr
 use App\Http\Controllers\Employee\Dashboard\Product\ActivateApplicationReturnController;
 use App\Http\Controllers\Employee\Dashboard\Client\ClientsController;
 use App\Http\Controllers\Employee\Dashboard\Client\ClientController;
-use App\Http\Controllers\Employee\Dashboard\Client\BanController;
+use App\Http\Controllers\Employee\Dashboard\BanController;
 use App\Http\Controllers\Client\Login\MessageBanController;
 use App\Http\Controllers\Client\Auth\RegisterController;
 use App\Http\Controllers\Client\Auth\LoginController;
@@ -172,9 +172,14 @@ Route::group(['middleware' => 'ban'], function() {
                 Route::group(['prefix' => 'client'], function () {
                     route::get('', [ClientsController::class, '__invoke'])->name('get.dashboard.clients');
                     route::get('/{id}', [ClientController::class, '__invoke'])->name('get.dashboard.client');
-
-                    route::post('/ban', [BanController::class, '__invoke'])->name('get.dashboard.client.ban');
                 });
+                Route::group(['prefix' => 'employee'], function () {
+                    route::get('', [EmoloyeesController::class, '__invoke'])->name('get.dashboard.employees');
+                    route::get('/{id}', [EmoloyeeController::class, '__invoke'])->name('get.dashboard.employee');
+                });
+                route::post('/ban', [BanController::class, '__invoke'])->name('get.dashboard.ban');
+                route::post('/delete/admin', [DeleteEmployeeController::class, '__invoke'])->name('get.dashboard.delete.employee');
+                route::post('/add/admin', [AddEmployeeController::class, '__invoke'])->name('get.dashboard.add.employee');
             });
         });
     });

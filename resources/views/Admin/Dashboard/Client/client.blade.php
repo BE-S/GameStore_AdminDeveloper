@@ -30,11 +30,11 @@
     <script>
         $('#ban').bind('click', function (e) {
             $.ajax({
-                url: '{{ route("get.dashboard.client.ban") }}',
+                url: '{{ route("get.dashboard.ban") }}',
                 type: "POST",
                 dataType: 'json',
                 data: {
-                    clientId: {{ $client->id }}
+                    userId: {{ $client->id }}
                 },
                 headers: {
                     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
