@@ -13,7 +13,7 @@
                 <div>Ид: {{ $client->id }}</div>
                 <div>Почта: {{ $client->email }}</div>
                 <div>Варификация: {{ $client->email_verified_at ? 'Да' : 'Нет' }}</div>
-                <div class="info-ban">Блокировка: {{ isset($ban) ? 'Да' : 'Нет' }}</div>
+                <div>Блокировка: <span class="info-ban">{{ isset($ban) ? 'Да' : 'Нет' }}</span></div>
             </div>
         </div>
         <div class="window-setting buttons">
@@ -40,6 +40,7 @@
                     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (result) {
+                    console.log(result)
                     if (result['error']) {
                         console.log(123)
                     }
@@ -48,12 +49,12 @@
 
                         if (element.length > 0) {
                             $('.content').find('#ban').text('Заблокировать')
-                            $('.content').find('.info-ban').text('Нет')
+                            $('.content').find('.info-ban').text(' ' + 'Нет')
                             element.remove()
                         } else {
                             $('#user.window-setting').append('<img class="image-ban" src="/image/client/ban.png">')
                             $('.content').find('#ban').text('Разаблокировать')
-                            $('.content').find('.info-ban').text('Да')
+                            $('.content').find('.info-ban').text(' ' + 'Да')
                         }
                     }
                 },
