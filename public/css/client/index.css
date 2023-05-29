@@ -147,6 +147,70 @@ header #navigation {
     text-decoration: none;
 }
 
+#basic,
+#email,
+#password {
+    display: none;
+    width: 100%;
+    margin-left: 11em;
+    flex-direction: column;
+}
+
+#basic.active,
+#email.active,
+#password.active {
+    display: flex;
+}
+
+#basic .block-avatar {
+    display: flex;
+    align-items: flex-end;
+}
+
+#upload-content {
+    position: relative;
+    width: 11em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255 255 255 / 20%);
+    padding: 0.5em 0;
+    margin-top: 1em;
+    margin-left: 2em;
+}
+
+#upload-content:active {
+    background-color: rgb(255 255 255 / 10%);
+}
+
+#upload-account {
+    opacity: 0;
+    position: absolute;
+}
+
+#basic .avatar.square img {
+    width: 14em;
+}
+
+#basic .avatar.circle {
+    margin-left: 2em;
+}
+
+#basic .avatar.circle img {
+    width: 8em;
+}
+
+.block-name input {
+    text-align: left;
+    padding-left: 0.5em;
+    width: 16em;
+}
+
+.block-settings .change-name {
+    border: none;
+    background-color: rgb(0,0,0);
+}
+
 .nav-account {
     display: flex;
     flex-direction: column;
@@ -179,7 +243,7 @@ header #navigation {
 }
 
 .category .nav-item.dropdown {
-    left: 1em;
+    left: 1.6em;
 }
 
 .category .dropdown-menu {
@@ -208,6 +272,24 @@ header #navigation {
 
 .panel-account {
     height: 16em;
+    font-size: 1.2em;
+}
+
+.block-password div {
+    margin-bottom: 1em;
+}
+
+.panel-account li {
+    margin-bottom: 7px;
+    padding: 0 1em;
+}
+
+.panel-account .select {
+    border-bottom: 1px solid #ffffff52;
+}
+
+.panel-account li:hover {
+    background-color: rgb(255 255 255 / 10%)
 }
 
 .background .change {
@@ -216,11 +298,9 @@ header #navigation {
 }
 
 .block-name {
-
-}
-
-.block-avatar {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1em;
 }
 
 #account div {
@@ -230,6 +310,19 @@ header #navigation {
 .circle-avatar {
     width: 45px;
     border-radius: 50%;
+}
+
+.block-settings button {
+    width: 16em;
+    border: none;
+    background-color: rgb(255 255 255 / 40%);
+    color: white;
+    margin-top: 1em;
+    padding: 0.4em 5.7em;
+}
+
+.block-settings button:active {
+    background-color: rgb(255 255 255 / 30%);
 }
 
 header nav {
@@ -571,7 +664,9 @@ main {
 .background.block.change {
     display: none;
     flex-direction: row;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: left;
+    padding: 4em 0 4em 4em;
 }
 
 .block {
@@ -714,7 +809,6 @@ main {
 }
 
 .cart .info {
-    width: 17em;
     text-align: start;
     justify-content: start;
     margin-bottom: 2em;

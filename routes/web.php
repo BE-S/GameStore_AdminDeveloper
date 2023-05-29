@@ -44,6 +44,13 @@ use App\Http\Controllers\Client\Auth\LoginController;
 use App\Http\Controllers\Client\Auth\VerificationController;
 use App\Http\Controllers\Client\Auth\RecoveryController;
 use App\Http\Controllers\Client\Auth\ChangePasswordController;
+use App\Http\Controllers\Employee\Dashboard\Employee\EmoloyeeController;
+use App\Http\Controllers\Employee\Dashboard\Employee\EmoloyeesController;
+use App\Http\Controllers\Employee\Dashboard\Employee\DeleteEmployeeController;
+use App\Http\Controllers\Employee\Dashboard\AddEmployeeController;
+use App\Http\Controllers\Client\Login\Change\AvatarController;
+use App\Http\Controllers\Client\Login\Change\EmailController;
+use App\Http\Controllers\Client\Login\Change\PasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +96,12 @@ Route::group(['middleware' => 'ban'], function() {
 
         Route::group(['middleware' => 'verified'], function () {
             route::get('/account/*', '\App\Http\Controllers\Client\Login\AccountController@index')->name('get.account');
+            Route::group(['prefix' => 'change'], function () {
+                route::post('/avatar', [AvatarController::class, '__invoke'])->name('post.change.avatar');
+                route::post('/email', [EmailController::class, '__invoke'])->name('post.change.email');
+                route::post('/password', [PasswordController::class, '__invoke'])->name('post.change.password');
+            });
+
             route::post('/publish/review', [ReviewController::class, 'publish'])->name('post.review');
             route::post('/put/emoji', [PutEmojiController::class, 'putEmoji'])->name('post.emoji');
             route::post('/add-card', [AddCardController::class, '__invoke'])->name('post.add-card');
