@@ -68,6 +68,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Employee::class)->whereNull('deleted_at');
     }
 
+    public function deleteEmployee()
+    {
+        return $this->hasOne(Employee::class)->whereNotNull('deleted_at');
+    }
+
     public function cart()
     {
         return $this->hasOne(Cart::class);
@@ -76,12 +81,28 @@ class User extends Authenticatable implements MustVerifyEmail
     public function client($id)
     {
         $user = $this->findOrFail($id);
-        return $user->employee_id ? false : $user;
+        $employee = $user->hasOne(Employee::class);
+
+        if ($user->employee_id || $employee->deleted_at) {
+            return $user;
+        }
     }
 
     public function clients()
     {
-        return $this->whereNull('employee_id')->get();
+        return $this->query()
+            ->from('users as us')
+            ->where('us.employee_id', null)
+            ->orWhere(function ($query) {
+                $query->where('us.id', function ($subquery) {
+                    $subquery->from('employees as em')
+                        ->select('em.user_id')
+                        ->whereRaw('us.id = em.user_id')
+                        ->whereNotNull('em.deleted_at')
+                        ->limit(1);
+                });
+            })
+            ->get();
     }
 
     public function bankCard()

@@ -25,7 +25,7 @@ class AdminPanel
 
         $user = User::where('email', auth()->user()->email)->first();
 
-        if (is_null($user->employee) || $user->employee->role_id == 0) {
+        if (is_null($user->employee) || $user->employee->role_id == 0 || $user->employee->deleted_at) {
             abort(403);
         }
 

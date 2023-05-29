@@ -446,3 +446,15 @@ textarea {
     padding: 1em 1em;
     justify-content: center;
 }
+
+#static.btn {
+    background-color: #b39797;
+    border-color: #b39797;
+    color: rgb(208 208 208);
+    user-select: none;
+    cursor: initial;
+}
+
+.nav-treeview .nav-item .nav-link {
+    background-color: rgb(255 255 255 / 3%);
+}

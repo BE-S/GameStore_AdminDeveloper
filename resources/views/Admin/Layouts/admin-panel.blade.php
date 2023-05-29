@@ -156,7 +156,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-copy"></i>
+                                <i class="nav-icon fas ion-ios-pricetags"></i>
                                 <p>
                                     Продукты
                                     <i class="fas fa-angle-right right"></i>
@@ -165,13 +165,13 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('get.dashboard.upload.game.data') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="far ion-plus-round nav-icon"></i>
                                         <p>Добавить игру</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('get.dashboard.games') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="far fa-copy nav-icon"></i>
                                         <p>Просмотр игр</p>
                                     </a>
                                 </li>
@@ -179,7 +179,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('get.dashboard.purchase.games') }}" class="nav-link">
-                                <i class="nav-icon fas fa-copy"></i>
+                                <i class="nav-icon fas ion-ios-cart"></i>
                                 <p>
                                     Покупки
                                 </p>
@@ -187,9 +187,17 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('get.dashboard.clients') }}" class="nav-link">
-                                <i class="nav-icon fas fa-copy"></i>
+                                <i class="nav-icon fas ion-person-stalker"></i>
                                 <p>
                                     Клиенты
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('get.dashboard.employees') }}" class="nav-link">
+                                <i class="nav-icon fas ion-eye"></i>
+                                <p>
+                                    Администраторы
                                 </p>
                             </a>
                         </li>
