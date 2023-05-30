@@ -29,7 +29,7 @@
                     <input type="password" class="form-control" id="InputPass" placeholder="Пароль">
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" class="checkbox">
+                    <input id="chlen" type="checkbox" class="checkbox">
                     <span class="check-label">Нажимая вы соглашаетесь с <a href="">Политикой</a> <a href="">cайта.</a></span>
                 </div>
                 <div class="btn signup">Зарегистрироваться</div>
@@ -42,10 +42,9 @@
     <script>
         $(function ()
         {
-            var isChecked = $('.checkbox').prop('checked');
-
             $('.signup').bind('click', function (e)
             {
+                var isChecked = $('#chlen').prop('checked');
                 e.preventDefault();
                 if (!isChecked) {
                     $('.server-message').css('color', 'red').text("Для регитсрации примите политику сайта!")
@@ -65,7 +64,7 @@
                         },
                         success: function (result) {
                             clearError()
-
+                            console.log(result)
                             if (result['error']) {
                                 $('.server-message').css('color', 'red').text(result['message'])
                             }
@@ -77,6 +76,10 @@
                             var errors = jqXHR.responseJSON.errors;
                             clearError()
 
+                            console.log(errors)
+                            if (errors === undefined) {
+                                return;
+                            }
                             if (errors['name']) {
                                 $('#InputName').css('border', '1px solid red')
                                 $('.error-message.name').text(errors['name'])
