@@ -14,7 +14,7 @@ class ChangePasswordController extends Controller
         return view('Client.Auth.change-password');
     }
 
-    public function changePass(ChangePasswordRequest $request, AuthService $service)
+    public function changePass(ChangePasswordRequest $request)
     {
         $credentials = $request->validated();
 

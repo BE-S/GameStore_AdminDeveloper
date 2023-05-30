@@ -4,13 +4,8 @@ namespace App\Http\Controllers\Client\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\Auth\SigInRequest;
-use App\Http\Service\AuthService;
 use App\Jobs\Auth\LoginJob;
-use App\Jobs\Auth\RegisterJob;
 use App\Jobs\RedirectJob;
-use App\Models\Client\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\ValidationException;
 
 
@@ -21,7 +16,7 @@ class LoginController extends Controller
         return view('Client.Auth.sig-in');
     }
 
-    public function login(SigInRequest $request, AuthService $service)
+    public function login(SigInRequest $request)
     {
         try {
             $credentials = $request->only('email', 'password');
