@@ -8,11 +8,11 @@
                 <div id="avatar">
                     <img src="{{"/storage/" . $user->avatar->path_big }}" width="100%" height="100%">
                 </div>
-                <div class="name">
+                <h3 class="name">
                     {{ $user->name }}
-                </div>
-                <div>
-                    <div id="change-account">Изменить профиль</div>
+                </h3>
+                <div id="change-account">
+                    Изменить профиль
                 </div>
             </div>
                 <div id="cards">
@@ -106,8 +106,10 @@
             })
 
             $('#change-account').bind('click', function (e) {
-                $('.background.account').css('display', 'none')
-                $('.background.change').css('display', 'flex')
+                $('.background.account').toggle('active')
+                $('.background.change').toggle('active')
+                $('.footer').attr('class', 'footer down')
+                $('#basic').attr('class', 'active')
             })
 
             $('#accept').bind('click', function (e) {

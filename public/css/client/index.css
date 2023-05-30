@@ -179,7 +179,7 @@ header #navigation {
     margin-left: 2em;
 }
 
-#upload-content:active {
+#upload-content:hover {
     background-color: rgb(255 255 255 / 10%);
 }
 
@@ -278,6 +278,17 @@ header #navigation {
 .panel-account li {
     margin-bottom: 7px;
     padding: 0 1em;
+    cursor: default;
+}
+
+#change-account {
+    background-color: rgb(255 255 255 / 20%);
+    padding: 0.5em 2em;
+    cursor: pointer;
+}
+
+#change-account:hover {
+    background-color: rgb(255 255 255 / 10%);
 }
 
 .panel-account .select {
@@ -658,11 +669,19 @@ main {
 }
 
 .background.block.change {
-    display: none;
+    display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: left;
     padding: 4em 0 4em 4em;
+}
+
+.background.block.change .server-message {
+    color: lime;
+    margin-top: 1em;
+    margin-left: 1em;
+    display: flex;
+    align-items: center;
 }
 
 .block {
@@ -744,6 +763,10 @@ main {
     margin-top: 1vw;
     font-size: 1.5vw;
     letter-spacing: 0.2vw;
+}
+
+h3.name {
+   margin-top: 0.3em;
 }
 
 #cards {
@@ -1297,6 +1320,11 @@ picture .discount {
     padding: 2em 0;
     width: 100%;
     margin-top: 1em;
+}
+
+.footer.down {
+    position: absolute;
+    bottom: 0;
 }
 
 .footer img {

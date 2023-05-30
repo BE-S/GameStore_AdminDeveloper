@@ -1,13 +1,14 @@
-<div id class="background block change">
+<div id class="background block change" style="display: none">
     <div class="panel-account">
         <ul>
-            <li class="select">Основное</li>
+            <li id="begin" class="select">Основное</li>
             <li>Почта</li>
             <li>Пароль</li>
+            <li class="to-account">В профиль</li>
         </ul>
     </div>
     <div class="block-settings">
-    <div id="basic" class="active">
+    <div id="basic">
         <div>
             <div class="block-avatar">
                 <div class="avatar square"><img id="square" class="image" src="{{ "/storage/" . $user->avatar->path_big }}" width="301px" height="301px"></div>
@@ -22,31 +23,40 @@
             <label>Имя</label>
             <input name="name" value="{{ $user->name }}" placeholder="Имя">
         </div>
-        <button id="change-basic">Изменить</button>
+        <div style="display: flex">
+            <button id="change-basic">Изменить</button>
+            <div class="server-message"></div>
+        </div>
     </div>
     <div id="email">
         <div class="block-email">
             <label>Введите новую почта</label>
             <input name="email" placeholder="Почта">
         </div>
-        <button id="change-email">Изменить</button>
+        <div style="display: flex">
+            <button id="change-email">Изменить</button>
+            <div class="server-message"></div>
+        </div>
     </div>
     <div id="password">
         <div class="block-password">
             <div class="old">
                 <label>Введите старый пароль</label>
-                <input type="password" name="password" placeholder="Старый пароль">
+                <input type="password" id="pass" placeholder="Старый пароль">
             </div>
             <div class="first-new">
                 <label>Введите новый пароль</label>
-                <input type="password" name="password" placeholder="Новый пароль">
+                <input type="password" id="newPass" placeholder="Новый пароль">
             </div>
             <div class="first-new">
                 <label>Повторите новый пароль</label>
-                <input type="password" name="password" placeholder="Новый пароль">
+                <input type="password" id="repeatPass" placeholder="Новый пароль">
             </div>
         </div>
-        <button id="change-password">Изменить</button>
+        <div style="display: flex">
+            <button id="change-password">Изменить</button>
+            <div class="server-message"></div>
+        </div>
     </div>
     </div>
 </div>
@@ -67,8 +77,8 @@
             var canvasSquare = document.createElement('canvas');
             var canvasCircle = document.createElement('canvas');
 
-            canvasSquare.width = 301;
-            canvasSquare.height = 301;
+            canvasSquare.width = 500;
+            canvasSquare.height = 500;
             var ctxOne = canvasSquare.getContext('2d');
             ctxOne.drawImage(img, 0, 0, canvasSquare.width, canvasSquare.height);
             uploadSquare = canvasSquare.toDataURL('image.png');
@@ -93,7 +103,10 @@
     $('.panel-account li').on('click', function() {
         $('.panel-account .select').attr('class', '')
         $('div .active').attr('class', '')
-        $(this).addClass('select')
+
+        if ($(this).text() == 'В профиль') {
+            $('#begin').addClass('select')
+        }
 
         if ($(this).text() == 'Основное') {
             $('#basic').attr('class', 'active')
@@ -123,12 +136,15 @@
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (result) {
-                console.log(result)
+                if (result['error']) {
+                    $('#basic .server-message').css('color', 'red').text(result['message'])
+                }
+                if (result['success']) {
+                    $('#basic .server-message').css('color', 'lime').text('Данные изменёны')
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 var errors = jqXHR.responseJSON.validationException
-
-                console.log(errors)
             },
             statusCode: {
                 401: function (err) {
@@ -141,7 +157,6 @@
         })
     })
     $('#change-email').bind('click', function (e) {
-        console.log($('input[name="email"]').val())
         $.ajax({
             url: "{{ route('post.change.email') }}",
             type: "POST",
@@ -153,7 +168,12 @@
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (result) {
-                console.log(result)
+                if (result['error']) {
+                    $('#email .server-message').css('color', 'red').text(result['message'])
+                }
+                if (result['success']) {
+                    $('#email .server-message').css('color', 'lime').text('Ссылка для смены пароля отправлена на указанную почту')
+                }
             },
             statusCode: {
                 401: function (err) {
@@ -201,5 +221,11 @@
                 }
             })
         }
+    })
+
+    $('.to-account').bind('click', function (e) {
+        $('.background.account').toggle('active')
+        $('.background.change').toggle('active')
+        $('.footer').attr('class', 'footer')
     })
 </script>
