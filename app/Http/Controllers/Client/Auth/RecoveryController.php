@@ -6,7 +6,6 @@ use App\Helpers\HashHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\Auth\recoveryRequest;
 use App\Http\Service\AuthService;
-use App\Jobs\Auth\RecoveryJob;
 use App\Jobs\Email\SendVerificationJob;
 use App\Models\Client\User;
 

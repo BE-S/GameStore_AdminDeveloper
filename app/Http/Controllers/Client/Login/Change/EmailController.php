@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Client\Login\Change;
 
 use App\Helpers\HashHelper;
 use App\Http\Controllers\Controller;
-use App\Jobs\Auth\RecoveryJob;
 use App\Jobs\Email\SendChangeEmailJob;
-use App\Jobs\Email\SendVerificationJob;
 use App\Models\Client\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
