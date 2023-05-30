@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client\Auth;
 
+use App\Helpers\HashHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\Auth\recoveryRequest;
 use App\Http\Service\AuthService;
@@ -30,8 +31,7 @@ class RecoveryController extends Controller
             ]);
         }
 
-        $recPass = new RecoveryJob($user);
-        $recPass->setHashJob($service->generateJobHash());
+        $user->setHashJob(HashHelper::generateJobHash());
 
         $this->dispatch(new SendVerificationJob($user['email'], $user['job_hash'], 'get.change-password'));
 

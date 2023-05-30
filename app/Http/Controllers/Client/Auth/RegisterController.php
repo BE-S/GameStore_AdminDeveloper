@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client\Auth;
 
+use App\Helpers\HashHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\Auth\SigUpRequest;
 use App\Http\Service\AuthService;
@@ -16,11 +17,11 @@ class RegisterController extends Controller
         return view('Client.Auth.sig-up');
     }
 
-    public function register(SigUpRequest $request, AuthService $service)
+    public function register(SigUpRequest $request)
     {
         $credentials = $request->validated();
 
-        $registerUser = new RegisterJob(new User(), $credentials, $service->generateHashPass($credentials['password']));
+        $registerUser = new RegisterJob(new User(), $credentials, HashHelper::generateHashPass($credentials['password']));
 
         if ($registerUser->checkUser()) {
             return response()->json([

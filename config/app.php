@@ -191,6 +191,7 @@ return [
          */
         App\Providers\IndexViewServiceProvider::class,
         App\Providers\CollectionHelperProvider::class,
+        App\Providers\HashHelperProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,

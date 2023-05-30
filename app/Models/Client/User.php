@@ -2,12 +2,14 @@
 
 namespace App\Models\Client;
 
+use App\Helpers\HashHelper;
 use App\Models\Client\Login\Avatar;
 use App\Models\Client\Login\Cart;
 use App\Models\Client\Payment\BankCards;
 use App\Models\Client\Payment\SystemPayment;
 use App\Models\Employee\Client\Ban;
 use App\Models\Employee\Employee;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -39,11 +41,9 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $hidden = [
-        'id',
         'password',
         'remember_token',
         'email_verified_at',
-        'job_hash',
         'employee_id',
         'created_at',
         'updated_at'
@@ -76,6 +76,36 @@ class User extends Authenticatable implements MustVerifyEmail
     public function cart()
     {
         return $this->hasOne(Cart::class);
+    }
+
+    public function updateUserName($name)
+    {
+        $this->update([
+           'name' => $name
+        ]);
+    }
+
+    public function updateEmail($email)
+    {
+        $this->update([
+            'email' => $email,
+            'email_verified_at' => Carbon::now(),
+            'job_hash' => null
+        ]);
+    }
+
+    public function changePass($password)
+    {
+        $this->update([
+            'password' => HashHelper::generateHashPass($password),
+        ]);
+    }
+
+    public function setHashJob($jobHash)
+    {
+        $this->update([
+            'job_hash' => $jobHash
+        ]);
     }
 
     public function client($id)
@@ -120,9 +150,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return User::where('email', $email)->first();
     }
 
-    public function findUserHash($job_hash)
+    public function findUserHash($jobHash)
     {
-        return User::where('job_hash', $job_hash)->first();
+        return User::where('job_hash', $jobHash)->first();
     }
 
     public static function findUserToken($token)
