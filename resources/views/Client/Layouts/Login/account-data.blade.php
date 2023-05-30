@@ -166,27 +166,40 @@
         })
     })
     $('#change-password').bind('click', function (e) {
-        $.ajax({
-            url: '',
-            type: "POST",
-            data: {
+        var pass = $('#pass').val()
+        var newPass = $('#newPass').val()
+        var repeatPass = $('#repeatPass').val()
 
-            },
-            dataType: 'json',
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function (result) {
+        if (!pass) {
+            return
+        }
 
-            },
-            statusCode: {
-                401: function (err) {
-                    console.log(err);
+        if (newPass == repeatPass) {
+            $.ajax({
+                url: '{{ route('post.change.password') }}',
+                type: "POST",
+                data: {
+                    oldPass: pass,
+                    newPass: newPass,
                 },
-                500: function (err) {
-                    console.log(err);
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (result) {
+                    if (result['success']) {
+                        $('#password .server-message').css('color', 'lime').text('Пароль изменён')
+                    }
+                },
+                statusCode: {
+                    401: function (err) {
+                        console.log(err);
+                    },
+                    500: function (err) {
+                        console.log(err);
+                    }
                 }
-            }
-        })
+            })
+        }
     })
 </script>
