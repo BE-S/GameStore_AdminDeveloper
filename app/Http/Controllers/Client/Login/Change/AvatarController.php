@@ -19,9 +19,10 @@ class AvatarController extends Controller
     {
         try {
             $data = $request->validated();
-            $user = User::findOrFail(Auth::user()->id);
-            $uploadAvatar = new UploadAvatarJob($user->id);
-            $avatar = $user->avatar;
+            $client = User::findOrFail(Auth::user()->id);
+
+            $uploadAvatar = new UploadAvatarJob($client->id);
+            $avatar = $client->avatar;
 
             if ($request->input('uploadSquare') && $request->input('uploadCircle')) {
                 $uploadSquare = $uploadAvatar->uploadAvatar($request->input('uploadSquare'));
@@ -35,7 +36,13 @@ class AvatarController extends Controller
                 $avatar->updateAvatar($uploadSquare, $uploadCircle);
             }
             if ($data['name']) {
-                $user->updateUserName($data['name']);
+                if (!strcasecmp($data['name'], $client->name)) {
+                    return response()->json([
+                        'error' => true,
+                        'message' => 'Введите новое имя'
+                    ]);
+                }
+                $client->updateUserName($data['name']);
             }
 
             return response()->json(['success' => true]);
