@@ -6,6 +6,7 @@ use App\Helpers\HashHelper;
 use App\Http\Controllers\Controller;
 use App\Jobs\Email\SendChangeEmailJob;
 use App\Models\Client\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -17,6 +18,14 @@ class EmailController extends Controller
         try {
             $user = new User();
             $client = User::findOrFail(Auth::user()->id);
+
+            if (!strcasecmp($request->email, $client->email)) {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Введите новую почту'
+                ]);
+            }
+
             $checkMail = $user->findUserEmail($request->email) ? true : false;
 
             if ($checkMail) {
@@ -33,8 +42,10 @@ class EmailController extends Controller
                 'success' => true,
                 'message' => 'Перейдите по ссылке отпарвленную на вашу почту'
             ]);
-        } catch (ValidationException $exception) {
-
+        } catch (ModelNotFoundException $exception) {
+            return response()->json([
+                'errors' => $exception->getMessage()
+            ]);
         }
     }
 }
