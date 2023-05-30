@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Client\Login\Change\ConfirmEmailController;
 use App\Http\Controllers\Client\Market\ReviewController;
 use App\Http\Controllers\Employee\Dashboard\IndexController;
 use App\Http\Controllers\Employee\Dashboard\Product\Add\CoverController;
@@ -96,9 +97,11 @@ Route::group(['middleware' => 'ban'], function() {
 
         Route::group(['middleware' => 'verified'], function () {
             route::get('/account/*', '\App\Http\Controllers\Client\Login\AccountController@index')->name('get.account');
+
             Route::group(['prefix' => 'change'], function () {
                 route::post('/avatar', [AvatarController::class, '__invoke'])->name('post.change.avatar');
                 route::post('/email', [EmailController::class, '__invoke'])->name('post.change.email');
+                route::get('/confirm/mail/{hash}/{email}', [ConfirmEmailController::class, '__invoke'])->name('get.change.confirm.email');
                 route::post('/password', [PasswordController::class, '__invoke'])->name('post.change.password');
             });
 
