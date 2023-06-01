@@ -47,8 +47,8 @@
                                     Rub
                                 </span>
                                 <span>
-                                    <a href="{{ route("get.cart") }}">
-                                        <img src="http://localhost:8080/image/icon/cart.png" class="icon">
+                                    <a href="{{ auth()->check() ? route("get.cart") : route("get.sig-in") }}">
+                                        <img src="/image/icon/cart.png" class="icon">
                                         <span id="count-games">{{ isset($countCart) ? $countCart : 0 }}</span>
                                     </a>
                                 </span>
