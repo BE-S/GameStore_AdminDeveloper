@@ -8,7 +8,7 @@
                 По вашему запросу <span id="query">{{ $query }}</span> найдено <span id="count-search">{{ $countFound }}</span>
             </div>
             <div class="result">
-                @include('Client.Layouts.Catalog.search-result', compact('games'))
+                @include('Client.Layouts.Catalog.search-result', compact('games', 'reviews'))
             </div>
         </div>
         <div id="search-categories">

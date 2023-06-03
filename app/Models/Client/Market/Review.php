@@ -35,6 +35,26 @@ class Review extends Model
         return $this->hasMany(ReviewEmoji::class, 'review_id');
     }
 
+    public function ultimate($gameId)
+    {
+        $grade = $this->selectRaw('count(*), grade')->where('game_id', $gameId)->groupBy('grade')->whereNull('deleted_at')->get();
+
+        if ($grade->isEmpty()) {
+            return 'Нет оценок';
+        }
+
+        $bads = $grade->where('grade', false)->first()->count;
+        $goods = $grade->where('grade', true)->first()->count;
+
+        $parcentBads = ($bads / $goods) * 100;
+        $parcentGoods = 100 - $parcentBads;
+
+        if ($parcentBads >= 40 && $parcentGoods >= 40 || $bads == $goods) {
+            return 'смешанные';
+        }
+        return $parcentBads > $parcentGoods ? 'отрицательные' : 'положительные';
+    }
+
     public function reviewEmojiCount()
     {
         return $this->hasMany(ReviewEmoji::class, 'review_id')

@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="grade">
-            Оценка
+            Отзывы: {{ $reviews->ultimate($game->id) }}
         </div>
     </a>
 @endforeach

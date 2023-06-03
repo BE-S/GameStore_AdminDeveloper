@@ -4,15 +4,16 @@ namespace App\Http\Controllers\Client\Market;
 
 use App\Models\Client\Market\Game;
 use App\Models\Client\Market\Genres;
+use App\Models\Client\Market\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Str;
 
 class SearchGameController extends BaseController
 {
     public function searchGet(Request $request, $query = null)
     {
         $game = new Game();
+        $reviews = new Review();
         $games = $query ? $game->searchName($query) : $game->getReadyGames();
         $genresId = array();
 
@@ -26,7 +27,7 @@ class SearchGameController extends BaseController
         $countFound = Lang::choice('lang.product', count($games), ['count' => count($games)]);
         $categories = Genres::all();
 
-        return view('Client.Market.search', compact('games', 'query', 'categories', 'countFound', 'genresId'));
+        return view('Client.Market.search', compact('games', 'reviews', 'query', 'categories', 'countFound', 'genresId'));
     }
 
     public function searchPost(Request $request)
