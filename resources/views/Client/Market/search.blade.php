@@ -67,6 +67,7 @@
                 },
                 success: function (result) {
                     $('.link-game').remove()
+                    $('.found-nothing').remove()
                     $('#count-search').empty()
                     $('.result').append(result['viewLoad'])
                     $('#count-search').append(result['countLoad'])

@@ -1,3 +1,6 @@
+@if ($games->isEmpty())
+    <h1 class="found-nothing">Ничего не найдено</h1>
+@endif
 @foreach($games as $game)
     <a href="{{ route('get.game', $game->id) }}" class="link-game">
         <img src="{{ '/storage/' . $game->gameCover->small }}">
