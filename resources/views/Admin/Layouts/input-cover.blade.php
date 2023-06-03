@@ -1,6 +1,6 @@
 <div class="container-cover">
     <form id="covers">
-        <div class="form-group">
+        <div id="small" class="form-group">
             <div class="input-group mb-3 input">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupFileAddon01">Заглавное изображение</span>
@@ -20,7 +20,7 @@
                 @endif
             @endisset
         </div>
-        <div class="form-group">
+        <div id="header" class="form-group">
             <div class="input-group mb-3 input">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupFileAddon02">Изображение для поиска</span>
@@ -40,7 +40,7 @@
                 @endif
             @endisset
         </div>
-        <div class="form-group">
+        <div id="poster" class="form-group">
             <div class="input-group mb-3 input">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupFileAddon03">Постер</span>
@@ -60,7 +60,7 @@
                 @endif
             @endisset
         </div>
-        <div class="form-group">
+        <div id="screen" class="form-group">
             <div class="input-group mb-3 input">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupFileAddon04">Скриншоты</span>
@@ -82,7 +82,7 @@
                 @endif
             @endisset
         </div>
-        <div class="form-group">
+        <div id="background" class="form-group">
             <div class="input-group mb-3 input">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupFileAddon05">Задний фон</span>

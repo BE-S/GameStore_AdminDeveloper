@@ -9,6 +9,7 @@ use App\Jobs\Employee\Product\Upload\GameCoverJob;
 use App\Models\Employee\Market\Game;
 use App\Models\Employee\Market\GameCover;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
 
@@ -24,15 +25,16 @@ class UploadCoverController extends Controller
 
             $uploadScreen = new GameCoverJob($game->name);
             $uploadScreen->uploadCovers(
-                Arr::only($credentials, ['small', 'header', 'poster'])
+                Arr::only($credentials, ['small', 'store_header_image', 'poster'])
             );
+
             $uploadScreen->uploadScreen($credentials['screen']);
 
             if ($gameCover) {
-                GameCover::updateCoverGame($gameCover, $game->id, $uploadScreen->url);
+                $gameCover->updateCoverGame($game->id, $uploadScreen->url);
             }
 
-            return response()->json(['updateCover' => true]);
+            return response()->json(['success' => true]);
         } catch (ValidationException $exception) {
             return response()->json([
                 'errors' => $exception->validator->errors()->all()
@@ -73,7 +75,7 @@ class UploadCoverController extends Controller
             return response()->json(['success' => true]);
         } catch (ValidationException $exception) {
             return response()->json([
-                'validationException' => $exception->validator->errors()->all()
+                'errors' => $exception->validator->errors()->all()
             ], 400);
         } catch (ModelNotFoundException $exception) {
             return response()->json([
