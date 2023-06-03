@@ -24,8 +24,16 @@ class ChangePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'password' => ['required'],
-            'job_hash' => ['required'],
+            'password' => 'required|between:6,20',
+            'jobHash' => 'required|string',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'password.required' => 'Введите пароль',
+            'password.between' => 'Пароль должен быть от 6 до 20 символов',
         ];
     }
 }
