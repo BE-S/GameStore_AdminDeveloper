@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Client\Auth;
 
 use App\Helpers\HashHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Client\Auth\recoveryRequest;
-use App\Http\Service\AuthService;
+use App\Http\Requests\Client\Auth\RecoveryRequest;
 use App\Jobs\Email\SendVerificationJob;
 use App\Models\Client\User;
 
@@ -16,7 +15,7 @@ class RecoveryController extends Controller
         return view('Client.Auth.recovery-login');
     }
 
-    public function recoveryLogin(RecoveryRequest $request, AuthService $service)
+    public function recoveryLogin(RecoveryRequest $request)
     {
         $credentials = $request->validated();
 
