@@ -37,7 +37,7 @@
                 <label class="error-max"></label>
             </div>
         </div>
-        <div id="send">
+        <div id="send" class="data">
             <div class="btn btn-primary">Отправить<div>
         </div>
     </form>

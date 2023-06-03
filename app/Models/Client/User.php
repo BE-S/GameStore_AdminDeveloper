@@ -111,9 +111,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function client($id)
     {
         $user = $this->findOrFail($id);
-        $employee = $user->hasOne(Employee::class);
+        $employee = $user->hasOne(Employee::class)->whereNull('deleted_at');
 
-        if ($user->employee_id || $employee->deleted_at) {
+        if ($user->employee_id || $employee) {
             return $user;
         }
     }
