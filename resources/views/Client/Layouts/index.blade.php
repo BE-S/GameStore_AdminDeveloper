@@ -43,7 +43,7 @@
                             </div>
                             <div class="right">
                                 <span>
-                                    <img src="http://localhost:8080/image/icon/rus.png" class="icon">
+                                    <img src="/image/icon/rus.png" class="icon">
                                     Rub
                                 </span>
                                 <span>
@@ -146,9 +146,7 @@
                             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function (result) {
-                            if ($('#search-result')) {
-                                $('#search-result').empty()
-                            }
+                            $('#search-result').empty()
                             $('#search-result').append(result['viewLoad'])
                         },
                         statusCode: {

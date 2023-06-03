@@ -33,4 +33,23 @@ class UploadCoverRequest extends FormRequest
             'background_image' => 'file|mimes:jpg,svg,png',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'small.required' => 'Не загружено изображение',
+            'small.dimensions' => 'Размер изображения должно быть 460x215px',
+            'small.mimes' => 'Допустий формат файла: jpg, svg, png',
+            'store_header_image.required' => 'Не загружено изображение',
+            'store_header_image.dimensions' => 'Размер изображения должно быть 231x87px',
+            'store_header_image.mimes' => 'Допустий формат файла: jpg, svg, png',
+            'poster.required' => 'Не загружено изображение',
+            'poster.dimensions' => 'Размер изображения должно быть 600x800px',
+            'poster.mimes' => 'Допустий формат файла: jpg, svg, png',
+            'screen.required' => 'Не загружены изображения',
+            'screen.min' => 'Минимум 5 изображений',
+            'screen.dimensions' => 'Размер изображения должно быть 1920x1080px',
+            'screen.mimes' => 'Допустий формат файла: jpg, svg, png',
+        ];
+    }
 }

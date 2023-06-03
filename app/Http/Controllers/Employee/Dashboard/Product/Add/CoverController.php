@@ -9,8 +9,8 @@ class CoverController extends Controller
 {
     public function showPage($id)
     {
-        $product = Game::find($id);
+        $uploadGame = Game::find($id);
 
-        return view('Admin.Dashboard.Market.Game.upload-cover', compact('product'));
+        return view('Admin.Dashboard.Market.Game.upload-cover', compact('uploadGame'));
     }
 }

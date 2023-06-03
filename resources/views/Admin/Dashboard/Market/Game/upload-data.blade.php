@@ -5,14 +5,14 @@
 
     <script>
         $(function () {
-            $('#game-info').bind('click', function (e) {
+            $('#send.data').bind('click', function (e) {
                 e.preventDefault();
 
                 const formDataMin = {}
                 const formDataMax = {}
 
                 $.ajax({
-                    url: '{{ route("post.dashboard.upload.game.data.update.loading") }}',
+                    url: '{{ route("post.dashboard.upload.game.data.loading") }}',
                     type: "POST",
                     dataType: 'json',
                     data: {
