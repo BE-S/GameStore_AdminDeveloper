@@ -40,13 +40,20 @@ class Review extends Model
         $grade = $this->selectRaw('count(*), grade')->where('game_id', $gameId)->groupBy('grade')->whereNull('deleted_at')->get();
 
         if ($grade->isEmpty()) {
-            return 'Нет оценок';
+            return 'Отсутствуют';
         }
 
-        $bads = $grade->where('grade', false)->first()->count;
-        $goods = $grade->where('grade', true)->first()->count;
+        $bads = $grade->where('grade', false)->first();
+        $goods = $grade->where('grade', true)->first();
 
-        $parcentBads = ($bads / $goods) * 100;
+        if (!$bads) {
+            return 'положительные';
+        }
+        if (!$goods) {
+            return 'отрицательные';
+        }
+
+        $parcentBads = ($bads->count / $goods->count) * 100;
         $parcentGoods = 100 - $parcentBads;
 
         if ($parcentBads >= 40 && $parcentGoods >= 40 || $bads == $goods) {
