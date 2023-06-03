@@ -63,7 +63,7 @@
                 }
             })
 
-            $('#game-info').bind('click', function (e) {
+            $('#send.data').bind('click', function (e) {
                 e.preventDefault();
                 const formDataMin = {};
                 const formDataMax = {};
@@ -170,6 +170,9 @@
 
             $('#send.cover').bind('click', function (e) {
                 e.preventDefault();
+
+                $(".not-exist").remove()
+
                 var formData = new FormData($('#covers')[0])
                 var gameId = {{ $game ? $game->id : null }}
                 formData.append('gameId', gameId)
@@ -185,6 +188,7 @@
                         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function (result) {
+                        console.log(result)
                         if (result['error']) {
                             $('.change-message.cover').removeClass('alert-success').addClass('alert-danger').text(result['error'])
                         }
@@ -194,26 +198,23 @@
                         setTimeout(deleteMessage, 20000);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        var errors = jqXHR.responseJSON.validationException;
-
-                        if (errors === 'undefined') {
-                            alert('Ошибка сервера!')
-                        }
-
-                        if (typeof errors['gameId'] !== 'undefined') {
-                            console.log('11')
+                        var errors = jqXHR.responseJSON.errors;
+                        console.log(errors)
+                        if (!errors) {
+                            alert('Ошибка сервера');
+                            return
                         }
                         if (typeof errors['small'] !== 'undefined') {
-                            console.log('12')
+                            errorMessage('small', errors['small'])
                         }
-                        if (typeof errors['header'] !== 'undefined') {
-                            console.log('13')
+                        if (typeof errors['store_header_image'] !== 'undefined') {
+                            errorMessage('header', errors['store_header_image'])
                         }
                         if (typeof errors['poster'] !== 'undefined') {
-                            console.log('14')
+                            errorMessage('poster', errors['poster'])
                         }
                         if (typeof errors['screen'] !== 'undefined') {
-                            console.log('15')
+                            errorMessage('screen', errors['screen'])
                         }
                     },
                     statusCode: {
@@ -226,6 +227,11 @@
                     }
                 })
             });
+
+            function errorMessage(nameCover, message)
+            {
+                $('#' + nameCover).append('<div class="not-exist">' + message + '</div>').css('color', 'red')
+            }
 
             $('#public').bind('click', function (e) {
                 e.preventDefault();
