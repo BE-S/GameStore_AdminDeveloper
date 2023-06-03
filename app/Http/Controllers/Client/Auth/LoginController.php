@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Client\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\Auth\SigInRequest;
+use App\Http\Service\AuthService;
 use App\Jobs\Auth\LoginJob;
-use App\Jobs\RedirectJob;
-use Illuminate\Validation\ValidationException;
+use App\Models\Client\User;
+use Illuminate\Support\Facades\Auth;
 
 
 class LoginController extends Controller
@@ -16,39 +17,20 @@ class LoginController extends Controller
         return view('Client.Auth.sig-in');
     }
 
-    public function login(SigInRequest $request)
+    public function login(SigInRequest $request, AuthService $service)
     {
-        try {
-            $credentials = $request->only('email', 'password');
-            $login = new LoginJob($credentials, true);
-            $redirect = new RedirectJob();
+        $credentials = $request->only('email', 'password');
 
-            if (!$login->checkUser() || $login->checkEmployee()) {
-                return response()->json([
-                    'error' => true,
-                    'message' => 'Пользователь не существует'
-                ]);
-            }
+        $login = new LoginJob(new User(), $credentials);
 
-            if ($login->checkBan()) {
-                return response()->json([
-                    'error' => true,
-                    'message' => 'Пользователь заблокирован'
-                ]);
-            }
-
-            if (!$login->authentication()) {
-                return response()->json([
-                    'error' => true,
-                    'message' => 'Данные не верны'
-                ]);
-            }
-
-            return response()->json(['success' => $redirect->redirectPastUrl()]);
-        } catch (ValidationException $exception) {
-            return response()->json([
-                'errors' => $exception->validator->errors()->all()
-            ], 400);
+        if (!$login->checkUser() || $login->checkEmployee()) {
+            return response()->json(['error' => 'Пользователь не существует']);
         }
+
+        if (!$login->authentication()) {
+            return response()->json(['error' => 'Не верный пароль']);
+        }
+
+        return response()->json(['success' => true]);
     }
 }

@@ -4,36 +4,35 @@ namespace App\Http\Controllers\Client\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\Auth\ChangePasswordRequest;
+use App\Http\Service\AuthService;
+use App\Jobs\Auth\RecoveryJob;
 use App\Models\Client\User;
+use Illuminate\Http\Request;
 
 class ChangePasswordController extends Controller
 {
-    public function index($hash)
+    public function index()
     {
-        $user = new User();
-        $client = $user->findUserHash($hash);
-
-        if (!$hash || !$client) {
-            abort(404);
-        }
-
         return view('Client.Auth.change-password');
     }
 
-    public function changePass(ChangePasswordRequest $request)
+    public function changePass(ChangePasswordRequest $request, AuthService $service)
     {
         $credentials = $request->validated();
 
-        $user = new User();
-        $client = $user->findUserHash($credentials['jobHash']);
+        $userModel = new User();
+        $user = $userModel->findUserHash($credentials['job_hash']);
 
-        $client->changePass($credentials['password']);
+        $recPass = new RecoveryJob($user);
 
-        $client->setHashJob(null);
+        $recPass->setPass(
+            $service->generateHashPass($credentials['password'])
+        );
+
+        $recPass->setHashJob(null);
 
         return response()->json([
-            'success' => true,
-            'message' => 'Пароль изменён! Авторизуйтесь с помощью нового пароля',
+            'Пароль изменён'
         ]);
     }
 }

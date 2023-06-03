@@ -12,6 +12,7 @@ class LogoutController extends Controller
 {
     public function index(Request $request) {
         Auth::logout();
-        return redirect(route('get.index'));
+
+        echo 'Пользователь мёртв';
     }
 }

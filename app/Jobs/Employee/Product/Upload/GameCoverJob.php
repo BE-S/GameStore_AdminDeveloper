@@ -2,9 +2,12 @@
 
 namespace App\Jobs\Employee\Product\Upload;
 
-
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class GameCoverJob implements ShouldQueue
 {
@@ -38,16 +41,6 @@ class GameCoverJob implements ShouldQueue
     }
 
     /**
-     * Upload game cover.
-     *
-     * @return void
-     */
-    public function uploadCover($cover) : string
-    {
-        return $cover->store('assets/game/'. $this->nameGame, 'public');
-    }
-
-    /**
      * Upload game screen.
      *
      * @return void
@@ -62,20 +55,6 @@ class GameCoverJob implements ShouldQueue
             );
         }
         $this->putUrl('screen', $temp);
-    }
-
-    public function deleteCover($path)
-    {
-        if (Storage::exists("public/" . $path)) {
-            Storage::delete("public/" . $path);
-        }
-    }
-
-    public function deleteCovers($paths)
-    {
-        foreach ($paths as $path) {
-            $this->deleteCover($path);
-        }
     }
 
     protected function putUrl($key, $value)

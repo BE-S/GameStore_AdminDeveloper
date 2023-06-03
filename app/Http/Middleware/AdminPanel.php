@@ -2,8 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Employee\Auth\Employee;
-use App\Models\Employee\Client;
+use App\Models\Admin\Client;
 use App\Models\Client\User;
 use Closure;
 use Illuminate\Http\Request;
@@ -25,7 +24,7 @@ class AdminPanel
 
         $user = User::where('email', auth()->user()->email)->first();
 
-        if (is_null($user->employee) || $user->employee->role_id == 0 || $user->employee->deleted_at) {
+        if (is_null($user->employee) || $user->employee->role_id == 0) {
             abort(403);
         }
 

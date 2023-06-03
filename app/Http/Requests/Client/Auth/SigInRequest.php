@@ -24,17 +24,8 @@ class SigInRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string',
-            'password' => 'required|string|between:6,20',
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'email.required' => 'Введите почту',
-            'password.required' => 'Введите пароль',
-            'between' => 'Пароль должен быть от 6 до 20 символов',
+            'email' => ['required'],
+            'password' => ['required'],
         ];
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Client\Login\Avatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,11 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    protected $guarded = [
-        'id',
-        'employee_id',
-        'created_at',
-    ];
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -26,8 +21,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'email_verified_at',
-        'job_hash',
     ];
 
     /**
@@ -36,14 +29,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'id',
         'password',
         'remember_token',
-        'email_verified_at',
-        'job_hash',
-        'employee_id',
-        'created_at',
-        'updated_at'
     ];
 
     /**
