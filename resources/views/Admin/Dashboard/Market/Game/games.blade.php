@@ -1,4 +1,4 @@
-@extends('Admin.Layouts.admin-panel', ['title' => 'ПродуктЫ'])
+@extends('Admin.Layouts.admin-panel', ['title' => 'Продукты'])
 
 @section('content')
     <div id="list-games">

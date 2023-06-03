@@ -1620,6 +1620,17 @@ picture .discount {
     margin-left: 21em;
 }
 
+.search .result h1.found-nothing {
+    height: 11em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h5.found-nothing {
+    margin: 1em;
+}
+
 .search #query {
     font-weight: bold;
 }

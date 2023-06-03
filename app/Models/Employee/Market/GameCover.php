@@ -33,12 +33,12 @@ class GameCover extends \App\Models\Client\Market\GameCover
         ]);
     }
 
-    public static function updateCoverGame($gameCover, $gameId, $url)
+    public function updateCoverGame($gameId, $url)
     {
-        $gameCover->update([
+        $this->update([
             'game_id' => $gameId,
             'small' => $url['small'],
-            'store_header_image' => $url['header'],
+            'store_header_image' => $url['store_header_image'],
             'screen' => $url['screen'],
             'background_image' => isset($url['background']) ? $url['background'] : null,
             'poster' => $url['poster'],

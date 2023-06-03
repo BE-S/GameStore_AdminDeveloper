@@ -146,7 +146,6 @@ Route::group(['middleware' => 'ban'], function() {
                     Route::group(['prefix' => '/data'], function () {
                         route::get('/{id?}', [DataController::class, 'showPage'])->name('get.dashboard.upload.game.data');
                         route::post('/loading', [UploadDataController::class, 'uploadData'])->name('post.dashboard.upload.game.data.loading');
-                        route::post('update/loading', [UploadDataController::class, 'uploadData'])->name('post.dashboard.upload.game.data.update.loading');
                     });
                     Route::group(['prefix' => '/cover'], function () {
                         route::get('/{id}', [CoverController::class, 'showPage'])->name('get.dashboard.upload.game.cover');
