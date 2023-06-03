@@ -82,7 +82,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -189,6 +189,9 @@ return [
         /*
          * Application Service Providers...
          */
+        App\Providers\IndexViewServiceProvider::class,
+        App\Providers\CollectionHelperProvider::class,
+        App\Providers\HashHelperProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
@@ -209,7 +212,8 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
+        "Collection" => \App\Helpers\Collection::class,
+        //"Sample" => \App\Helpers\Sample::class,
     ])->toArray(),
 
 ];

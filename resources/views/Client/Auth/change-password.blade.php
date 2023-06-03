@@ -1,16 +1,32 @@
 @extends('Client.Layouts.index')
 
 @section('content')
-    <div class='container w-28'>
-        <div class="row mb-3">
-                <div class="col-sm-10 w-100"><input type="password" class="form-control form-control-sm" id="InputPass" placeholder="Новый пароль"></div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-sm-10 w-100">
-                <input type="password" class="form-control form-control-sm" id="InputPassRepeat" placeholder="Ещё раз новый пароль">
+
+    <style>
+        .footer {
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+
+    <div class="container-fluid">
+        <div class="offset-md-4 col-md-4 offset-sm-3 col-sm-6">
+            <div class="form-container">
+                <h3 class="title">Восстановление пароля</h3>
+                <span class="server-message"></span>
+                <form class="form-horizontal">
+                    <div class="error-message email"></div>
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-sm" id="InputPass" placeholder="Новый пароль">
+                    </div>
+                    <div class="error-message password"></div>
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-sm" id="InputPassRepeat" placeholder="Повторите пароль">
+                    </div>
+                    <div class="btn change">Изменить пароль</div>
+                </form>
             </div>
         </div>
-        <button class="btn btn-primary mb-3" style="width: 100%" id="btn" data-page_tocken="{{ csrf_token() }}">Войти</button>
     </div>
 
     <script>
@@ -18,7 +34,10 @@
         {
             var url = document.location.href
 
-                $('#btn').bind('click', function (e) {
+                $('.btn.change').bind('click', function (e) {
+                    console.log(1)
+                    clearError()
+
                     if ($('#InputPass').val() === $('#InputPassRepeat').val()) {
                         e.preventDefault();
 
@@ -27,14 +46,35 @@
                             type: "POST",
                             data: {
                                 password: $('#InputPass').val(),
-                                job_hash: url.split('/').pop(),
+                                jobHash: url.split('/').pop(),
                             },
                             dataType: 'json',
                             headers: {
                                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                             },
                             success: function (result) {
-                                console.log("Success: ", result)
+                                if (result['error']) {
+                                    $('.server-message').css('color', 'red').text(result['message'])
+                                }
+                                if (result['success']) {
+                                    $('.server-message').css('color', 'black').text(result['message'])
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                var errors = jqXHR.responseJSON.errors;
+
+                                if (!errors) {
+                                    alert('Ошибка сервера')
+                                    return;
+                                }
+                                if (errors['email']) {
+                                    $('#InputEmail').css('border', '1px solid red')
+                                    $('.error-message.email').text(errors['email'])
+                                }
+                                if (errors['password']) {
+                                    $('#InputPass').css('border', '1px solid red')
+                                    $('.error-message.password').text(errors['password'])
+                                }
                             },
                             statusCode: {
                                 401: function (err) {
@@ -49,6 +89,15 @@
                         alert('Пароли не совпадают');
                     }
                 })
+
+            function clearError()
+            {
+                $('.server-message').text('')
+                $('.error-message.email').text('')
+                $('.error-message.password').text('')
+                $('#InputEmail').css('border', 'none')
+                $('#InputPass').css('border', 'none')
+            }
         })
     </script>
 @endsection

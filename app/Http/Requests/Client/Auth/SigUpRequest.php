@@ -24,16 +24,20 @@ class SigUpRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
-            'last_name' => ['required'],
-            'email' => ['required'],
-            'password' => ['required'],
+            'name' =>'required|string|max:16',
+            'email' => 'required|string|regex:/^[^@]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$/',
+            'password' => 'required|string|between:6,20',
         ];
     }
 
-    //Password::min(8)
-    //    ->letters()
-    //    ->mixedCase()
-    //    ->numbers()
-    //    ->uncompromised()
+    public function messages()
+    {
+        return [
+            'name.required' => 'Введите имя',
+            'email.required' => 'Введите почту',
+            'password.required' => 'Введите пароль',
+            'name.size' => 'Имя должно быть меньше 16 символов',
+            'password.between' => 'Пароль должен быть от 6 до 20 символов',
+        ];
+    }
 }

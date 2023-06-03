@@ -3,48 +3,52 @@
 namespace App\Http\Controllers\Client\Market;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Market\CartJob;
+use App\Models\Client\Login\Library;
+use App\Models\Client\Market\Emoji;
 use App\Models\Client\Market\Game;
-use App\Models\Client\Market\GameDescription;
-use App\Models\Item;
-use Illuminate\Http\Request;
+use App\Models\Client\Market\Review;
+use App\Models\Client\Market\ReviewEmoji;
+use App\Models\Client\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
-class GameController extends Controller
+
+class GameController extends BaseController
 {
-    public function index($id)
+    public function showPage($id)
     {
-        $game = Game::find($id);
+        try {
+            $cartJob = new CartJob();
+            $emoji = new Emoji();
+            $reviewEmojiModel = new ReviewEmoji();
 
-        return view('Client.Market.game', compact('game'));
-    }
+            $game = Game::findOrFail($id);
+            $emojiAll = $emoji->all();
+            $reviews = $game->reviews;
 
-    public function test(Request $request)
-    {
-        $path = $request->file('main')->store('assets/game', 'public');
+            if (!$game->is_published) {
+                abort(404);
+            }
+            $cartGame = Auth::check() ? $cartJob->getGameCart($game->id) : null;
 
-        return view('Client.Market.game', compact('path'));
+            return view("Client.Market.game", compact('game', 'cartGame', 'reviews', 'emojiAll', 'reviewEmojiModel'));
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
     }
 }
 
 /*
-    $input = [
-            'game_id' => 1,
-            'description' => 'Demo Title',
-            'min_settings' => [
-                'OS' => 'Windows 7 64-bit',
-                'CPU' => 'Intel core 5',
-                'Video card' => 'GTX 1050 ti'
-            ],
-            'max_settings' => [
-                'OS' => 'Windows 10 64-bit',
-                'CPU' => 'Intel core 7',
-                'Video card' => 'GTX 1070 ti'
-            ]
-        ];
-
-        $item = GameDescription::create($input);
-
-transform: translateY(0%);
-    position: relative;
-    display: block;
-    overflow: hidden;
+ * получить emoji
+    foreach ($reviews as $review) {
+                foreach ($review->reviewEmoji as $reviewEmoji) {
+                    dd($reviewEmoji->emoji);
+                }
+            }
 */
+
+//                foreach ($reviewEmojiModel->uniqueEmoji($review->id) as $test) {
+//                    dd($test);
+//                }

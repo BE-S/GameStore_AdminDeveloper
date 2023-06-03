@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Client\Auth;
 
+use App\Helpers\HashHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Client\Auth\recoveryRequest;
-use App\Http\Service\AuthService;
-use App\Jobs\Auth\RecoveryJob;
-use App\Jobs\Email\sendVarificationJob;
+use App\Http\Requests\Client\Auth\RecoveryRequest;
+use App\Jobs\Email\SendVerificationJob;
 use App\Models\Client\User;
 
 class RecoveryController extends Controller
@@ -16,20 +15,27 @@ class RecoveryController extends Controller
         return view('Client.Auth.recovery-login');
     }
 
-    public function recoveryLogin(RecoveryRequest $request, AuthService $service)
+    public function recoveryLogin(RecoveryRequest $request)
     {
         $credentials = $request->validated();
 
         $userModel = new User();
         $user = $userModel->findUserEmail($credentials['email']);
 
-        $recPass = new RecoveryJob($user);
-        $recPass->setHashJob($service->generateJobHash());
+        if (!$user) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Пользователь не найден'
+            ]);
+        }
 
-        $this->dispatch(new sendVarificationJob($user['email'], $user['job_hash'], 'get.change-password'));
+        $user->setHashJob(HashHelper::generateJobHash());
+
+        $this->dispatch(new SendVerificationJob($user['email'], $user['job_hash'], 'get.change-password'));
 
         return response()->json([
-            'Чекай почту'
+            'success' => true,
+            'message' => 'Письмо отправлено на вашу почту'
         ]);
     }
 }

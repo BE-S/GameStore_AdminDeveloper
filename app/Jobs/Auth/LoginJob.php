@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Auth;
 
-use App\Models\Admin\Employee;
+use App\Models\Employee\Employee;
 use App\Models\Client\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginJob implements ShouldQueue
 {
-    protected $credentials;
+    protected $login;
+    protected $remember;
     protected $user;
 
     /**
@@ -22,9 +23,10 @@ class LoginJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($model, $credentials)
+    public function __construct($login, $remember)
     {
-        $this->credentials = $credentials;
+        $this->login = $login;
+        $this->remember = $remember;
     }
 
     /**
@@ -34,9 +36,14 @@ class LoginJob implements ShouldQueue
      */
     public function checkUser()
     {
-        $this->user = User::where('email', $this->credentials['email'])->first();
+        $this->user = User::where('email', $this->login['email'])->first();
 
         return $this->user;
+    }
+
+    public function checkBan()
+    {
+        return $this->user->ban ? true : false;
     }
 
     public function checkEmployee()
@@ -57,6 +64,6 @@ class LoginJob implements ShouldQueue
 
     public function authentication()
     {
-        return Auth::attempt($this->credentials, true);
+        return Auth::attempt($this->login, $this->remember);
     }
 }

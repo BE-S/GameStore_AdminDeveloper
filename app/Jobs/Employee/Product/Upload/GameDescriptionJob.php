@@ -2,18 +2,17 @@
 
 namespace App\Jobs\Employee\Product\Upload;
 
-use App\Models\Client\Market\Game;
-use App\Models\Client\Market\GameCover;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
+use App\Models\Employee\Market\Game;
+use App\Models\Employee\Market\GameCover;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Response;
 
 class GameDescriptionJob implements ShouldQueue
 {
     protected $credentials;
+    protected $minSettings;
+    protected $maxSettings;
 
     /**
      * Create a new job instance.
@@ -24,16 +23,21 @@ class GameDescriptionJob implements ShouldQueue
     public function __construct($credentials)
     {
         $this->credentials = $credentials;
+        $this->minSettings = str_replace(',', ';', $credentials['min_settings']);
+        $this->maxSettings = str_replace(',', ';', $credentials['max_settings']);
     }
 
-    /**
-     * Check if the game exists
-     *
-     * @return object
-     */
-    public function checkGame()
+    public function updateGame($gameDescription)
     {
-        return Game::where('name', $this->credentials['name'])->first();
+        return $gameDescription->update([
+            'name' => $this->credentials['name'],
+            'price' => $this->credentials['price'],
+            'description' => $this->credentials['description'],
+            'max_settings' => $this->credentials['max_settings'],
+            'min_settings' => $this->credentials['min_settings'],
+            'developer_id' => 1,
+            'published_id' => 1,
+        ]);
     }
 
     /**

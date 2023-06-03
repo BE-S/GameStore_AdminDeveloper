@@ -1,0 +1,460 @@
+/*Убрать полосу прокрутки у элемента*/
+.element::-webkit-scrollbar {
+    width: 0;
+}
+
+/*Убрать полосу прокрутки для всей страницы*/
+::-webkit-scrollbar {
+    width: 0;
+}
+
+/*auth*/
+.background-admin {
+    background: #ececec;
+    min-height: 466px;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+}
+/*endauth*/
+
+.content {
+    display: flex;
+    text-align: center;
+}
+
+.content .table-hover .title {
+    background: #9c9c9c1c;
+}
+
+.content .table-hover .href-purchased {
+    cursor: pointer;
+}
+
+.change-settings {
+    display: flex;
+    width: 100%;
+}
+
+.change-settings {
+    margin-top: 2em;
+}
+
+#information, #preview, #public, #delete {
+    margin-top: 1.5em;
+}
+
+.window-setting {
+    height: 41em;
+}
+
+.window-setting, .window-content {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 1px solid #0000003d;
+    align-items: center;
+}
+
+.window-setting button {
+    border: 0;
+    width: 100%;
+    height: 3em;
+}
+
+.window-setting .buttons {
+    width: 25em;
+}
+
+.change-settings #data {
+    margin-right: 0.7em;
+}
+
+.change-settings #screen {
+    margin-left: 0.7em;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+textarea {
+    resize: both;
+    width: 35em;
+    height: 8em;
+}
+
+.collection-games {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+#list-games {
+    display: flex;
+    flex-direction: row;
+}
+
+.categories {
+    position: absolute;
+    width: 14em;
+    margin-left: 1em;
+}
+
+.game {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 60em;
+    background: white;
+    margin-bottom: 2em;
+}
+
+.game .name {
+    position: absolute;
+    display: flex;
+    background: white;
+    border: 1px solid;
+    top: 0;
+    right: 0;
+    font-size: 1.3em;
+    height: 2em;
+    padding: 0.5em;
+    align-items: center;
+}
+
+.count-key, .price, .published {
+    text-align: center;
+    width: 100%;
+}
+
+.union {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.count-key, .price, .published {
+    text-align: center;
+    width: 100%;
+    font-size: 1.2em;
+}
+
+.published {
+    margin-top: 0.5em;
+}
+
+.change-data {
+    display: none;
+}
+
+.change-data, .change-cover {
+    margin-top: 2em;
+    margin-left: 2em;
+}
+
+.change-cover {
+    display: none;
+}
+
+.change-data.active {
+    display: block;
+}
+
+.change-cover.active {
+    display: block;
+}
+
+.window-content {
+    width: 57em;
+    margin-left: 3em;
+    align-items: baseline;
+}
+
+.form-group label:nth-child(1) {
+    margin-right: 1em;
+}
+
+.cover-load img {
+    margin: 1em
+}
+
+.form-group .custom-file-label::after {
+    content: "Выбрать";
+}
+
+.cover-load {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#send {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 1em;
+    margin-right: 1em;
+}
+
+.game-cover {
+    height: 215px;
+    display: flex;
+    align-items: center;
+}
+
+.game .image {
+    display: flex;
+    width: 460px;
+    justify-content: center;
+}
+
+.game-cover {
+    height: 215px;
+    display: flex;
+    align-items: center;
+}
+
+.alert.change-message {
+    position: fixed;
+    bottom: 0;
+    right: 1em;
+    opacity: 0;
+}
+
+.alert.alert-success,
+.alert.alert-danger {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/*Merchant*/
+
+.list {
+    display: flex;
+    flex-direction: column;
+    width: 85em;
+}
+
+.merchant {
+    display: flex;
+    padding: 0 1em;
+    background: white;
+    justify-content: center;
+}
+
+.merchant p {
+    padding: 0 1em;
+    width: 100%;
+}
+
+
+/*Purchased*/
+
+.blocks {
+    width: 15em;
+}
+
+.blocks p {
+    margin: 0;
+    color: white;
+}
+
+.purchased {
+    display: none;
+    margin-left: 3em;
+    flex-direction: column;
+}
+
+.purchased .active {
+    display: flex;
+}
+
+.new.btn .active {
+    display: none;
+}
+
+.applications {
+    margin: 0 3em;
+    display: flex;
+    flex-direction: column;
+}
+
+.applications .table-hover .active {
+    display: none;
+}
+
+.applications p {
+    text-align: left;
+    font-weight: bold;
+    font-size: 1.4em;
+    font-style: inherit;
+}
+
+.applications p .active {
+    display: none;
+}
+
+.purchased .product {
+    display: flex;
+    margin-bottom: 1em;
+}
+
+.purchased .product div {
+    display: flex;
+    width: 11em;
+    align-items: center;
+    justify-content: center;
+    background: white;
+}
+
+.purchased .product .mark-return {
+    width: 2em;
+    padding-right: 1em;
+}
+
+.purchased .return {
+    text-align: end;
+    margin-left: 1em;
+}
+
+#application-date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 1em;
+}
+
+.purchased .product .info-application {
+    width: 14em;
+}
+
+.info-application .trash,
+.info-application .reload {
+    background: red;
+    width: 2em;
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.purchased .product .info-application .p-3.mb-2 {
+    font-size: 0.9em;
+    padding: 0.4em!important;
+    width: 9em;
+    margin-bottom: 0!important;
+}
+
+.purchased .return .btn {
+    width: 10em;
+}
+
+.purchased .product .info {
+    height: 6em;
+    width: 10em;
+}
+
+/*User*/
+
+#user.window-setting {
+    width: 27em;
+    height: auto;
+}
+
+#user.window-setting .name {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 0.5em;
+}
+
+#user.window-setting .date-reg {
+    font-size: 0.8em;
+    margin-top: 0.5em;
+}
+
+#user.window-setting .info img {
+    border-radius: 300px;
+    border: 3px solid #aaaaaa;
+}
+
+#user.window-setting .info {
+    margin-top: 1em;
+}
+
+#user.window-setting .data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 2em;
+    margin-bottom: 3em;
+    font-weight: bold;
+}
+
+#user.window-setting .data div {
+    display: flex;
+    border-top: 1px solid #d2d2d2;
+    text-align: left;
+    width: 100%;
+    padding: 0.7em 0;
+    padding-right: 4em;
+    padding-left: 0.5em;
+}
+
+#user.window-setting .data div:nth-child(4) {
+    border-bottom: 1px solid #d2d2d2;
+}
+
+.user-widgets {
+    margin-left: 1em;
+    display: flex;
+    font-size: 1em;
+}
+
+.user-widgets .col-lg-3.col-6 {
+    max-width: none;
+}
+
+.user-widgets .small-box.bg-info {
+    width: 21em;
+    text-align: initial;
+    padding-left: 1em;
+}
+
+#ban {
+    margin: 0 0.4em;
+}
+
+.image-ban {
+    display: flex;
+    position: absolute;
+    transform: rotate(326deg);
+    top: 7em;
+    left: 2em;
+    opacity: 0.6;
+}
+
+.window-setting.buttons {
+    height: auto;
+    margin-top: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding: 1em 1em;
+    justify-content: center;
+}
+
+#static.btn {
+    background-color: #b39797;
+    border-color: #b39797;
+    color: rgb(208 208 208);
+    user-select: none;
+    cursor: initial;
+}
+
+.nav-treeview .nav-item .nav-link {
+    background-color: rgb(255 255 255 / 3%);
+}
