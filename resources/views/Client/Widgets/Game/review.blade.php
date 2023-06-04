@@ -43,18 +43,20 @@
                         @include('Client.Widgets.Game.reviewEmoji', compact('review'))
                     </div>
                 </div>
-                <div class="menu-emoji">
-                    <img class="menu" src="/image/icon/points menu.png">
-                    <div class="emoji-list">
-                        <div class="window">
-                            @foreach($emojiAll as $emoji)
-                                <a href="javascript:putReview({{ $review->id }}, {{ $emoji->id }});" class="background-emoji">
-                                    <img src="{{ $emoji->path }}">
-                                </a>
-                            @endforeach
+                @auth
+                    <div class="menu-emoji">
+                        <img class="menu" src="/image/icon/points menu.png">
+                        <div class="emoji-list">
+                            <div class="window">
+                                @foreach($emojiAll as $emoji)
+                                    <a href="javascript:putReview({{ $review->id }}, {{ $emoji->id }});" class="background-emoji">
+                                        <img src="{{ $emoji->path }}">
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endauth
             </div>
         </div>
     @endforeach
