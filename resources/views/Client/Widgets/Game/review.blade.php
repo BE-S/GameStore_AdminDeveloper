@@ -43,18 +43,20 @@
                         @include('Client.Widgets.Game.reviewEmoji', compact('review'))
                     </div>
                 </div>
-                <div class="menu-emoji">
-                    <img class="menu" src="/image/icon/points menu.png">
-                    <div class="emoji-list">
-                        <div class="window">
-                            @foreach($emojiAll as $emoji)
-                                <a href="javascript:putReview({{ $review->id }}, {{ $emoji->id }});" class="background-emoji">
-                                    <img src="{{ $emoji->path }}">
-                                </a>
-                            @endforeach
+                @auth
+                    <div class="menu-emoji">
+                        <img class="menu" src="/image/icon/points menu.png">
+                        <div class="emoji-list">
+                            <div class="window">
+                                @foreach($emojiAll as $emoji)
+                                    <a href="javascript:putReview({{ $review->id }}, {{ $emoji->id }});" class="background-emoji">
+                                        <img src="{{ $emoji->path }}">
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endauth
             </div>
         </div>
     @endforeach
@@ -141,14 +143,13 @@
                             element.remove()
                         }
                     } else {
-                        console.log(result)
                         var a = $('<a class="block-emoji ' + emojiId + '" href="javascript:putReview(' + reviewId + ', ' + emojiId + ')"> <img src="' + result['path'] + '"> <p class="count-emoji">' + result['count'] + '</p> </a>');
                         $('#' + reviewId).find('.review-emoji').append(a)
-                        if (result['previous']) {
-                            let lastEmoji = $('#' + reviewId).find('.block-emoji.' + result['previous']).find('.count-emoji')
-                            let count = lastEmoji.text()
-                            lastEmoji.text(count - 1)
-                        }
+                    }
+                    if (result['previous']) {
+                        let lastEmoji = $('#' + reviewId).find('.block-emoji.' + result['previous']).find('.count-emoji')
+                        let count = lastEmoji.text()
+                        lastEmoji.text(count - 1)
                     }
                 }
                 checkCountEmoji(reviewId)
@@ -234,24 +235,38 @@
 
                         if (emoji[key].length < emojiPage.length && emojiPage.length >= 1) {
                             let emojiIdPage = []
-                            let emojiIdServer = []
+                            //let emojiIdServer = []
                             for (let i = 0; i < emojiPage.length; ++i) {
                                 emojiIdPage[i] = $(emojiPage[i]).attr('class').split(' ')[1]
                             }
-                            for (let key2 in emoji[key]) {
+                            var uniqueEmojiPage = emojiIdPage
+                            /*for (let key2 in emoji[key]) {
                                 emojiIdServer[key2] = emoji[key][key2]['emoji_id']
                             }
-                            var newArray = emojiIdPage.filter(function(element) {
+                            /*var newArray = emojiIdPage.filter(function(element) {
                                 return emojiIdServer.indexOf(element) === -1;
-                            });
-                            for (let i = 0; i < emojiPage.length; ++i) {
-                                $('#' + key).find('.block-emoji.' + newArray[i]).remove()
+                            });*/
+
+                            for (let i = 0; i < emoji[key].length; ++i) {
+                                for (let j = 0; j < emojiIdPage.length; ++j) {
+                                    if (emoji[key][i]['emoji_id'] == emojiIdPage[j]) {
+                                        delete uniqueEmojiPage[j]
+                                        break
+                                    }
+                                }
+                            }
+
+                            for (let i in uniqueEmojiPage) {
+                                $('#' + key).find('.block-emoji.' + uniqueEmojiPage[i]).remove()
                             }
                             continue
                         }
                         if (emoji[key].length >= 1 && emojiPage.length < emoji[key].length) {
                             let emojiIdPage = []
-                            let emojiIdServer = []
+                            //let emojiIdServer = []
+                            var newEmojiServer = emoji[key]
+
+                            /*
                             for (let i = 0; i < emojiPage.length; ++i) {
                                 emojiIdPage[i] = $(emojiPage[i]).attr('class').split(' ')[1]
                             }
@@ -261,8 +276,40 @@
                             var newArray = emojiIdServer.filter(function(element) {
                                 return emojiIdPage.indexOf(element) === -1;
                             });
-                            for (let i = 0; i < newArray.length; ++i) {
-                                var a = $('<a class="block-emoji ' + newArray[i] + '" href="javascript:putReview(' + key + ', ' + newArray[i] + ')"> <img src="' + emoji[key][i]['path'] + '"> <p class="count-emoji">' + emoji[key][i]['count'] + '</p> </a>');
+                            */
+
+                            for (let i = 0; i < emojiPage.length; ++i) {
+                                emojiIdPage[i] = $(emojiPage[i]).attr('class').split(' ')[1]
+                            }
+
+                            for (let i = 0; i < emoji[key].length; ++i) {
+                                for (let j = 0; j < emojiIdPage.length; ++j) {
+                                    if (emoji[key][i]['emoji_id'] == emojiIdPage[j]) {
+                                        delete newEmojiServer[i]
+                                        break
+                                    }
+                                }
+                            }
+
+                            /*
+                             for (let i = 0; i < emojiIdServer.length; ++i) {
+                                for (let j = 0; j < emojiIdPage.length; ++j) {
+                                    if (emojiIdServer[key][i] == emojiIdPage[key][i]) {
+                                        delete emojiIdServer[key][i]
+                                    }
+                                }
+                            }
+                            */
+
+                            /*for (let i = 0; i < emojiIdServer.length; ++i) {
+                                for (let j = 0; j < emoji[key].length; ++j) {
+                                    if (newArray[i] == emoji[key][j]['emoji_id']) {
+                                        newEmojiServer[i] = emoji[key][j]
+                                    }
+                                }
+                            }*/
+                            for (let i in newEmojiServer) {
+                                var a = $('<a class="block-emoji ' + newEmojiServer[i]['emoji_id'] + '" href="javascript:putReview(' + key + ', ' + newEmojiServer[i]['emoji_id'] + ')"> <img src="' + newEmojiServer[i]['path'] + '"> <p class="count-emoji">' + newEmojiServer[i]['count'] + '</p> </a>');
                                 $('#' + key).find('.review-emoji').append(a)
                             }
                             continue

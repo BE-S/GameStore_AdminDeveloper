@@ -779,4 +779,13 @@ class Collection extends BaseCollection implements QueueableCollection
 
         return $model->newModelQuery()->whereKey($this->modelKeys());
     }
+
+    public function getRowValue($column, $value)
+    {
+        foreach ($this as $row) {
+            if ($row[$column] == $value) {
+                return $row;
+            }
+        }
+    }
 }
