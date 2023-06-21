@@ -4,6 +4,7 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Attachment;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -14,7 +15,7 @@ class Verification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $job_hash;
+    public $jobHash;
     public $nameView;
 
     /**
@@ -22,9 +23,9 @@ class Verification extends Mailable
      *
      * @return void
      */
-    public function __construct($job_hash, $nameView)
+    public function __construct($jobHash, $nameView)
     {
-        $this->job_hash = $job_hash;
+        $this->jobHash = $jobHash;
         $this->nameView = $nameView;
     }
 
@@ -36,7 +37,7 @@ class Verification extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Order Shipped',
+            subject: 'Подтверждение почты',
         );
     }
 
@@ -48,21 +49,11 @@ class Verification extends Mailable
     public function content()
     {
         return new Content(
-            view: 'Client/Mail/verification',
+            markdown: 'Client/Mail/verification',
             with: [
-                '$job_hash' => $this->job_hash,
+                '$jobHash' => $this->jobHash,
                 '$pathname' => $this->nameView,
             ]
         );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
-    public function attachments()
-    {
-        return [];
     }
 }

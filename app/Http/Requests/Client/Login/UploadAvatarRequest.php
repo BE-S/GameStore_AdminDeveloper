@@ -24,7 +24,14 @@ class UploadAvatarRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|max:64',
+            'name' => 'max:64',
         ];
     }
+	
+	public function messages()
+	{
+		return [
+			'name.max' => 'Слишком длинное имя. Максимум 64 символов',
+		];
+	}
 }

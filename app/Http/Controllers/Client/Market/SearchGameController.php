@@ -43,6 +43,7 @@ class SearchGameController extends BaseController
     public function searchProperty(Request $request)
     {
         $game = new Game();
+		$reviews = new Review();
         $games = $request->query ? $game->searchName($request->search) : $game->getReadyGames();
 
         if ($request->categories) {
@@ -53,7 +54,7 @@ class SearchGameController extends BaseController
         }
 
         $countLoad = Lang::choice('lang.product', count($games), ['count' => count($games)]);
-        $viewLoad = view('Client.Layouts.Catalog.search-result', compact('games'));
+        $viewLoad = view('Client.Layouts.Catalog.search-result', compact('games', 'reviews'));
 
         return response()->json(['viewLoad' => $viewLoad->toHtml(), 'countLoad' => $countLoad]);
     }

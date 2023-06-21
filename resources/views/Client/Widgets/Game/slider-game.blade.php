@@ -1,9 +1,9 @@
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel slide game" data-bs-ride="carousel">
     <div>
         <div class="carousel-indicators" id="buttons">
             @foreach($game->gameCover->screen as $key => $path)
                 <div class="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" aria-label="Slide {{$key}}">
-                    <img src="{{ asset('/storage/' . $path) }}">
+                    <img src="{{ asset($path) }}">
                 </div>
             @endforeach
         </div>
@@ -11,7 +11,7 @@
     <div class="carousel-inner">
         @foreach($game->gameCover->screen as $key => $path)
             <div class="carousel-item">
-                <img src="{{ asset('/storage/' . $path) }}" class="d-block w-100" alt="...">
+                <img src="{{ $path }}" class="d-block w-100" alt="...">
             </div>
         @endforeach
         <button id="back" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

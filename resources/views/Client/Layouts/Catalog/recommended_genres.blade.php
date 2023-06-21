@@ -26,7 +26,7 @@
                 </div>
                 <div class="game-cover">
                     <picture class="image">
-                        <img src="{{ "/storage/" . $block->game->gameCover->poster }}">
+                        <img src="{{ $block->game->gameCover->poster }}">
                     </picture>
                 </div>
             </a>
@@ -46,13 +46,13 @@
                             {{ $row->game->discount->amount . "%" }}
                         </div>
                     @endif
-                    <img src="{{ "/storage/" . $row->game->gameCover->small }}">
+                    <img src="{{ $row->game->gameCover->small }}">
                 </picture>
                 <div class="screens">
                 @foreach($row->game->gameCover->screen as $key => $screen)
                     @if ($key < 3)
                         <div class="screen">
-                            <img src="{{ "/storage/" . $screen}}">
+                            <img src="{{ $screen}}">
                         </div>
                     @else
                         @continue

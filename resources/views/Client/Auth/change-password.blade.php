@@ -7,6 +7,13 @@
             position: absolute;
             bottom: 0;
         }
+		
+		@media (max-width: 828px) {
+			.footer {
+				position: relative;
+				margin-top: 3em;
+			}
+		}
     </style>
 
     <div class="container-fluid">

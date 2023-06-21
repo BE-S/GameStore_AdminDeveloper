@@ -5,6 +5,8 @@ namespace App\Jobs\Employee\Product\Upload;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 class GameCoverJob implements ShouldQueue
 {
@@ -32,7 +34,7 @@ class GameCoverJob implements ShouldQueue
         $temp = collect();
         foreach ($covers as $key => $cover) {
             $this->putUrl(
-                $key, $cover->store('assets/game/'. $this->nameGame, 'public')
+                $key, config('filesystems.path.localhost') . $cover->store('assets/game/'. $this->nameGame, 'public')
             );
         }
     }
@@ -44,7 +46,7 @@ class GameCoverJob implements ShouldQueue
      */
     public function uploadCover($cover) : string
     {
-        return $cover->store('assets/game/'. $this->nameGame, 'public');
+        return config('filesystems.path.localhost') . $cover->store('assets/game/'. $this->nameGame, 'public');
     }
 
     /**
@@ -58,7 +60,7 @@ class GameCoverJob implements ShouldQueue
 
         foreach ($screens as $key => $screen) {
             array_push(
-                $temp, $screen->store('assets/game/'. $this->nameGame .'/screen', 'public')
+                $temp,  config('filesystems.path.localhost') . $screen->store('assets/game/'. $this->nameGame .'/screen', 'public')
             );
         }
         $this->putUrl('screen', $temp);
@@ -66,15 +68,15 @@ class GameCoverJob implements ShouldQueue
 
     public function deleteCover($path)
     {
-        if (Storage::exists("public/" . $path)) {
-            Storage::delete("public/" . $path);
+        if (Storage::exists($path)) {
+            Storage::delete($path);
         }
     }
 
     public function deleteCovers($paths)
     {
         foreach ($paths as $path) {
-            $this->deleteCover($path);
+            $this->deleteCover(Str::after($path,  config('filesystems.path.localhost')));
         }
     }
 

@@ -8,6 +8,7 @@ use App\Models\Client\Market\Catalog\RecommendedDiscount;
 use App\Models\Client\Market\Catalog\Slider;
 use App\Models\Client\Market\Game;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CatalogController extends BaseController
 {
@@ -15,7 +16,7 @@ class CatalogController extends BaseController
     {
         $sliderGames = Slider::all();
         $recommendedDiscounts = RecommendedDiscount::all();
-        $recommendedGames = RecommendedGames::where('category_id', 6)->get();
+        $recommendedGames = RecommendedGames::all()->take(11);
 
         return view("Client.Market.catalog", compact('recommendedGames', 'recommendedDiscounts', 'sliderGames'));
     }

@@ -26,7 +26,7 @@ class UploadDataController extends Controller
 
             if ($createGame === true) {
                 return response()->json([
-                    'updateData' => $createGame
+                    'success' => true
                 ]);
             }
             GameCover::createCoverGame($createGame->id, "assets/game/Default/Default.png");

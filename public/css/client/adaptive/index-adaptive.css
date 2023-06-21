@@ -15,3 +15,471 @@
         width: 1475px;
     }
 }
+
+@media (max-width: 820px) {
+    main #carouselExampleIndicators {
+        margin: 0;
+    }
+
+    .banner .inscryption-category img {
+        width: 100%;
+    }
+
+    .collection-games .game {
+        width: 45%;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    .category-title,
+    .collection-games {
+        width: 100%;
+    }
+
+    #carouselExampleIndicators .carousel-item .main-screen img {
+        width: 100%;
+        min-width: 0;
+    }
+
+    #carouselExampleIndicators .carousel-item .screens img {
+        width: 70%;
+        min-width: 0;
+    }
+
+    main #carouselExampleIndicators .carousel-control-next {
+        margin-right: calc(21vw - -1px);
+    }
+
+    .carousel-control-prev, .carousel-control-next {
+        width: 10em;
+    }
+}
+
+@media (max-width: 828px) {
+	body {
+        background-size: cover;
+        background-color: #41002b;
+    }
+
+    header {
+        margin-top: 1em;
+        margin-bottom: 2em;
+    }
+
+    header #search-field {
+        width: 60%;
+        height: 100%;
+        font-size: 5em;
+    }
+
+    header #links {
+        font-size: 4em;
+        width: 61%;
+    }
+
+    header .icon {
+        width: 1.2em;
+    }
+
+    .carousel-item {
+        margin-left: 5%;
+    }
+
+    main #carouselExampleIndicators .carousel-indicators {
+        margin-bottom: 0;
+        margin-right: 30%;
+    }
+	
+    .block-title .content {
+        margin: 0;
+        border-radius: 0;
+        width: 100%;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .collection-games .game {
+        width: 94%;
+    }
+
+    #more-games .collection-category .games {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #more-games .collection-category .game {
+        margin-bottom: 2em;
+    }
+
+    #more-games .collection-category img {
+        width: 15em;
+    }
+
+    #more-games .category-row .covers picture img {
+        width: calc(100% + 5em);
+    }
+
+    #more-games .category-row .covers .screen img {
+        width: 100%;
+    }
+
+    #more-games .category-row .covers {
+        width: 100%;
+    }
+
+    #more-games .category-row .covers .screen {
+        left: 0em;
+    }
+
+    .footer #content {
+        flex-direction: column
+    }
+
+    .footer img {
+        width: 17em;
+        margin: 0;
+    }
+
+    .footer #text {
+        margin-top: 1em;
+        font-size: 0.6em;
+    }
+
+    main #carouselExampleIndicators.carousel.slide.game #buttons {
+        height: 36.8vw;
+    }
+
+    main #carouselExampleIndicators.carousel.slide.game {
+        width: 80%;
+    }
+
+    main #carouselExampleIndicators.carousel.slide.game .carousel-control-next {
+            margin-right: calc(0vw - -1px);
+    }
+
+    #carouselExampleIndicators.carousel.slide.game #buttons .button {
+        background: none;
+        display: flex;
+        border-bottom: 4px solid transparent;
+        width: 3em;
+    }
+
+    #carouselExampleIndicators.carousel.slide.game #buttons .button img {
+        width: 100%;
+    }
+
+    main .block-text {
+        width: 80%;
+    }
+
+    main #add-cart {
+        height: 3em;
+    }
+
+    main #add-cart .text-left {
+        font-size: 0.7em;
+        line-height: 1em;
+    }
+
+    main #add-cart .text-right {
+        font-size: 0.6em;
+    }
+
+    main .game #description {
+        margin: 0;
+    }
+
+    main #description div {
+        font-size: 0.9em;
+        line-height: 1.4em;
+    }
+
+    main .to-cart {
+        padding: 0.6em 1.8em;
+    }
+
+    main .main-inscription {
+        margin: 0.6em;
+        font-size: 1em;
+    }
+
+    main .child-inscription {
+        font-size: 3em;
+    }
+
+    main #system-requirements table {
+        margin-top: 2em;
+        width: 100%;
+    }
+
+    main #system-requirements table td {
+        font-size: 2em;
+        line-height: 2em;
+    }
+
+    main #create-review #review-text {
+        padding-top: 0.5em;
+        height: 6em;
+        font-size: 7em;
+    }
+
+    main #create-review .user-review {
+        display: none;
+    }
+
+    main .container .user-review img {
+        width: 100%;
+    }
+
+    main .container .review-text {
+        margin-right: 0;
+    }
+
+    main #review-publish {
+        width: 100%;
+        font-size: 5em;
+        padding: 1em 0;
+        margin-top: 0.5em;
+    }
+
+    main .review-content.read {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    main .container .user-review {
+        width: 100%;
+        margin-top: 5em;
+    }
+
+    main .review-content.read .grade.yes {
+        font-size: 6em;
+        left: 1.7em;
+    }
+
+    main .review-content.read .review-text {
+        font-size: 5em;
+        line-height: 2em;
+        text-align: left;
+        padding-top: 1em;
+        padding-left: 0.5em;
+    }
+
+    main .container .review-text p {
+        margin-bottom: 1.2em;
+    }
+
+    main .container .review-text p span {
+        margin-bottom: 0.2em;
+        font-size: 1.5em;
+    }
+
+    .container .review-text p:nth-child(2) {
+        font-size: 1em;
+        background: #ffffff0f;
+    }
+
+    main .background.block {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+    }
+
+    main .background.block .game, .background.block .buy-game, .delete-cart, .info {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        margin: 0;
+        margin-bottom: 2em;
+    }
+
+    main #buy {
+        width: 86%;
+    }
+
+    main #buy, main .delete-cart #btn {
+        margin: 0.5em 1em;
+    }
+    
+    main .cart .info div {
+        width: 100%;
+        padding: 0 1em;
+    }
+
+    main .cart .cover img {
+        width: 100%;
+        padding: 1em;
+    }
+
+    main .cart .left,
+    main .cart .right {
+        padding: 1.4em 0;
+    }
+
+    main .cart #description div {
+        height: 100%;
+    }
+
+    main #description .right .trash {
+        position: relative;
+        margin-top: 0.7em;
+        width: 100%;
+        padding: 0.4em 0;
+    }
+
+    main .cart #description .left {
+        padding-bottom: 0;
+        padding-top: 0.5em;
+    }
+
+    main .cart .buttons {
+        margin-top: 1.5em;
+    }
+
+    main .cart .info {
+        margin-top: 1em;
+    }
+
+    .account .account-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .account .account-block #cards {
+        margin-top: 1em;
+        font-size: 1em;
+        width: 100%;
+        padding: 0 1em;
+    }
+
+    .account .account-block #cards .title,
+    #history-purchase .title {
+        font-size: 1.7em;
+    }
+
+    .all, .add, .block-copy button {
+        font-size: 1.5em;
+        height: 2em;
+        width: 100%;
+    }
+
+    .block-copy button {
+        border: 1px solid #ffffff73;
+    }
+
+    .account #history-purchase .cover img {
+        width: 100%;
+    }
+
+     .account #history-purchase .information {
+         flex-direction: column;
+         padding: 0 1em;
+     }
+
+    .account #history-purchase #description {
+        margin-left: 0;
+    }
+
+    .account #history-purchase #description div {
+        height: 100%;
+        font-size: 1em;
+        margin-top: 0.8em;
+        margin-bottom: 0.8em;
+    }
+
+    .account #history-purchase .block-copy {
+        width: 100%;
+        padding: 0 1em;
+        margin: 0;
+    }
+
+    .search.background.block {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .result .link-game img {
+        width: 100%;
+    }
+
+    .result .link-game {
+        flex-direction: column;
+        margin: 1em;
+        border: 1px solid #ffffff4a;
+    }
+
+    .result .price {
+        font-size: 1em;
+    }
+
+    .result .stop-out {
+        font-size: 0.7em;
+    }
+
+    .search .search-text, 
+    .result,
+    .result .inscription,
+    .result .grade {
+        margin: 0;
+    }
+
+    .search .search-text {
+        margin: 0 1em;
+    }
+
+    .result .inscription {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .result .inscription .name {
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    .result .grade {
+        margin: 0.5em 0;
+        font-size: 0.8em;
+    }
+
+    .result .grade,
+    .result .inscription {
+        display: flex;
+        justify-content: center;
+    }
+
+    #search-categories {
+        position: relative;
+    }
+
+    #search-categories {
+        margin: 0;
+        right: 0;
+        width: 100%;
+    }
+
+    #search-categories .block .title {
+        font-size: 1.4em;
+        padding-left: 1em;
+    }
+
+    #search-categories p {
+        display: flex;
+        align-items: center;
+        padding-left: 1em;
+    }
+
+    #search-categories input {
+        width: 2em;
+        height: 2em;
+    }
+
+    #search-categories p label {
+        font-size: 1.3em;
+        margin-left: 0.5em   
+    }
+}

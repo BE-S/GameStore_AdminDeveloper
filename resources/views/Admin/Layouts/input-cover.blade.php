@@ -13,7 +13,7 @@
             @isset($game)
                 @if ($game->gameCover->small)
                     <div class="cover-load">
-                        <img src="{{ '/storage/' . $game->gameCover->small }}" width="200em">
+                        <img src="{{ $game->gameCover->small }}" width="200em">
                     </div>
                 @else
                     <div class="not-exist">Изображение отсутсвует</div>
@@ -33,7 +33,7 @@
             @isset($game)
                 @if ($game->gameCover->store_header_image)
                     <div class="cover-load">
-                        <img src="{{ '/storage/' . $game->gameCover->store_header_image }}" width="200em">
+                        <img src="{{ $game->gameCover->store_header_image }}" width="200em">
                     </div>
                 @else
                     <div class="not-exist">Изображение отсутсвует</div>
@@ -53,14 +53,14 @@
             @isset($game)
                 @if ($game->gameCover->poster)
                     <div class="cover-load">
-                        <img src="{{ '/storage/' . $game->gameCover->poster }}" width="200em">
+                        <img src="{{ $game->gameCover->poster }}" width="200em">
                     </div>
                 @else
                     <div class="not-exist">Изображение отсутсвует</div>
                 @endif
             @endisset
         </div>
-        <div id="screen" class="form-group">
+        <div id="screens" class="form-group">
             <div class="input-group mb-3 input">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupFileAddon04">Скриншоты</span>
@@ -74,7 +74,7 @@
                 @if ($game->gameCover->screen)
                     <div class="cover-load">
                         @foreach($game->gameCover->screen as $screen)
-                            <img src="{{ '/storage/' . $screen }}" width="200em">
+                            <img src="{{ $screen }}" width="200em">
                         @endforeach
                     </div>
                 @else
@@ -95,7 +95,7 @@
             @isset($game)
                 @if ($game->gameCover->background_image)
                     <div class="cover-load">
-                        <img src="{{ '/storage/' . $game->gameCover->background_image }}" width="200em">
+                        <img src="{{ $game->gameCover->background_image }}" width="200em">
                     </div>
                 @else
                     <div class="not-exist">Изображение отсутсвует</div>
@@ -107,3 +107,17 @@
         </div>
     </form>
 </div>
+
+<script>
+    $(function () {
+        $(".custom-file-input").change(function (e) {
+            var label = $(this).next()
+
+            if ($(this)[0].files[0]) {
+                $(label).text($(this)[0].files[0].name).css('color', 'black')
+            } else {
+                $(label).text('Выбрать изображение').css('color', 'black')
+            }
+        })
+    })
+</script>

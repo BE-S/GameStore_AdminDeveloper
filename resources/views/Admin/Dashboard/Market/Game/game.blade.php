@@ -2,11 +2,11 @@
 
 @section('content')
 
-    <link rel="stylesheet" href="/css/admin/preview.css">
-    <link rel="stylesheet" href="/css/client/game-slider.css">
+    <link rel="stylesheet" href="/public/css/admin/preview.css">
+    <link rel="stylesheet" href="/public/css/client/game-slider.css">
 
     <div class="window-setting">
-        <img src="{{ '/storage/' . $game->gameCover->small }}">
+        <img src="{{ $game->gameCover->small }}">
         <div class="buttons">
             <div class="change-settings">
                 <button type="button" id="data" class="btn btn-info">Изменить описание</button>
@@ -85,11 +85,12 @@
                     },
                     success: function (result) {
                         if (result['Error']) {
-                            alert(result['message'])
+                            $('.change-message.cover').removeClass('alert-success').addClass('alert-danger').text(result['error'])
                         }
-                        if (result['updateData']) {
-                            $('.change-message.data').text('Данные изменены')
+                        if (result['success']) {
+                            $('.change-message.cover').removeClass('alert-danger').addClass('alert-success').text('Данные изменены')
                         }
+						setTimeout(deleteMessage, 5000);
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         var errors = jqXHR.responseJSON.errors; // Ошибки в формате JSON
@@ -137,7 +138,7 @@
 
             function getArrayInput(nameArr, formData)
             {
-                const form = $('#data');
+                const form = $('.container-data #data');
                 const formArray = form.serializeArray();
 
                 for (let i = 0, n = formArray.length; i < n; ++i) {
@@ -157,17 +158,14 @@
     </script>
 
     <script>
-        $(function () {
-            $(".custom-file-input").change(function(e) {
-                var label = $(this).next()
-
-                if ($(this)[0].files[0]) {
-                    $(label).text($(this)[0].files[0].name)
-                } else {
-                    $(label).text('Выбрать изображение')
-                }
-            });
-
+		var coverLength = 0;
+		
+		$('#inputGroupFile04').on('change', function(){
+			console.log(this.files.length);
+			coverLength = this.files.length
+		});
+		
+        $(function () {        
             $('#send.cover').bind('click', function (e) {
                 e.preventDefault();
 
@@ -188,18 +186,17 @@
                         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function (result) {
-                        console.log(result)
                         if (result['error']) {
                             $('.change-message.cover').removeClass('alert-success').addClass('alert-danger').text(result['error'])
                         }
                         if (result['success']) {
                             $('.change-message.cover').removeClass('alert-danger').addClass('alert-success').text('Данные изменены')
                         }
-                        setTimeout(deleteMessage, 20000);
+                        setTimeout(deleteMessage, 5000);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         var errors = jqXHR.responseJSON.errors;
-                        console.log(errors)
+
                         if (!errors) {
                             alert('Ошибка сервера');
                             return
@@ -213,9 +210,22 @@
                         if (typeof errors['poster'] !== 'undefined') {
                             errorMessage('poster', errors['poster'])
                         }
-                        if (typeof errors['screen'] !== 'undefined') {
-                            errorMessage('screen', errors['screen'])
-                        }
+						var arr = [];
+						for (let i = 0; i < coverLength; ++i) {
+							if (typeof errors['screen.' + i] !== 'undefined') {
+								arr[i] = errors['screen.' + i][0]
+							}
+						}
+						if (arr.length > 0) {
+							let unique = new Set(arr)
+							Array.from(unique)
+							
+							for (let value of unique) {
+								if (typeof value !== 'undefined') {
+									errorMessage('screens', value)
+								}
+							}
+						}
                     },
                     statusCode: {
                         401: function (err) {
@@ -230,7 +240,9 @@
 
             function errorMessage(nameCover, message)
             {
-                $('#' + nameCover).append('<div class="not-exist">' + message + '</div>').css('color', 'red')
+                $('#' + nameCover).find(".custom-file-label").css('color', 'red').text(message)
+				$('.change-message.cover').removeClass('alert-success').addClass('alert-danger').text('Ошибка загрузки скриншотов')
+				setTimeout(deleteMessage, 5000);
             }
 
             $('#public').bind('click', function (e) {
@@ -334,7 +346,7 @@
 
         function deleteMessage()
         {
-            $('.change-message.cover').removeClass('alert-success')
+            $('.change-message.cover').removeClass('alert-success').removeClass('alert-danger')
         }
     </script>
 

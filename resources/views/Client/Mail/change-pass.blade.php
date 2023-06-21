@@ -19,8 +19,8 @@
     <table class="confirmation-block">
         <tr>
             <td>
-                <a class="button" href="{{route("get.change.confirm.email", compact('hash', 'email'))}}" style="color: white; background: #ffffff38; font-size: 2vw; padding: 1em 3em; border-radius: 1em; text-decoration: none">
-                    Сменить почту
+                <a class="button" href="{{ route($nameView, $jobHash) }}" style="color: white; background: #ffffff38; font-size: 2vw; padding: 1em 3em; border-radius: 1em; text-decoration: none">
+                    Сменить пароль
                 </a>
             </td>
         </tr>

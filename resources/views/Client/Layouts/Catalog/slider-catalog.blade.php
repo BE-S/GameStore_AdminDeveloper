@@ -13,14 +13,14 @@
                 <div class="carousel-item">
                     <a href="{{ route("get.game", $slider->game->id) }}">
                         <div class="main-screen">
-                            <img src="{{ "/storage/" . $slider->game->gameCover->small }}">
+                            <img src="{{ $slider->game->gameCover->small }}">
                         </div>
                     </a>
                     <div class="screens">
                         @foreach($slider->game->gameCover->screen as $key => $screen)
                             @if ($key < 3)
                                 <div>
-                                    <img src="{{ "/storage/" . $screen }}">
+                                    <img src="{{ $screen }}">
                                 </div>
                             @else
                                 @continue

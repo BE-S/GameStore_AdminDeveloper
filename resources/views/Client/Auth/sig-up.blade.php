@@ -7,6 +7,13 @@
             position: absolute;
             bottom: 0;
         }
+		
+		@media (max-width: 828px) {
+			.footer {
+				position: relative;
+				margin-top: 3em;
+			}
+		}
     </style>
 
 <div class="container-fluid">
@@ -29,8 +36,8 @@
                     <input type="password" class="form-control" id="InputPass" placeholder="Пароль">
                 </div>
                 <div class="form-group">
-                    <input id="chlen" type="checkbox" class="checkbox">
-                    <span class="check-label">Нажимая вы соглашаетесь с <a href="">Политикой</a> <a href="">cайта.</a></span>
+                    <input id="politics" type="checkbox" class="checkbox">
+                    <span class="check-label">Нажимая вы соглашаетесь с <a href="{{ route('get.politics.agreement') }}">Политикой</a> <a href="{{ 'get.politics.agreement' }}">cайта.</a></span>
                 </div>
                 <div class="btn signup">Зарегистрироваться</div>
                 <a class="btn signin" href="{{ route("get.sig-in") }}">Авторизация</a>
@@ -44,12 +51,13 @@
         {
             $('.signup').bind('click', function (e)
             {
-                var isChecked = $('#chlen').prop('checked');
+                var isChecked = $('#politics').prop('checked');
                 e.preventDefault();
                 if (!isChecked) {
                     $('.server-message').css('color', 'red').text("Для регитсрации примите политику сайта!")
                 }
                 if (isChecked) {
+					$('.server-message').text("")
                     $.ajax({
                         url: '{{ route('post.sig-up.check') }}',
                         type: "POST",

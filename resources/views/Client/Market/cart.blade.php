@@ -8,7 +8,7 @@
                 @foreach($cartGames as $game)
                     <div id="{{ $game->id }}" class="game">
                         <div class="cover">
-                            <img src="{{ "/storage/" . $game->gameCover->small }}">
+                            <img src="{{ $game->gameCover->small }}">
                         </div>
                         <div id="description">
                             <div class="left">
@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                                 <a class="trash" href="javascript:deleteCart({{ $game->id }})">
-                                    <img src="http://localhost:8080/image/icon/trash.png">
+                                    <img src="/public/image/icon/trash.png">
                                 </a>
                             </div>
                         </div>

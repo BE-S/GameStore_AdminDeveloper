@@ -189,7 +189,9 @@ Route::group(['middleware' => 'ban'], function() {
 // Payment Freekassa
     Route::group(['prefix' => 'freekassa'], function () {
         route::get('/result', [ResultController::class, 'index'])->name('get.freekassa.result');
-        route::get('/success', [SuccessController::class, 'index'])->name('get.freekassa.success');
-        route::get('/fail', [FailController::class, 'index'])->name('get.freekassa.fail');
+        Route::group(['middleware' => 'auth'], function () {
+            route::get('/success', [SuccessController::class, 'index'])->name('get.freekassa.success');
+            route::get('/fail', [FailController::class, 'index'])->name('get.freekassa.fail');
+        });
     });
 });

@@ -44,3 +44,7 @@
     margin-right: 17vw;
     margin-bottom: 1.7rem;
 }
+
+.carousel-item.carousel-item-next.carousel-item-start {
+    display: flex;
+}

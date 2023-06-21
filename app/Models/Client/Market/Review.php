@@ -65,7 +65,7 @@ class Review extends Model
     public function reviewEmojiCount()
     {
         return $this->hasMany(ReviewEmoji::class, 'review_id')
-            ->selectRaw('emoji_id, count(*)')
+            ->selectRaw('emoji_id, count(*) as num')
             ->where('review_id', $this->id)
             ->whereNull('deleted_at')
             ->groupBy('emoji_id');

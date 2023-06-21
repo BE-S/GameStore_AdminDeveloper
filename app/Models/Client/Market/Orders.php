@@ -19,6 +19,11 @@ class Orders extends Model
     protected $hidden = [
         'updated_at', 'deleted_at'
     ];
+	
+	public function keyProducts()
+    {
+        return $this->hasMany(KeyProduct::class, 'order_id', 'id');
+    }
 
     public function findOrderWait()
     {

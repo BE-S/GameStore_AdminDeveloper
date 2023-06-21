@@ -3,7 +3,7 @@
 @endif
 @foreach($games as $game)
     <a href="{{ route('get.game', $game->id) }}" class="link-game">
-        <img src="{{ '/storage/' . $game->gameCover->small }}">
+        <img src="{{ $game->gameCover->small }}">
         <div class="inscription">
             <div class="name">{{ $game->name }}</div>
             <div class="price">

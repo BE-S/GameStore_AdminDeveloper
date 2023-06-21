@@ -5,7 +5,7 @@
     <div style="position:relative; display: flex; flex-direction: column">
         <div class="window-setting" id="user">
             <div class="info">
-                <img src="{{ '/storage/' . $client->avatar->path_small }}">
+                <img src="{{ $client->avatar->path_small }}">
                 <div class="name">{{ $client->name }}</div>
                 <div class="date-reg">{{ $client->created_at }}</div>
             </div>
@@ -20,7 +20,7 @@
             <div id="ban" class="btn btn-danger">{{ isset($ban) ? 'Разаблокировать' : 'Заблокировать' }}</div>
         </div>
         @isset($ban)
-            <img class="image-ban active" src="/image/client/ban.png">
+            <img class="image-ban active" src="/public/image/client/ban.png">
         @endisset
     </div>
     <div class="user-widgets">
@@ -52,7 +52,7 @@
                             $('.content').find('.info-ban').text(' ' + 'Нет')
                             element.remove()
                         } else {
-                            $('#user.window-setting').append('<img class="image-ban" src="/image/client/ban.png">')
+                            $('#user.window-setting').append('<img class="image-ban" src="/public/image/client/ban.png">')
                             $('.content').find('#ban').text('Разаблокировать')
                             $('.content').find('.info-ban').text(' ' + 'Да')
                         }
