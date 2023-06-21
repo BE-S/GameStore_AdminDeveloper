@@ -4,6 +4,7 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Attachment;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -35,7 +36,7 @@ class ChangeEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Order Shipped',
+            subject: 'Смена почты',
         );
     }
 
@@ -47,7 +48,7 @@ class ChangeEmail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'Client/Mail/change-email',
+            markdown: 'Client/Mail/change-email',
             with: [
                 'hash' => $this->jobHash,
                 'email' => $this->email

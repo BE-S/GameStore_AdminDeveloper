@@ -155,6 +155,7 @@ textarea {
 .change-data, .change-cover {
     margin-top: 2em;
     margin-left: 2em;
+	min-width: 55em
 }
 
 .change-cover {
@@ -172,6 +173,7 @@ textarea {
 .window-content {
     width: 57em;
     margin-left: 3em;
+    margin-bottom: 7em;
     align-items: baseline;
 }
 
@@ -220,6 +222,7 @@ textarea {
 .alert.change-message {
     position: fixed;
     bottom: 0;
+    z-index: 1;
     right: 1em;
     opacity: 0;
 }

@@ -54,6 +54,8 @@ class ApplicationReturn extends Model
                 return true;
             }
         }
+		
+		return false;
     }
 
     protected function keyId(): Attribute

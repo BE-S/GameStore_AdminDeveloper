@@ -21,7 +21,7 @@ class ApplicationReturnController extends Controller
             $keyProduct = new KeyProduct();
             $purchaase = PurchasedGame::findOrFail($request->purchaseId);
             $existApplication = $applicationReturn->where('purchase_id', $purchaase->id)->where('status', 'Ожидание')->first();
-
+			
             if ($existApplication) {
                 if (array_intersect($existApplication->game_id, $validation['returnKey'])) {
                     return response()->json([

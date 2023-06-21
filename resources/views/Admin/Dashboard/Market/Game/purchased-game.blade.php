@@ -61,11 +61,11 @@
                             <td class="info-application">
                                 @if ($applicationReturn->status != 'Отменён')
                                     <a href="javascript: cancelApplication({{ $applicationReturn->id }})" class="trash" style="background: red">
-                                        <img src="/image/icon/trash.png" width="24px">
+                                        <img src="/public/image/icon/trash.png" width="24px">
                                     </a>
                                 @else
                                     <a href="javascript: activateApplication({{ $applicationReturn->id }})" class="reload" style="background: red">
-                                        <img src="/image/icon/reload.png" width="24px">
+                                        <img src="/public/image/icon/reload.png" width="24px">
                                     </a>
                                @endif
                             </td>
@@ -87,14 +87,14 @@
             @isset($applicationReturns)
                 @foreach($games as $game)
                     <div class="product" id="{{ $game->id }}">
-                        <img src="{{ "/storage/" . $game->gameCover->store_header_image }}">
+                        <img src="{{ $game->gameCover->store_header_image }}">
                         <div class="info">Ид: {{ $game->id }}</div>
                         <div class="info">Стоимость: {{ $order->calculationDiscountPurchased($game->id) }}</div>
                         <div class="info">Скидка: {{ $order->getDiscountFromOrder($game->id) }}%</div>
                         <div class="info key" id="{{ $purchased->getKeyFromPurchased($game->id) }}">Ид ключа: {{ $purchased->getKeyFromPurchased($game->id) }}</div>
                         @if ($purchased->applicationReturn)
                             @foreach($purchased->applicationReturn->findtValueStatus() as $applicationReturn)
-                                    @if (!$applicationReturn)
+                                    @if (!array_intersect($applicationReturn->key_id, [$purchased->getKeyFromPurchased($game->id)]))
                                         <div class="mark-return">
                                             <input type="checkbox" class="mark">
                                         </div>
@@ -206,7 +206,7 @@
                     }
                     if (result['success']) {
                         var element = $('#' + id)
-                        element.find('.trash img').attr('src', '/image/icon/reload.png')
+                        element.find('.trash img').attr('src', '/public/image/icon/reload.png')
                         element.find('.trash').attr('class', 'reload').attr('href', 'javascript: activateApplication(' + id +')')
                         element.find('.status').text('Отменён')
                         $('.change-message.application').removeClass('alert-danger').addClass('alert-success').text('Заявка отменена')
@@ -248,7 +248,7 @@
                         var element = $('#' + id)
                         console.log(element.find('.status'))
                         element.find('.status').text('Ожидание')
-                        element.find('.reload img').attr('src', '/image/icon/trash.png')
+                        element.find('.reload img').attr('src', '/public/image/icon/trash.png')
                         element.find('.reload').attr('class', 'trash').attr('href', 'javascript: cancelApplication(' + id +')')
                         $('.change-message.application').removeClass('alert-danger').addClass('alert-success').text('Заявка активирована')
                     }

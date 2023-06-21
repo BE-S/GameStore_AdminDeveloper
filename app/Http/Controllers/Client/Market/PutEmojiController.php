@@ -32,7 +32,7 @@ class PutEmojiController extends Controller
             if (isset($reviewEmoji->emoji_id) && $reviewEmoji->emoji_id == $emoji->id) {
                 return response()->json([
                     'success' => true,
-                    'count' => $review->reviewEmojiCount->getRowValue('emoji_id', $emoji->id)->count ?? 0
+                    'num' => count(ReviewEmoji::where('review_id', $review->id)->where('emoji_id', $emoji->id)->whereNull('deleted_at')->get())
                 ]);
             }
 
@@ -45,7 +45,7 @@ class PutEmojiController extends Controller
             return response()->json([
                 'success' => true,
                 'path' => $emoji->path,
-                'count' => $review->reviewEmojiCount->getRowValue('emoji_id', $emoji->id)->count ?? 0,
+                'num' => $review->reviewEmojiCount->pluck('num')[0] ?? 0,
                 'previous' => $reviewEmoji->emoji_id ?? null,
             ]);
         } catch (ValidationException $exception) {

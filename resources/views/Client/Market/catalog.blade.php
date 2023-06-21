@@ -12,7 +12,7 @@
     <div id="more-games" style="width: 100%"></div>
     <div id="loading">
         <div class="content">
-            <img src="image/load/716.gif">
+            <img src="/image/load/716.gif">
             <p>Загрузка контента</p>
         </div>
     </div>

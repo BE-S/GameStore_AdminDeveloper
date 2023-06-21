@@ -5,7 +5,7 @@
     <div style="position:relative; display: flex; flex-direction: column">
         <div class="window-setting" id="user">
             <div class="info">
-                <img src="{{ '/storage/' . $user->avatar->path_small }}">
+                <img src="{{ $user->avatar->path_small }}">
                 <div class="name">{{ $user->name }}</div>
                 <div class="date-reg">{{ $user->created_at }}</div>
             </div>

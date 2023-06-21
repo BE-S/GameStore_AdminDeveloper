@@ -3,29 +3,28 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class KeyProductMail extends Mailable
+class ChangePasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $keyCode;
-    protected $games;
-    protected $amount;
+    public $jobHash;
+    public $nameView;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($keyCode, $games, $amount)
+    public function __construct($jobHash, $nameView)
     {
-        $this->keyCode = $keyCode;
-        $this->games = $games;
-        $this->amount = $amount;
+        $this->jobHash = $jobHash;
+        $this->nameView = $nameView;
     }
 
     /**
@@ -36,7 +35,7 @@ class KeyProductMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Покупка на сайте Сторегамес.рф',
+            subject: 'Смена пароля',
         );
     }
 
@@ -48,22 +47,11 @@ class KeyProductMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'Client/Mail/Purchase',
+            markdown: 'Client/Mail/change-pass',
             with: [
-                'keyCode' => $this->keyCode,
-                'games' => $this->games,
-                'amount' => $this->amount,
+                '$jobHash' => $this->jobHash,
+                '$pathname' => $this->nameView,
             ]
         );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
-    public function attachments()
-    {
-        return [];
     }
 }

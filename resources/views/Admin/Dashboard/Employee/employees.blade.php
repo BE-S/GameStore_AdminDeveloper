@@ -1,4 +1,4 @@
-@extends('Admin.Layouts.admin-panel', ['title' => 'Админы'])
+@extends('Admin.Layouts.admin-panel', ['title' => 'Администраторы'])
 
 @section('content')
 

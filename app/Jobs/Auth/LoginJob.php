@@ -48,7 +48,7 @@ class LoginJob implements ShouldQueue
 
     public function checkEmployee()
     {
-        if (is_null($this->user->employee_id)) {
+        if (is_null($this->user->employee_id) || is_null($this->user->employee)) {
             return false;
         }
 

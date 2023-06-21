@@ -43,9 +43,8 @@ class ReservationGameJob implements ShouldQueue
             'o' => $orderId,
             's' => md5(config("payment.freekassa.merchant_id").':'.$amountCart.':'.config("payment.freekassa.secret_word").':'.config("payment.freekassa.currency").':'.$orderId),
             'currency' => config("payment.freekassa.currency"),
-            'i' => config("payment.freekassa.i"),
             'lang' => config("payment.freekassa.lang"),
-            'user' => auth()->user()->email,
+            'em' => auth()->user()->email,
             'pay' => 'купить'
         );
     }

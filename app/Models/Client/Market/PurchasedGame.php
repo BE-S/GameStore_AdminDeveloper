@@ -46,11 +46,11 @@ class PurchasedGame extends Model
         return $this->where("merchant_order_id", $orderId)->first();
     }
 
-    public function createPurchesedGame($data, $keyCode, $sign) {
+    public function createPurchesedGame($clientId, $data, $keyId, $sign) {
         return $this->create([
-            "user_id" => auth()->user()->id,
+            "user_id" => $clientId,
             "amount_payment" => $data["amount"],
-            "key_id" => json_encode($keyCode),
+            "key_id" => json_encode($keyId),
             "merchant_order_id" => $data["MERCHANT_ORDER_ID"],
             "int_id" => $data["int_id"],
             "cur_id" => $data["cur"],
@@ -59,14 +59,7 @@ class PurchasedGame extends Model
     }
 
     public function getKeyFromPurchased($gameId) {
-        $keys = KeyProduct::whereIn("id", $this->key_id)->get();
-
-        foreach ($keys as $key) {
-            if ($key->game_id == $gameId) {
-                return $key->id;
-            }
-        }
-        return 0;
+        return KeyProduct::whereIn("id", $this->key_id)->where('game_id', $gameId)->first()->id;
     }
 
     /**

@@ -53,7 +53,7 @@ class UploadCoverController extends Controller
 
             $game = Game::findOrFail($credentials['gameId']);
             $gameCover = GameCover::where('game_id', $credentials['gameId'])->first();
-            $uploadScreen = new GameCoverJob($game->name);
+            $coverJob = new GameCoverJob($game->name);
 
             foreach ($credentials as $key => $value) {
                 if ($key == 'gameId') {
@@ -62,12 +62,12 @@ class UploadCoverController extends Controller
 
                 $cover = "";
                 if ($key != "screen") {
-                    $cover = $uploadScreen->uploadCover($value);
-                    $uploadScreen->deleteCover($gameCover[$key]);
+                    $cover = $coverJob->uploadCover($value);
+                    $coverJob->deleteCover($gameCover[$key]);
                 } else {
-                    $uploadScreen->uploadScreen($credentials['screen']);
-                    $cover = $uploadScreen->url['screen'];
-                    $uploadScreen->deleteCovers($gameCover[$key]);
+                    $coverJob->uploadScreen($credentials['screen']);
+                    $cover = $coverJob->url['screen'];
+                    $coverJob->deleteCovers($gameCover[$key]);
                 }
 
                 $gameCover->updateColumn($key, $cover);

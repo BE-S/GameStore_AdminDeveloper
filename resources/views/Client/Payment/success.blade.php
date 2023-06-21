@@ -9,7 +9,9 @@
         }
     </style>
 
-    <div class='container w-50 verification'>
-        <div>{{ $message }}</div>
+    <div>
+        <h1>Заказ оплачен</h1>
+        <h3>На вашу почту выслано письмо с товаром</h3>
     </div>
+
 @endsection

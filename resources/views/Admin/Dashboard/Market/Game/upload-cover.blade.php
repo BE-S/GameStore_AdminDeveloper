@@ -6,16 +6,6 @@
 
 <script>
     $(function () {
-        $(".custom-file-input").change(function(e) {
-            var label = $(this).next()
-
-            if ($(this)[0].files[0]) {
-                $(label).text($(this)[0].files[0].name)
-            } else {
-                $(label).text('Выбрать изображение')
-            }
-        });
-
         $('#send.cover').bind('click', function (e) {
             e.preventDefault();
 
@@ -47,8 +37,8 @@
                     var errors = jqXHR.responseJSON.errors;
 
                     if (!errors) {
-                        alert('Ошибка сервера');
-                        return
+						alert('Ошибка сервера');
+						return
                     }
                     if (typeof errors['small'] !== 'undefined') {
                         errorMessage('small', errors['small'])
@@ -59,8 +49,8 @@
                     if (typeof errors['poster'] !== 'undefined') {
                         errorMessage('poster', errors['poster'])
                     }
-                    if (typeof errors['screen'] !== 'undefined') {
-                        errorMessage('screen', errors['screen'])
+                    if (typeof errors['screen.0'] !== 'undefined') {
+                        errorMessage('screens', errors['screen.0'])
                     }
                 },
                 statusCode: {
@@ -76,8 +66,7 @@
 
         function errorMessage(nameCover, message)
         {
-            $('#' + nameCover).find(".cover-load").remove()
-            $('#' + nameCover).append('<div class="not-exist">' + message + '</div>')
+            $('#' + nameCover).find(".custom-file-label").text(message)
         }
     });
 </script>

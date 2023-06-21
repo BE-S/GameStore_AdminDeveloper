@@ -49,8 +49,8 @@ class UploadAvatarJob implements ShouldQueue
 
         // сохраняем данные в новый файл на сервере
         $fileName = uniqid('/') . '.' . $fileExtension;
-        Storage::disk('public')->put('assets/avatar/' . $this->userId . $fileName, $canvasData);
+        Storage::disk('public')->put('/assets/avatar/' . $this->userId . $fileName, $canvasData);
 
-        return 'assets/avatar/' . $this->userId . $fileName;
+        return config('filesystems.path.localhost') . 'assets/avatar/' . $this->userId . $fileName;
     }
 }

@@ -6,7 +6,7 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="http://localhost:8080/AdminLTE/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+            <img class="animation__shake" src="/AdminLTE/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
         </div>
 
         <!-- Navbar -->
@@ -59,7 +59,7 @@
                             <!-- Message Start -->
                             @auth()
                                 <div class="media">
-                                    <img src="{{ '/storage/' . $account->avatar->path_small }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                    <img src="{{ $account->avatar->path_small }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
                                     <div class="media-body">
                                         <h3 class="dropdown-item-title">
                                             sample message
@@ -95,7 +95,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{{ route('get.dashboard') }}" class="brand-link">
-                <img src="http://localhost:8080/AdminLTE/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="https://xn--80affc8aioghc.xn--p1ai/AdminLTE/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">AdminLTE 3</span>
             </a>
 
@@ -104,7 +104,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{"/storage/" . $account->avatar->path_small }}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ $account->avatar->path_small }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ $account->name }}</a>
@@ -144,15 +144,6 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="http://localhost:8080/AdminLTE/pages/widgets.html" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Widgets
-                                    <span class="right badge badge-danger">New</span>
-                                </p>
-                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">

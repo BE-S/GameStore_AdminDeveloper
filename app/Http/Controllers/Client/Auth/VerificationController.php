@@ -18,6 +18,9 @@ class VerificationController extends Controller
         $verificationAcc->verificationUser();
         $verificationAcc->authUser(true);
 
-        return view('Client.Auth.confirmation', compact('user'));
+        return view('Client.Auth.confirmation', [
+            'message' => 'Регистрация завершена!'
+        ]);
+        //return view('Client.Auth.confirmation', compact('user'));
     }
 }

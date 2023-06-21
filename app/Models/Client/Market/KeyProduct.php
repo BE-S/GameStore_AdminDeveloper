@@ -25,7 +25,7 @@ class KeyProduct extends Model
 
     public function getReservationProducts($orderId)
     {
-        return $this->where("order_id", $orderId)->where("deleted_at", null)->get();
+        return $this->where("order_id", $orderId)->whereNull("deleted_at")->get();
     }
 
     public function getProducts($cartGames)
@@ -33,7 +33,7 @@ class KeyProduct extends Model
         $product = collect();
 
         foreach ($cartGames as $cartGame) {
-            $game = $this->where("game_id", $cartGame)->first();
+            $game = $this->where("game_id", $cartGame)->whereNull('deleted_at')->first();
             if (empty($game)) {
                 return ['Error' => true, 'notExist' => $cartGame];
             }

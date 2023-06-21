@@ -16,6 +16,6 @@ class EmoloyeeController extends Controller
         $user = $employee->user;
         $ban = $user->ban;
 
-        return view('Admin.Dashboard.Employee.Employee', compact('employee', 'user', 'ban'));
+        return view('Admin.Dashboard.Employee.employee', compact('employee', 'user', 'ban'));
     }
 }

@@ -18,11 +18,12 @@ class ConfirmEmailController extends Controller
             $client = $user->where('job_hash', $hash)->where('id', Auth::user()->id)->first();
 
             if (!$client) {
-                return 'Ссылка не действительна';
+                return view('Client.Auth.confirmation', ['message' => 'Ссылка не действительна']);
             }
 
             $client->updateEmail($email);
-            return 'Почта изменена';
+
+            return view('Client.Auth.confirmation', ['message' => 'Почта изменена!']);
         } catch (Exception $exception) {
             return $exception->getMessage();
         }

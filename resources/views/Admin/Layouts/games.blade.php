@@ -2,7 +2,7 @@
     <a class="game" href="{{ route("get.dashboard.upload.game.data", $game->id) }}">
         <div class="game-cover">
             <picture class="image">
-                <img src="{{ "/storage/" . $game->gameCover->small }}">
+                <img src="{{ $game->gameCover->small }}">
             </picture>
         </div>
         <div class="name">

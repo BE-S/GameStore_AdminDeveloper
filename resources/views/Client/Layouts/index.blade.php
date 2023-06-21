@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
-    <title>Bootstrap Example</title>
+	<link rel="shortcut icon" href="/image/icon-browser.png" type="image/png" height="1px">
+    <title>Сторегамес</title>
 
     <link rel="stylesheet" href="/css/client/index.css">
     <link rel="stylesheet" href="/css/client/adaptive/index-adaptive.css">
@@ -60,7 +61,7 @@
                     @if (url()->current() != route('get.account'))
                         <div class="nav-account">
                             <a id="account" href="{{ route("get.account") }}">
-                                <img class="image circle-avatar" src="{{ asset('/storage/' . $account->avatar->path_small) }}">
+                                <img class="image circle-avatar" src="{{ $account->avatar->path_small }}">
                                 <div>{{ $account->name }}</div>
                                 <li class="nav-item dropdown">
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -100,25 +101,24 @@
             $('#insertedSpace').keydown(function(e) {
                 if (e.keyCode === 13) {
                     let name = $('#insertedSpace').val()
-                    location = 'http://localhost:8080/search/' + name
+                    location = '{{ url()->full() }}' + '/search/' + name
                 }
             });
 
-            $('body').on('change', function(event) {
-                if (!$(event.target).is('#search-result')) {
-                    $('#search-result').css('display', 'none')
-                    $('#search-result').empty()
-                }
-                if ($(event.target).is('#insertedSpace')) {
-                    $('#search-result').css('display', 'flex')
-                }
-            });
+			$(document).mouseup(function (e) {
+				var containerSearch = $("#search-result")
+				var containerInput = $("#insertedSpace")
+				if (containerSearch.has(e.target).length === 0 && containerInput.has(e.target).length === 0) {
+					containerSearch.empty()
+					containerInput.empty()
+				}
+			});
 
             $("#insertedSpace").keyup(function (e) {
                 let name = $('#insertedSpace').val()
 
                 if (name.length <= 0) {
-                    $('#search-result').css('display', 'none')
+                    $('#search-result').empty()
                 }
 
                 if (name.length > 0) {

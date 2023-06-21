@@ -29,7 +29,7 @@ class UpdateCoverRequest extends FormRequest
             'store_header_image' => 'file|dimensions:width=231|dimensions:height=87|mimes:jpg,svg,png',
             'poster' => 'file|dimensions:width=600|dimensions:height=800|mimes:jpg,svg,png',
             'screen' => 'min:5',
-            'screen.*' => 'file|dimensions:width=1920|dimensions:height=1080|mimes:jpg,svg,png',
+            'screen.*' => 'file|dimensions:width=600|dimensions:height=337|mimes: jpg,svg,png',
             'background_image' => 'file|mimes:jpg,svg,png',
         ];
     }
@@ -44,8 +44,8 @@ class UpdateCoverRequest extends FormRequest
             'poster.dimensions' => 'Размер изображения должно быть 600x800px',
             'poster.mimes' => 'Допустий формат файла: jpg, svg, png',
             'screen.min' => 'Минимум 5 изображений',
-            'screen.dimensions' => 'Размер изображения должно быть 1920x1080px',
-            'screen.mimes' => 'Допустий формат файла: jpg, svg, png',
+            'screen.*.dimensions' => 'Размер изображений должно быть 600x337px',
+            'screen.*.mimes' => 'Допустий формат файла: jpg, svg, png',
         ];
     }
 }

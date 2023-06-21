@@ -6,7 +6,7 @@
             <div class="review-content" style="padding: 0; display: flex; flex-direction: column;">
                 <div style="flex-direction: row; align-items: flex-start;">
                     <div class="user-review">
-                        <img src="{{'/storage/' . $account->avatar->path_small }}" alt="Avatar" style="width:90px">
+                        <img src="{{ $account->avatar->path_small }}" alt="Avatar" style="width:90px">
                     </div>
                     <div class="review-text">
                         <textarea id="review-text" name="review" style="margin-bottom: 0; color: white" placeholder="Оставить отзыв"></textarea>
@@ -29,7 +29,7 @@
         <div class="container read" id="{{ $review->id }}">
             <div class="review-content read">
                 <div class="user-review">
-                    <img src="{{'/storage/' . $review->user->avatar->path_small }}" alt="Avatar" style="width:90px">
+                    <img src="{{$review->user->avatar->path_small }}" alt="Avatar" style="width:90px">
                 </div>
                 <div class="review-text">
                     <p><span>{{$review->user->name}} </span>{{ Carbon\Carbon::parse($review->created_at)->isoFormat('DD MMMM YYYY') }}</p>
@@ -137,19 +137,20 @@
 
                 if (result['success']) {
                     if (element.length) {
-                        if (result['count'] > 0) {
-                            element.find('p').text(result['count'])
+                        if (result['num'] > 0) {
+                            element.find('p').text(result['num'])
                         } else {
                             element.remove()
                         }
                     } else {
-                        var a = $('<a class="block-emoji ' + emojiId + '" href="javascript:putReview(' + reviewId + ', ' + emojiId + ')"> <img src="' + result['path'] + '"> <p class="count-emoji">' + result['count'] + '</p> </a>');
+                        console.log(result)
+                        var a = $('<a class="block-emoji ' + emojiId + '" href="javascript:putReview(' + reviewId + ', ' + emojiId + ')"> <img src="' + result['path'] + '"> <p class="count-emoji">' + result['num'] + '</p> </a>');
                         $('#' + reviewId).find('.review-emoji').append(a)
-                    }
-                    if (result['previous']) {
-                        let lastEmoji = $('#' + reviewId).find('.block-emoji.' + result['previous']).find('.count-emoji')
-                        let count = lastEmoji.text()
-                        lastEmoji.text(count - 1)
+                        if (result['previous']) {
+                            let lastEmoji = $('#' + reviewId).find('.block-emoji.' + result['previous']).find('.count-emoji')
+                            let count = lastEmoji.text()
+                            lastEmoji.text(count - 1)
+                        }
                     }
                 }
                 checkCountEmoji(reviewId)
@@ -309,13 +310,13 @@
                                 }
                             }*/
                             for (let i in newEmojiServer) {
-                                var a = $('<a class="block-emoji ' + newEmojiServer[i]['emoji_id'] + '" href="javascript:putReview(' + key + ', ' + newEmojiServer[i]['emoji_id'] + ')"> <img src="' + newEmojiServer[i]['path'] + '"> <p class="count-emoji">' + newEmojiServer[i]['count'] + '</p> </a>');
+                                var a = $('<a class="block-emoji ' + newEmojiServer[i]['emoji_id'] + '" href="javascript:putReview(' + key + ', ' + newEmojiServer[i]['emoji_id'] + ')"> <img src="' + newEmojiServer[i]['path'] + '"> <p class="count-emoji">' + newEmojiServer[i]['num'] + '</p> </a>');
                                 $('#' + key).find('.review-emoji').append(a)
                             }
                             continue
                         }
                         if (emoji[key].length > 0) {
-                            let count = emoji[key][0]['count']
+                            let count = emoji[key][0]['num']
                             let emojiId = emoji[key][0]['emoji_id']
                             updateCountEmoji(key, count, emojiId)
                         }

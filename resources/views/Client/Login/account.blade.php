@@ -6,7 +6,7 @@
         <div class="account-block">
             <div id="user">
                 <div id="avatar">
-                    <img src="{{"/storage/" . $user->avatar->path_big }}" width="100%" height="100%">
+                    <img src="{{ $user->avatar->path_big }}" width="100%" height="100%">
                 </div>
                 <h3 class="name">
                     {{ $user->name }}
@@ -21,7 +21,7 @@
                         @foreach($bankCard as $card)
                             <div class="bank-card">
                                 <div class="number">{{ $card->number }}</div>
-                                <div class="image-payment"><img src="{{ "/storage/" . $card->paymentSystem->path_image }}" width="61%"></div>
+                                <div class="image-payment"><img src="{{ $card->paymentSystem->path_image }}" width="61%"></div>
                             </div>
                         @endforeach
                     @endisset
@@ -37,33 +37,65 @@
             <div class="title">История покупок</div>
                     @forelse($library as $key => $product)
                         <div class="game">
-                            <div class="cover">
-                                <img src="{{ "/storage/" . $product->game->gameCover->small }}">
+                            <div class="information">
+                                <div class="cover">
+                                    <img src="{{ $product->game->gameCover->small }}">
+                                </div>
+                                <div id="description">
+                                    <div class="left">
+                                        <div>Название: {{ $product->game->name }}</div>
+                                        <div>Дата покупки: {{ $product->created_at ? $product->created_at->format('d.m.Y') : "Недавно" }}</div>
+                                    </div>
+                                    <div class="right">
+                                            <div>Стоимость: {{ $product->game->price . " рублей" }}</div>
+                                            <div>Скидка: {{ $product->discount_amount . "%" }}</div>
+                                            <div>Сумма:
+                                                @if ($product->discount_amount == 0)
+                                                    {{ $product->game->price }}
+                                                @else
+                                                    {{--Переделать этот метод--}}
+                                                    {{ $product->calculationDiscount() . " рублей"}}
+                                                @endif
+                                            </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div id="description">
-                                <div class="left">
-                                    <div>Название: {{ $product->game->name }}</div>
-                                    <div>Дата покупки: {{ $product->created_at ? $product->created_at->format('d.m.Y') : "Недавно" }}</div>
-                                </div>
-                                <div class="right">
-                                        <div>Стоимость: {{ $product->game->price . " рублей" }}</div>
-                                        <div>Скидка: {{ $product->discount_amount . "%" }}</div>
-                                        <div>Сумма:
-                                            @if ($product->discount_amount == 0)
-                                                {{ $product->game->price }}
-                                            @else
-                                                {{--Переделать этот метод--}}
-                                                {{ $product->calculationDiscount() . " рублей"}}
-                                            @endif
-                                        </div>
-                                </div>
+                            <div class="block-copy">
+                                @foreach($product->purchase->order->keyProducts as $keyProduct)
+                                    @if ($keyProduct->game_id == $product->game_id)
+                                        <button onclick="copyText('{{ $keyProduct->key_code }}')">
+                                            Скопировать ключ
+                                        </button>
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                     @empty
                 <div>Купите игр</div>
             @endforelse
         </div>
+        <div class="copy-text">
+            <div class="alert alert-success" role="alert">Ключ скопирован!</div>
+        </div>
     </div>
+    <script>
+        function copyText(keyCode) {
+            navigator.clipboard.writeText(keyCode)
+                .then(() => {
+                    touchAlert()
+                    setTimeout(touchAlert, 5000)
+                })
+                .catch(err => {
+                    console.log('Something went wrong', err);
+                });
+        }
+        var alert = document.querySelector('.alert')
+
+        function touchAlert()
+        {
+            alert.classList.toggle('active')
+        }
+    </script>
     <form class="card-form">
         <div class="close">
             x

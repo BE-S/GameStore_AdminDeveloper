@@ -29,8 +29,8 @@ class UploadDataRequest extends FormRequest
             'name' => 'required|string|max:64',
             'price' => 'required|numeric',
             'description' => 'required|string',
-            'min_settings.*' => 'required|string|max:100',
-            'max_settings.*' => 'required|string|max:100',
+            'min_settings.*' => 'required|string|max:200',
+            'max_settings.*' => 'required|string|max:200',
         ];
     }
 
