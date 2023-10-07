@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table("purchased_games", function (Blueprint $table) {
-            $table->renameColumn("game_id", "order_id");
-            $table->dropColumn("discount");
+        Schema::table('publishers', function (Blueprint $table) {
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 
@@ -26,9 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table("purchased_games", function (Blueprint $table) {
-            $table->renameColumn("order_id", "game_id");
-            $table->integer('discount')->nullable();
+        Schema::table('publishers', function (Blueprint $table) {
+            $table->dropColumn('deleted_at');
         });
     }
 };
