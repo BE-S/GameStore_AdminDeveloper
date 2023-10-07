@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('review_emoji', function (Blueprint $table) {
+        Schema::create('favorites_games', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('review_id');
-            $table->string('emoji_id');
+            $table->integer('game_id');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('review_emoji');
+        Schema::dropIfExists('favorites_games');
     }
 };

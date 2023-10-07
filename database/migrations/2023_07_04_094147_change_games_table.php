@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('reviews', function (Blueprint $table) {
-            $table->boolean('grade')->nullable();
+        Schema::table('games', function (Blueprint $table) {
+            $table->renameColumn('published_id', 'publisher_id');
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('reviews', function (Blueprint $table) {
-            $table->dropColumn('grade');
+        Schema::table('games', function (Blueprint $table) {
+            $table->renameColumn('publisher_id', 'published_id');
         });
     }
 };

@@ -19,15 +19,13 @@ return new class extends Migration
             $table->integer("game_id");
             $table->float("amount_payment");
             $table->integer('discount')->nullable();
-            $table->integer('key_id');
+            $table->json('key_id');
             $table->integer('merchant_order_id');
             $table->integer('int_id');
-            $table->string('p_email');
-            $table->string('p_phone')->nullable();
             $table->integer('cur_id');
             $table->string('sign');
-            $table->string('payer_account');
             $table->timestamps();
+            $table->timestamp("deleted_at")->nullable();
         });
     }
 

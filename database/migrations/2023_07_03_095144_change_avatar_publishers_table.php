@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('review_emoji', function (Blueprint $table) {
-            $table->id();
-            $table->integer('user_id');
-            $table->integer('review_id');
-            $table->string('emoji_id');
-            $table->timestamps();
+        Schema::table('avatar_publishers', function (Blueprint $table) {
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('review_emoji');
+        Schema::table('avatar_publishers', function (Blueprint $table) {
+            $table->dropColumn('deleted_at');
+        });
     }
 };

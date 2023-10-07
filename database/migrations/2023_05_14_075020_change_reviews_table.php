@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('reviews', function (Blueprint $table) {
             $table->dropColumn('score');
-            $table->boolean('grade')->default(false);
+            $table->boolean('grade')->nullable();
         });
     }
 

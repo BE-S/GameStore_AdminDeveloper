@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('bank_cards', function (Blueprint $table) {
             $table->id();
             $table->integer("user_id");
-            $table->string("number", 18)->unique();
-            $table->date("expiration_date");
+            $table->string("number", 19)->unique();
+            $table->string("expiration_date",5)->change();
             $table->string("cvc", 3);
             $table->integer("payment_system_id");
             $table->timestamps();

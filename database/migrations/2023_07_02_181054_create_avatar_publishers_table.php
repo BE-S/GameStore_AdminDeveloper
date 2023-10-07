@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table("bank_cards", function (Blueprint $table) {
-            $table->string("number",19)->change();
+        Schema::create('avatar_publishers', function (Blueprint $table) {
+            $table->id();
+            $table->integer('publisher_id');
+            $table->string('path');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table("bank_cards", function (Blueprint $table) {
-            $table->string("number",18)->change();
-        });
+        Schema::dropIfExists('avatar_publishers');
     }
 };

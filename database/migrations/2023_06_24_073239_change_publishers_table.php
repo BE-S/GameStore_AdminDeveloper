@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table("purchased_games", function (Blueprint $table) {
-            $table->dropColumn("payer_account");
+        Schema::table('publishers', function (Blueprint $table) {
+            $table->dropColumn('remember_token');
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table("purchased_games", function (Blueprint $table) {
-            $table->string("payer_account");
+        Schema::table('publishers', function (Blueprint $table) {
+            $table->string('remember_token')->nullable();
         });
     }
 };

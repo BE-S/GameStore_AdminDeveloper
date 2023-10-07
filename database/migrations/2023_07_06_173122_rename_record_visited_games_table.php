@@ -13,9 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('purchased_games', function (Blueprint $table) {
-            $table->dropColumn("payer_account");
-        });
+        Schema::rename('record_visited_games', 'visited_games');
     }
 
     /**
@@ -25,8 +23,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('purchased_games', function (Blueprint $table) {
-            $table->addColumn(integerValue(), "payer_account");
-        });
+        Schema::rename('visited_games', 'record_visited_games');
     }
 };

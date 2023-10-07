@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('review_emoji', function (Blueprint $table) {
+        Schema::create('record_visited_games', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('review_id');
-            $table->string('emoji_id');
+            $table->json('visit');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('review_emoji');
+        Schema::dropIfExists('record_visited_games');
     }
 };
