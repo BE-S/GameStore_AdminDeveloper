@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table("bank_cards", function (Blueprint $table) {
-            $table->string("expiration_date",5)->change();
+        Schema::table('publishers', function (Blueprint $table) {
+            $table->dropColumn('remember_token');
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table("bank_cards", function (Blueprint $table) {
-            $table->date("expiration_date")->change();
+        Schema::table('publishers', function (Blueprint $table) {
+            $table->string('remember_token')->nullable();
         });
     }
 };
