@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('games', function (Blueprint $table) {
-            $table->integer('genre_id')->nullable();
+            $table->json('genre_id')->nullable();
         });
     }
 

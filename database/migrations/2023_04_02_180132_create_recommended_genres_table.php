@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('games', function (Blueprint $table) {
-            $table->dropColumn('genre_id');
+        Schema::create('recommended_genres', function (Blueprint $table) {
+            $table->id();
+            $table->integer("game_id");
+            $table->timestamps();
+            $table->timestamp("deleted_at")->nullable();
         });
     }
 
@@ -25,8 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('games', function (Blueprint $table) {
-            $table->string('genre_id');
-        });
+        Schema::dropIfExists('recommended_genres');
     }
 };
