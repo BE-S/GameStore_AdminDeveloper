@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("path_small")->default("assets/avatar/default_small.png");
             $table->string("path_big")->default("assets/avatar/default_big.png");
             $table->timestamps();
+            $table->timestamp("deleted_at")->nullable();
         });
     }
 

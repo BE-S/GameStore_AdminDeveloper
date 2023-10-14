@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer("game_id")->unique();
             $table->integer("purchase_id")->unique();
             $table->timestamps();
+            $table->timestamp("deleted_at")->nullable();
         });
     }
 

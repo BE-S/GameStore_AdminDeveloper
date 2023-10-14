@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("cvc", 3);
             $table->integer("payment_system_id");
             $table->timestamps();
+            $table->timestamp("deleted_at")->nullable();
         });
     }
 
