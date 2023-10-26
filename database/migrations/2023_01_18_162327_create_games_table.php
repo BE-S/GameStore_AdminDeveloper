@@ -21,10 +21,10 @@ return new class extends Migration
             $table->text('description');
             $table->json('min_settings');
             $table->json('max_settings');
-            $table->integer('developer_id');
             $table->integer('published_id');
             $table->boolean('is_published')->default(false);
             $table->timestamps();
+            $table->timestamp("deleted_at")->nullable();
         });
     }
 

@@ -24,5 +24,4 @@ class Collection
         }
         return $value;
     }
-    //$value[$columnOne] = $item[$columnTwo];
 }

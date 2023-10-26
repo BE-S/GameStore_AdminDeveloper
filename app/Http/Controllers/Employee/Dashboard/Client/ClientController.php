@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Employee\Dashboard\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client\User;
-use App\Models\Employee\Client\Ban;
 
 class ClientController extends Controller
 {

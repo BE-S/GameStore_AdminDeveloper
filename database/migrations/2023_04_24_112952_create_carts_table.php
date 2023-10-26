@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer("user_id")->unique();
             $table->json("games_id")->nullable();
             $table->timestamps();
+            $table->timestamp("deleted_at")->nullable();
         });
     }
 

@@ -19,3 +19,5 @@ yarn-error.log
 first()
 package-lock.json
 .env
+/storage/framework
+/storage/logs

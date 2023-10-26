@@ -10,7 +10,6 @@ class SendPurchasedController extends Controller
 {
     public function __invoke(Request $request)
     {
-
-        $this->dispatch(new SendKeyProductJob($data["email"], $keyCode, $gameId));
+        //
     }
 }

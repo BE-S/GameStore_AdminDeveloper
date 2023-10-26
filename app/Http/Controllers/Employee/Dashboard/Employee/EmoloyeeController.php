@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Employee\Dashboard\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\Employee\Employee;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class EmoloyeeController extends Controller
 {

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Employee\Dashboard\Product;
 
 use App\Http\Controllers\Controller;
-use App\Models\Employee\Market\ApplicationReturn;
+use App\Models\Employee\Market\Product\ApplicationReturn;
 use Illuminate\Http\Request;
 
 class ActivateApplicationReturnController extends Controller

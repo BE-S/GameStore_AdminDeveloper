@@ -2,8 +2,8 @@
 
 namespace App\Models\Client\Market\Catalog;
 
-use App\Models\Client\Market\Genres;
-use App\Models\Client\Market\Game;
+use App\Models\Client\Market\Product\Genres;
+use App\Models\Client\Market\Product\Game;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

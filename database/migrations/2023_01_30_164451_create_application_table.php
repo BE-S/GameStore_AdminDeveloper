@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('game_id');
             $table->string('status');
             $table->timestamps();
+            $table->timestamp("deleted_at")->nullable();
         });
     }
 

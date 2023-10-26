@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Employee\Dashboard\Product;
 
 use App\Http\Controllers\Controller;
-use App\Models\Employee\Market\Game;
-use Illuminate\Http\Request;
+use App\Models\Employee\Market\Product\Game;
 
 class DashbordGamesController extends Controller
 {

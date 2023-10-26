@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Employee\Dashboard\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client\User;
-use Illuminate\Http\Request;
 
 class ClientsController extends Controller
 {

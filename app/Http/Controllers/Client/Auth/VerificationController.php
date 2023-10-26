@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Jobs\Auth\VerificationJob;
 use App\Models\Client\User;
 
-
 class VerificationController extends Controller
 {
     public function sendVerification($job_hash)

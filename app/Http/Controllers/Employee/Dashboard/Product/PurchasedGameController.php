@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Employee\Dashboard\Product;
 
 use App\Http\Controllers\Controller;
-use App\Models\Client\Market\Game;
-use App\Models\Client\Market\PurchasedGame;
-use App\Models\Employee\Market\ApplicationReturn;
-use App\Models\Employee\Market\KeyProduct;
-use Illuminate\Http\Request;
+use App\Models\Client\Market\Product\Game;
+use App\Models\Client\Market\Product\PurchasedGame;
 
 class PurchasedGameController extends Controller
 {

@@ -21,9 +21,9 @@ class AvatarController extends Controller
             $data = $request->validated();
             $client = User::findOrFail(Auth::user()->id);
 
-            $uploadAvatar = new UploadAvatarJob($client->id);
+            $uploadAvatar = new UploadAvatarJob($client->id, 'user');
             $avatar = $client->avatar;
-			
+
 			if (!$request->input('uploadSquare') && !$request->input('uploadCircle') && !isset($data['name'])) {
                 return response()->json([
                     'error' => true,

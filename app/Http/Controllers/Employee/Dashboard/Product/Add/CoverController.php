@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Employee\Dashboard\Product\Add;
 
 use App\Http\Controllers\Controller;
-use App\Models\Employee\Market\Game;
+use App\Models\Employee\Market\Product\Game;
 
 class CoverController extends Controller
 {

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Employee\Dashboard\Employee;
 
 use App\Http\Controllers\Controller;
-use App\Models\Client\User;
 use App\Models\Employee\Employee;
 
 class EmoloyeesController extends Controller

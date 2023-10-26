@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Client\Market\Cart;
 
-use App\Http\Controllers\Client\Market\BaseController;
 use App\Http\Controllers\Controller;
 use App\Jobs\Market\CartJob;
-use App\Models\Client\Login\Cart;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use PHPUnit\Exception;
 
-class AddCartController extends BaseController
+class AddCartController extends Controller
 {
     public function addCart(Request $request)
     {

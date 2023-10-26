@@ -2,11 +2,9 @@
 
 namespace App\Jobs\Employee\Product\Upload;
 
-
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
 
 class GameCoverJob implements ShouldQueue
 {
@@ -68,8 +66,10 @@ class GameCoverJob implements ShouldQueue
 
     public function deleteCover($path)
     {
-        if (Storage::exists($path)) {
-            Storage::delete($path);
+        $path = str_replace('/storage/', '', $path);
+
+        if (Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
         }
     }
 

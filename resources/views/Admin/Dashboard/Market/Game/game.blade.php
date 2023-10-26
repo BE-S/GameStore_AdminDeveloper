@@ -1,9 +1,8 @@
 @extends('Admin.Layouts.admin-panel', ['title' => 'Продукт'])
 
 @section('content')
-
-    <link rel="stylesheet" href="/public/css/admin/preview.css">
-    <link rel="stylesheet" href="/public/css/client/game-slider.css">
+    <link rel="stylesheet" href="/css/admin/preview.css">
+    <link rel="stylesheet" href="/css/client/game-slider.css">
 
     <div class="window-setting">
         <img src="{{ $game->gameCover->small }}">
@@ -76,6 +75,8 @@
                         gameId: {{ $game ? $game->id : null }},
                         name: $('input[name="name"]').val(),
                         price: $('input[name="price"]').val(),
+                        genre: genreId,
+                        publisher: selectedPublisher,
                         description: $('textarea[name="description"]').val(),
                         min_settings: getArrayInput('min_settings', formDataMin),
                         max_settings: getArrayInput('max_settings', formDataMax),
@@ -159,13 +160,13 @@
 
     <script>
 		var coverLength = 0;
-		
+
 		$('#inputGroupFile04').on('change', function(){
 			console.log(this.files.length);
 			coverLength = this.files.length
 		});
-		
-        $(function () {        
+
+        $(function () {
             $('#send.cover').bind('click', function (e) {
                 e.preventDefault();
 
@@ -219,7 +220,7 @@
 						if (arr.length > 0) {
 							let unique = new Set(arr)
 							Array.from(unique)
-							
+
 							for (let value of unique) {
 								if (typeof value !== 'undefined') {
 									errorMessage('screens', value)
@@ -280,6 +281,7 @@
 
             $('#preview').bind('click', function (e) {
                 e.preventDefault();
+                console.log(1)
                 $.ajax({
                     url: '{{ route('post.dashboard.preview') }}',
                     type: 'POST',
@@ -291,9 +293,11 @@
                         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function (result) {
-                        $('.window-content').append(result['loadView'])
-                        let slide = $('.carousel-item').first()
-                        slide.attr('class', 'carousel-item active');
+                        //if (!$('.background-preview')) {
+                            $('.window-content').append(result['loadView'])
+                            let slide = $('.carousel-item').first()
+                            slide.attr('class', 'carousel-item active');
+                        //}
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         var errors = jqXHR.responseJSON.errors;
@@ -311,6 +315,9 @@
 
             $('#delete').bind('click', function (e) {
                 e.preventDefault();
+
+                $('.background-preview').remove()
+
                 $.ajax({
                     url: '{{ route('post.dashboard.delete') }}',
                     type: 'POST',

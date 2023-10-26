@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Employee\Dashboard\Employee;
 use App\Http\Controllers\Controller;
 use App\Models\Client\User;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 

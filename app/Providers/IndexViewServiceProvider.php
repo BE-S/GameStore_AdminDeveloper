@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Client\Login\Cart;
-use App\Models\Client\Market\Genres;
+use App\Models\Client\Market\Product\Genres;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Client\User;
 

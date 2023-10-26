@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Client\Login\Change\ConfirmEmailController;
-use App\Http\Controllers\Client\Market\ReviewController;
+use App\Http\Controllers\Client\Market\Review\ReviewController;
+use App\Http\Controllers\Employee\Dashboard\Employee\AddEmployeeController;
 use App\Http\Controllers\Employee\Dashboard\IndexController;
 use App\Http\Controllers\Employee\Dashboard\Product\Add\CoverController;
 use App\Http\Controllers\Employee\Dashboard\Product\Add\DataController;
@@ -11,15 +12,15 @@ use App\Http\Controllers\Employee\Dashboard\Product\DashboardGameController;
 use App\Http\Controllers\Employee\Dashboard\Product\DashboardSearchGameController;
 use App\Http\Controllers\Employee\Dashboard\Product\PreviewPageGameController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Client\Market\GameController;
-use App\Http\Controllers\Client\Market\CatalogController;
+use App\Http\Controllers\Client\Market\Product\GameController;
+use App\Http\Controllers\Client\Market\Catalog\CatalogController;
 use App\Http\Controllers\Client\Payment\ResultController;
 use App\Http\Controllers\Client\Payment\SuccessController;
 use App\Http\Controllers\Client\Payment\FailController;
-use App\Http\Controllers\Client\Market\ReservationController;
-use App\Http\Controllers\Client\Market\SearchGameController;
+use App\Http\Controllers\Client\Market\Product\ReservationController;
+use App\Http\Controllers\Client\Market\Product\SearchGameController;
 use App\Http\Controllers\Client\Login\Card\AddCardController;
-use App\Http\Controllers\Client\Market\Catalog\LoadingGamesController;
+use App\Http\Controllers\Client\Market\Catalog\GetRecommendationsController;
 use App\Http\Controllers\Client\Market\Cart\CartController;
 use App\Http\Controllers\Client\Market\Cart\AddCartController;
 use App\Http\Controllers\Client\Market\Cart\DeleteFromCartController;
@@ -29,8 +30,8 @@ use App\Http\Controllers\Employee\Dashboard\Product\DeleteController;
 use App\Http\Controllers\Client\Politics\AgreementController;
 use App\Http\Controllers\Client\Politics\CookieController;
 use App\Http\Controllers\Employee\Auth\LoginEmployeeController;
-use App\Http\Controllers\Client\Market\PutEmojiController;
-use App\Http\Controllers\Client\Market\UpdateCountEmojiController;
+use App\Http\Controllers\Client\Market\Review\PutEmojiController;
+use App\Http\Controllers\Client\Market\Review\UpdateCountEmojiController;
 use App\Http\Controllers\Employee\Dashboard\Product\PurchasedGamesController;
 use App\Http\Controllers\Employee\Dashboard\Product\PurchasedGameController;
 use App\Http\Controllers\Employee\Dashboard\Product\ApplicationReturnController;
@@ -48,10 +49,17 @@ use App\Http\Controllers\Client\Auth\ChangePasswordController;
 use App\Http\Controllers\Employee\Dashboard\Employee\EmoloyeeController;
 use App\Http\Controllers\Employee\Dashboard\Employee\EmoloyeesController;
 use App\Http\Controllers\Employee\Dashboard\Employee\DeleteEmployeeController;
-use App\Http\Controllers\Employee\Dashboard\AddEmployeeController;
 use App\Http\Controllers\Client\Login\Change\AvatarController;
 use App\Http\Controllers\Client\Login\Change\EmailController;
 use App\Http\Controllers\Client\Login\Change\PasswordController;
+use App\Http\Controllers\Employee\Dashboard\Publisher\DashboardPublishersController;
+use App\Http\Controllers\Employee\Dashboard\Publisher\DashboardPublisherController;
+use App\Http\Controllers\Employee\Dashboard\Publisher\AddPublisherController;
+use App\Http\Controllers\Employee\Dashboard\Publisher\ChangePublisherController;
+use App\Http\Controllers\Employee\Dashboard\Publisher\DeletePublisherController;
+use App\Http\Controllers\Employee\Dashboard\Publisher\PageAddPublisherController;
+use App\Http\Controllers\Client\Market\Catalog\PublisherController;
+use App\Http\Controllers\Client\Market\Product\GameFavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,10 +79,10 @@ Route::group(['middleware' => 'ban'], function() {
     route::post('/search/property', [SearchGameController::class, "searchProperty"])->name("post.search.property");
     route::get('/search/{query?}', [SearchGameController::class, "searchGet"])->name("get.search");
 
+    route::get('/publisher/{id}', [PublisherController::class, '__invoke'])->name('get.game');
     Route::group(['middleware' => 'record_url'], function () {
         route::get('/', [CatalogController::class, 'showPage'])->name("get.index");
         route::get('/game/{id}', [GameController::class, 'showPage'])->name('get.game');
-        route::get('/cart', [CartController::class, 'showPage'])->name('get.cart');
     });
 
     Route::group(['prefix' => 'cart'], function () {
@@ -89,13 +97,14 @@ Route::group(['middleware' => 'ban'], function() {
     });
 
     route::post('/update/emoji', [UpdateCountEmojiController::class, 'updateEmoji'])->name('post.update.emoji');
-    route::post('/loading/games', [LoadingGamesController::class, 'load'])->name('post.load.game');
+    route::get('/loading/games', [GetRecommendationsController::class, '__invoke'])->name('post.load.game');
 
 //Auth
     Route::group(['middleware' => 'auth'], function () {
         route::get('/logout', '\App\Http\Controllers\Client\Auth\LogoutController@index')->name('get.logout');
 
         Route::group(['middleware' => 'verified'], function () {
+            route::get('/cart', [CartController::class, 'showPage'])->name('get.cart');
             route::get('/account/*', '\App\Http\Controllers\Client\Login\AccountController@index')->name('get.account');
 
             Route::group(['prefix' => 'change'], function () {
@@ -108,6 +117,7 @@ Route::group(['middleware' => 'ban'], function() {
             route::post('/publish/review', [ReviewController::class, 'publish'])->name('post.review');
             route::post('/put/emoji', [PutEmojiController::class, 'putEmoji'])->name('post.emoji');
             route::post('/add-card', [AddCardController::class, '__invoke'])->name('post.add-card');
+            route::post('favorite-game', [GameFavoriteController::class, '__invoke'])->name('post.favorite.game');
 
             route::post('buy', [ReservationController::class, 'reservationProduct'])->name('get.buy.game');
         });
@@ -173,11 +183,19 @@ Route::group(['middleware' => 'ban'], function() {
 
                 Route::group(['prefix' => 'client'], function () {
                     route::get('', [ClientsController::class, '__invoke'])->name('get.dashboard.clients');
-                    route::get('/{id}', [ClientController::class, '__invoke'])->name('get.dashboard.client');
+                    route::get('/id={id}', [ClientController::class, '__invoke'])->name('get.dashboard.client');
                 });
                 Route::group(['prefix' => 'employee'], function () {
                     route::get('', [EmoloyeesController::class, '__invoke'])->name('get.dashboard.employees');
-                    route::get('/{id}', [EmoloyeeController::class, '__invoke'])->name('get.dashboard.employee');
+                    route::get('/id={id}', [EmoloyeeController::class, '__invoke'])->name('get.dashboard.employee');
+                });
+                Route::group(['prefix' => 'publisher'], function () {
+                    route::get('', [DashboardPublishersController::class, '__invoke'])->name('get.dashboard.publishers');
+                    route::get('/id={id}', [DashboardPublisherController::class, '__invoke'])->name('get.dashboard.publisher');
+                    route::get('/create', [PageAddPublisherController::class, '__invoke'])->name('get.dashboard.create.publisher');
+                    route::post('/add', [AddPublisherController::class, '__invoke'])->name('post.dashboard.add.publisher');
+                    route::post('/change', [ChangePublisherController::class, '__invoke'])->name('post.dashboard.change.publisher');
+                    route::post('/delete', [DeletePublisherController::class, '__invoke'])->name('post.dashboard.delete.publisher');
                 });
                 route::post('/ban', [BanController::class, '__invoke'])->name('get.dashboard.ban');
                 route::post('/delete/admin', [DeleteEmployeeController::class, '__invoke'])->name('get.dashboard.delete.employee');

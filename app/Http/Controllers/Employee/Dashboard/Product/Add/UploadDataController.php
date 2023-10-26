@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Employee\Dashboard\Product\Add;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Employee\Product\CreateProduct\UploadDataRequest;
 use App\Jobs\Employee\Product\Upload\GameDescriptionJob;
-use App\Models\Client\Market\Game;
-use App\Models\Employee\Market\GameCover;
+use App\Models\Client\Market\Product\Game;
+use App\Models\Employee\Market\Product\GameCover;
 use Illuminate\Validation\ValidationException;
 
 class UploadDataController extends Controller

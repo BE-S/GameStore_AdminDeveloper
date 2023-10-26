@@ -162,8 +162,31 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('get.dashboard.games') }}" class="nav-link">
-                                        <i class="far fa-copy nav-icon"></i>
+                                        <i class="fa-solid fa-list nav-icon"></i>
                                         <p>Просмотр игр</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-building nav-icon"></i>
+                                <p>
+                                    Издатели
+                                    <i class="fas fa-angle-right right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('get.dashboard.create.publisher') }}" class="nav-link">
+                                        <i class="far ion-plus-round nav-icon"></i>
+                                        <p>Добавить издателя</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('get.dashboard.publishers') }}" class="nav-link">
+                                        <i class="fa-solid fa-list nav-icon"></i>
+                                        <p>Просмотр издателей</p>
                                     </a>
                                 </li>
                             </ul>

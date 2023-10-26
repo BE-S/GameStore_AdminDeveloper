@@ -11,7 +11,7 @@
     <div class="carousel-inner">
         @foreach($game->gameCover->screen as $key => $path)
             <div class="carousel-item">
-                <img src="{{ $path }}" class="d-block w-100" alt="...">
+                <img src="{{ asset($path) }}" class="d-block w-100" alt="...">
             </div>
         @endforeach
         <button id="back" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

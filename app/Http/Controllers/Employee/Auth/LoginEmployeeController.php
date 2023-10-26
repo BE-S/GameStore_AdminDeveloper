@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\Auth\SigInRequest;
 use App\Jobs\Auth\LoginJob;
 use App\Jobs\IpJob;
-use App\Models\Client\User;
 use App\Models\Employee\Employee;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use PHPUnit\Exception;
 

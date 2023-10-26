@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Employee\Dashboard\Product;
 
 use App\Http\Controllers\Controller;
-use App\Models\Employee\Market\Game;
-use App\Models\Employee\Market\GameCover;
+use App\Models\Employee\Market\Product\Game;
+use App\Models\Employee\Market\Product\GameCover;
 use Illuminate\Http\Request;
 
 class DeleteController extends Controller

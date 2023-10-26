@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Employee\Dashboard\Product\Add;
 
 use App\Http\Controllers\Controller;
-    use App\Http\Requests\Employee\Product\CreateProduct\UploadCoverRequest;
+use App\Http\Requests\Employee\Product\CreateProduct\UploadCoverRequest;
 use App\Http\Requests\Employee\Product\UpdateProduct\UpdateCoverRequest;
 use App\Jobs\Employee\Product\Upload\GameCoverJob;
-use App\Models\Employee\Market\Game;
-use App\Models\Employee\Market\GameCover;
+use App\Models\Employee\Market\Product\Game;
+use App\Models\Employee\Market\Product\GameCover;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
 

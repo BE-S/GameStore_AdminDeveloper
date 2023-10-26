@@ -78,24 +78,6 @@
             <div class="alert alert-success" role="alert">Ключ скопирован!</div>
         </div>
     </div>
-    <script>
-        function copyText(keyCode) {
-            navigator.clipboard.writeText(keyCode)
-                .then(() => {
-                    touchAlert()
-                    setTimeout(touchAlert, 5000)
-                })
-                .catch(err => {
-                    console.log('Something went wrong', err);
-                });
-        }
-        var alert = document.querySelector('.alert')
-
-        function touchAlert()
-        {
-            alert.classList.toggle('active')
-        }
-    </script>
     <form class="card-form">
         <div class="close">
             x
@@ -122,6 +104,24 @@
     </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <script>
+        function copyText(keyCode) {
+            navigator.clipboard.writeText(keyCode)
+                .then(() => {
+                    touchAlert()
+                    setTimeout(touchAlert, 5000)
+                })
+                .catch(err => {
+                    console.log('Something went wrong', err);
+                });
+        }
+        var alert = document.querySelector('.alert')
+
+        function touchAlert()
+        {
+            alert.classList.toggle('active')
+        }
+    </script>
     <script>
         $(function () {
             const closeButton = document.querySelector('.card-form')
