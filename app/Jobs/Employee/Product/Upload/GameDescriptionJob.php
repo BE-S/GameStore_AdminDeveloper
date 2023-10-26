@@ -2,11 +2,9 @@
 
 namespace App\Jobs\Employee\Product\Upload;
 
-use App\Models\Employee\Market\Game;
-use App\Models\Employee\Market\GameCover;
+use App\Models\Employee\Market\Product\Game;
+use App\Models\Employee\Market\Product\GameCover;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Response;
 
 class GameDescriptionJob implements ShouldQueue
 {
@@ -32,11 +30,11 @@ class GameDescriptionJob implements ShouldQueue
         return $gameDescription->update([
             'name' => $this->credentials['name'],
             'price' => $this->credentials['price'],
+            'genre_id' => $this->credentials['genre'] ?? null,
+            'publisher_id' => $this->credentials['publisher'],
             'description' => $this->credentials['description'],
             'max_settings' => $this->credentials['max_settings'],
             'min_settings' => $this->credentials['min_settings'],
-            'developer_id' => 1,
-            'published_id' => 1,
         ]);
     }
 
@@ -50,6 +48,7 @@ class GameDescriptionJob implements ShouldQueue
         return Game::create([
             'name' => $this->credentials['name'],
             'price' => $this->credentials['price'],
+            'genre_id' => $this->credentials['genre'],
             'description' => $this->credentials['description'],
             'max_settings' => $this->credentials['max_settings'],
             'min_settings' => $this->credentials['min_settings'],

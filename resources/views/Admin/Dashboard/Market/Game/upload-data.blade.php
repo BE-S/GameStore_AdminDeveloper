@@ -18,6 +18,8 @@
                     data: {
                         name: $('input[name="name"]').val(),
                         price: $('input[name="price"]').val(),
+                        genre: genreId,
+                        publisher: selectedPublisher,
                         description: $('textarea[name="description"]').val(),
                         min_settings: getArrayInput('min_settings', formDataMin),
                         max_settings: getArrayInput('max_settings', formDataMax),

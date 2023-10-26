@@ -2,19 +2,12 @@
 
 namespace App\Jobs\Market;
 
-use App\Models\Client\Market\Discount;
-use App\Models\Client\Market\Game;
-use App\Models\Client\Market\KeyProduct;
-use App\Models\Client\Market\Orders;
+use App\Models\Client\Market\Product\Discount;
+use App\Models\Client\Market\Product\Game;
+use App\Models\Client\Market\Product\KeyProduct;
+use App\Models\Client\Market\Product\Orders;
 use Carbon\Carbon;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use PhpParser\Node\Expr\Array_;
 
 class ReservationGameJob implements ShouldQueue
 {

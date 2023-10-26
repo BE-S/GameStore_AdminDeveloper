@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Employee\Dashboard\Product;
 
 use App\Http\Controllers\Controller;
-use App\Models\Client\Market\PurchasedGame;
-use App\Models\Employee\Market\ApplicationReturn;
+use App\Models\Client\Market\Product\PurchasedGame;
+use App\Models\Employee\Market\Product\ApplicationReturn;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class DeleteApplicationReturnController extends Controller

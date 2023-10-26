@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers\Client\Market\Cart;
 
-use App\Helpers\Collection;
-use App\Http\Controllers\Client\Market\BaseController;
 use App\Http\Controllers\Controller;
 use App\Jobs\Market\CartJob;
-use App\Models\Client\Market\Game;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Session;
+use App\Models\Client\Market\Product\Game;
 
-class CartController extends BaseController
+class CartController extends Controller
 {
     public function showPage()
     {

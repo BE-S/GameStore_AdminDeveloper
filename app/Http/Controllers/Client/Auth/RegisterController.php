@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Client\Auth;
 use App\Helpers\HashHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\Auth\SigUpRequest;
-use App\Http\Service\AuthService;
 use App\Jobs\Auth\RegisterJob;
 use App\Jobs\Email\SendVerificationJob;
 use App\Models\Client\User;

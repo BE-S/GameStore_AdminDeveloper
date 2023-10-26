@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Employee\Dashboard\Product;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\Market\CartJob;
-use App\Models\Client\Market\Game;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Client\Market\Product\Game;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 

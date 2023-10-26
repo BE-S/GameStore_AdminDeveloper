@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Employee\Dashboard\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Employee\Product\ApplicationReturnRequest;
-use App\Models\Client\Market\PurchasedGame;
-use App\Models\Employee\Market\ApplicationReturn;
-use App\Models\Employee\Market\KeyProduct;
+use App\Models\Client\Market\Product\PurchasedGame;
+use App\Models\Employee\Market\Product\ApplicationReturn;
+use App\Models\Employee\Market\Product\KeyProduct;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 
@@ -21,7 +21,7 @@ class ApplicationReturnController extends Controller
             $keyProduct = new KeyProduct();
             $purchaase = PurchasedGame::findOrFail($request->purchaseId);
             $existApplication = $applicationReturn->where('purchase_id', $purchaase->id)->where('status', 'Ожидание')->first();
-			
+
             if ($existApplication) {
                 if (array_intersect($existApplication->game_id, $validation['returnKey'])) {
                     return response()->json([

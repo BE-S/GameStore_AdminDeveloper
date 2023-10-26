@@ -9,20 +9,17 @@ use App\Jobs\Market\ReservationGameJob;
 use App\Jobs\Payment\PurchasedGameJob;
 use App\Models\Client\Login\Cart;
 use App\Models\Client\Login\Library;
-use App\Models\Client\Market\Game;
-use App\Models\Client\Market\Orders;
-use App\Models\Client\Market\PurchasedGame;
-use App\Models\Client\Market\KeyProduct;
+use App\Models\Client\Market\Product\Game;
+use App\Models\Client\Market\Product\Orders;
+use App\Models\Client\Market\Product\PurchasedGame;
+use App\Models\Client\Market\Product\KeyProduct;
 use App\Models\Client\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Jobs\Email\SendVerificationJob;
 
 class ResultController extends Controller
 {
     public function index()
-    {	
-        //Тестовые данные
-        //Занести key_product_id
+    {
         $data = [
             "merchant_id" => config("payment.freekassa.merchant_id"),
             "amount" => $_REQUEST['AMOUNT'],
@@ -37,7 +34,7 @@ class ResultController extends Controller
         $user = new User();
         $client = $user->findUserEmail($data['email']);
         $sign = md5(config("payment.freekassa.merchant_id").':'.$data['amount'].':'.config("payment.freekassa.secret_word_second").':'.$data['MERCHANT_ORDER_ID']);
-		
+
         if (!in_array($this->getIP(), array('168.119.157.136', '168.119.60.227', '138.201.88.124', '178.154.197.79'))) {
             die("hacking attempt!");
         }

@@ -28,6 +28,8 @@ class UploadDataRequest extends FormRequest
             'gameId' => 'integer',
             'name' => 'required|string|max:64',
             'price' => 'required|numeric',
+            'genre' => 'array',
+            'publisher' => 'required|numeric',
             'description' => 'required|string',
             'min_settings.*' => 'required|string|max:200',
             'max_settings.*' => 'required|string|max:200',

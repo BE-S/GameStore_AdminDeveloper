@@ -1,3 +1,15 @@
+@auth()
+    <div class="block-text background-color add-favorite">
+        <a href="javascript:addFavorite({{ $game->id }})">
+            @if (is_null($game->favorite->deleted_at))
+                В желаемом
+            @else
+                В желаемое
+            @endif
+        </a>
+    </div>
+@endauth
+
 <div class="block-text" id="add-cart">
     <div class="text-left background-color padding-block">
         Купить ключ для стима {{$game->name}}
@@ -35,6 +47,9 @@
     <div>
         {!!$game->description!!}
     </div>
+    <div class="publisher">
+        Издатель: <span>{{ $game->publisher->name ?? 'Неизвестен' }}</span>
+    </div>
 </div>
 
 <div class="block-text background-color" id="system-requirements">
@@ -64,3 +79,34 @@
         </div>
     </div>
 </div>
+
+<script>
+    function addFavorite(id)
+    {
+        $.ajax({
+            url: '{{ route('post.favorite.game') }}',
+            type: "POST",
+            data: {
+                gameId: id
+            },
+            dataType: 'json',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (result) {
+                console.log(result)
+                if (result['success']) {
+                    $('.add-favorite a').text(result['message'])
+                }
+            },
+            statusCode: {
+                401: function (err) {
+                    console.log(err);
+                },
+                500: function (err) {
+                    console.log(err);
+                }
+            }
+        })
+    }
+</script>

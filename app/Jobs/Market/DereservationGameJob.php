@@ -2,11 +2,10 @@
 
 namespace App\Jobs\Market;
 
-use App\Models\Client\Market\KeyProduct;
-use App\Models\Client\Market\Orders;
+use App\Models\Client\Market\Product\KeyProduct;
+use App\Models\Client\Market\Product\Orders;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Database\Eloquent\Model;
 
 class DereservationGameJob implements ShouldQueue
 {

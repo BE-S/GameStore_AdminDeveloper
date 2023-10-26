@@ -58,6 +58,7 @@
             {
                 var published = document.getElementsByName('published');
                 for (let i = 0; i <= 1; ++i) {
+                    console.log(published[i])
                     if (published[i].checked) {
                         published = published[i].value
                     }

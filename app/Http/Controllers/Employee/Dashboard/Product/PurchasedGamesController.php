@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\Employee\Dashboard\Product;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\Payment\PurchasedGameJob;
-use App\Models\Client\Market\PurchasedGame;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
+use App\Models\Client\Market\Product\PurchasedGame;
 
 class PurchasedGamesController extends Controller
 {

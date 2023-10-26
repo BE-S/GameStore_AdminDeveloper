@@ -445,9 +445,14 @@ textarea {
     margin-top: 1em;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
-    padding: 1em 1em;
+    flex-direction: column;
+    padding: 1em 0em 0.5em 1em;
     justify-content: center;
+}
+
+.window-setting.buttons .btn {
+    margin-bottom: 0.5em;
+    width: 12em;
 }
 
 #static.btn {
@@ -460,4 +465,142 @@ textarea {
 
 .nav-treeview .nav-item .nav-link {
     background-color: rgb(255 255 255 / 3%);
+}
+
+#block-genres {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    border: 1px solid #525252;
+    width: 35em;
+    margin-bottom: 1em;
+}
+
+#genre-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    max-width: 36em;
+}
+
+#select-new-genre {
+    display: flex;
+    margin-bottom: 1em;
+}
+
+.block-genre {
+    margin-right: 0.4em;
+    margin-bottom: 0.5em;
+}
+
+.info .publisher-avatar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.publisher-avatar input {
+    position: absolute;
+    opacity: 0;
+    left: 0;
+    top: 0;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+}
+
+#user.window-setting .publisher-name input {
+    display: flex;
+    margin-top: 1em;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+#user.window-setting .publisher-avatar .image {
+    position: relative;
+    box-shadow: 5px 6px 9px -8px;
+    border-radius: 6px;
+    background: white;
+    padding: 1em;
+    border: 1px solid #e8e8e8;
+}
+
+#publisher #user.window-setting #avatar {
+    border-radius: 0;
+    border: none;
+}
+
+#user.window-setting .trash {
+    margin: 1em 0;
+    height: -webkit-fill-available;
+}
+
+#user.window-setting .trash img {
+    width: 2em;
+}
+
+#publisher .group-buttons {
+    display: flex;
+}
+
+.add-publisher, .permit-publisher {
+    display: flex;
+    align-items: center;
+    margin-right: 4em;
+    cursor: pointer;
+}
+
+#publisher .inscription {
+    box-shadow: black 3px 4px 11px -7px;
+    border: 1px solid #00000017;
+    user-select: none;
+}
+
+.add-publisher .inscription {
+    background: white;
+    font-size: 5em;
+    padding: 0em 0.4em;
+    border-radius: 0.4em;
+
+}
+
+.permit-publisher .inscription {
+    background: #0084ff;
+    color: white;
+    font-size: 1.6em;
+    padding: 1.6em 0.8em;
+    border-radius: 1.2em;
+}
+
+.table.table-hover td, .table.table-hover th {
+    vertical-align: middle;
+}
+
+.table.table-hover img {
+    height: 5em;
+}
+
+#publisher .trash {
+    cursor: pointer;
+}
+
+#publisher .trash.not-active {
+    background: #b65353;
+    cursor: default;
+}
+
+#publisher .window-setting .ready-name {
+    text-align: center;
+    border: none;
+    font-weight: 700;
+    font-size: 1.4em;
+    margin-top: 0.5em;
+    width: 7.2em;
+}
+
+#publisher .window-setting .ready-name:focus {
+    border: none;
+    background: white;
+    padding: 0;
 }

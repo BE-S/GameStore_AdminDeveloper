@@ -3,7 +3,7 @@
 namespace App\Jobs\Market;
 
 use App\Models\Client\Login\Cart;
-use App\Models\Client\Market\Game;
+use App\Models\Client\Market\Product\Game;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CartJob implements ShouldQueue

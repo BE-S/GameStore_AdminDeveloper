@@ -4,7 +4,6 @@ namespace App\Models\Employee;
 
 use App\Helpers\Collection;
 use App\Models\Client\User;
-use App\Models\Employee\Client\Ban;
 use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model

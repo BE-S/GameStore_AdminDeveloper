@@ -8,7 +8,6 @@ use App\Jobs\Auth\LoginJob;
 use App\Jobs\RedirectJob;
 use Illuminate\Validation\ValidationException;
 
-
 class LoginController extends Controller
 {
     public function index()
